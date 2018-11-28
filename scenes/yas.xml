@@ -1,0 +1,163 @@
+<yas>
+    <scene root = "raizT" axis_length = "3" />
+
+    <views default = "defaultView">
+        <perspective id = "defaultPerspective" near = "10" far = "20" angle = "30">
+            <from x = "1" y = "3" z = "5"/>
+            <to x = "2" y = "4" z = "6"/>
+        </perspective>  
+
+         <ortho id = "defaultOrtho" near = "10" far = "20" left = "5" right = "15" top = "25" bottom = "0" />
+    </views>
+
+    <ambient>
+        <ambient r = "0.1" g = "0.1" b = "0.1" a = "1" />
+        <background r = "0.8" g = "0.3" b = "0.9" a = "1" />
+    </ambient>  
+
+    <lights>
+        <omni id = "omniDefault" enabled = "1">
+            <location x = "0" y = "1" z = "3" w = "4" />
+            <ambient r = "0" g = "1" b = "7" a = "4" />
+            <diffuse r = "10" g = "1" b = "3" a = "4" />
+            <specular r = "0" g = "11" b = "3" a = "4" />
+        </omni>
+    </lights>
+
+    <textures>
+        <texture id = "defaultTexture" file = "swag.jpeg" /> 
+    </textures>
+
+    <materials>
+        <material id = "defaultMaterial" shininess = "100">
+            <emission r = "0" g = "1" b = "2" a = "3" />
+            <ambient r = "0" g = "1" b = "2" a = "3" />
+            <diffuse r = "0" g = "420" b = "2" a = "3" />
+            <specular r = "0" g = "1" b = "2" a = "3" />
+        </material>
+    </materials>
+
+
+    <transformations>
+        <transformation id = "t1">
+            <scale x = "21" y = "1" z = "2"/>
+            <translate x = "2" y = "1" z = "4" />
+        </transformation>
+
+        <transformation id = "t2">
+            <translate x = "1" y = "2" z = "3" />
+        </transformation>
+
+        <transformation id = "t3">
+            <rotate axis = "x" angle = "1" />
+        </transformation>
+
+        <transformation id = "transfUnica">
+            <scale x = "5" y = "0" z = "0" />
+        </transformation>
+
+        <transformation id = "identidade">
+            <translate x = "0" y = "0" z ="0"  />
+        </transformation>
+
+        <transformation id = "xPlus1">
+            <rotate axis = "y" angle = "45" />
+        </transformation>
+
+    </transformations>
+
+    <primitives>
+        <primitive id = "r1">
+            <rectangle x1 = "-1" y1 = "-1" x2 = "1" y2 = "1" />
+        </primitive>
+
+        <primitive id = "r2">
+            <rectangle x1 = "-3" y1 = "-3" x2 = "2" y2 = "2" />
+        </primitive>
+
+        <primitive id = "tr1">
+            <triangle x1 = "-5" y1 = "-5" z1 = "0" 
+                      x2 = "5" y2 = "-5" z2 = "0" 
+                      x3 = "0" y3 = "5" z3 = "0" />
+        </primitive>
+
+        <primitive id = "coneBueGrande">
+            <cylinder base = "0.2" top = "0.2" height = "40" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "se1">
+            <sphere radius = "0.5" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "quadrado">
+            <rectangle x1 = "-1" y1 = "0" x2 = "1" y2 = "2" />
+        </primitive>
+    </primitives>
+
+    <components>
+        <component id = "novaRaiz">
+
+            <transformation>
+                <transformationref id = "transfUnica" />
+            </transformation>
+
+            <children>
+                <componentref id = "2quadrados" />
+                <componentref id = "apenas1quadrado" />
+            </children>
+        </component>
+
+        <component id = "2quadrados">
+            <children>
+                <componentref id = "quadradoEsquerda" />
+                <componentref id = "quadradoDireita" />
+            </children>
+        </component>
+
+        <component id = "quadradoEsquerda">
+            <children>
+                <primitiveref id = "quadrado" />
+            </children>
+        </component>
+
+        <component id = "quadradoDireita">
+            <children>
+                <primitiveref id = "quadrado" />
+            </children>
+        </component>
+
+        <component id = "apenas1quadrado">
+            <children>  
+                <primitiveref id = "quadrado" />
+            </children>
+        </component>
+
+
+
+        <component id = "raiz">
+            <children>
+                <primitiveref id = "r1" />
+                <componentref id = "notraiz" />
+                <primitiveref id = "coneBueGrande" />
+            </children>
+        </component>
+
+        <component id ="notraiz">
+            <children>
+                <primitiveref id = "se1" />
+            </children>
+        </component>
+
+        <component id = "raizT">
+            <children>
+                <primitiveref id = "quadrado" />
+            </children>
+            <transformation>
+                <transformationref id = "xPlus1" />
+            </transformation>
+        </component>
+
+
+    </components>
+
+</yas>

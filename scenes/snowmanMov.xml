@@ -1,0 +1,354 @@
+<yas>
+    <scene root = "Boneco de Neve" axis_length = "7" />
+
+    <views default = "farAway">
+        <perspective id = "default" near = "0.1" far = "500" angle = "23">
+            <from x = "15" y = "15" z = "15"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+        <perspective id = "farAway" near = "1.26" far = "500" angle = "23">
+            <from x = "50" y = "50" z = "50"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+        <ortho id = "ortho1" near = "0.1" far = "500" left = "-30" right = "30" top  = "10" bottom = "-10">
+            <from x = "0" y = "15" z = "0"/>
+            <to x = "0" y = "0" z = "0"/>
+        </ortho>
+    </views>
+
+    <ambient>
+        <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        <background r = "0.8" g = "0.3" b = "0.9" a = "1" />
+    </ambient>  
+
+    <lights>
+        <omni id = "omniDefault" enabled = "1">
+            <location x = "5" y = "0" z = "5" w = "1" />
+            <ambient r = "0" g = "0" b = "1" a = "1" />
+            <diffuse r = "0" g = "1" b = "0" a = "1" />
+            <specular r = "1" g = "0" b = "0" a = "1" />
+        </omni>
+    </lights>
+
+    <textures>
+        <texture id = "defaultTexture" file = "scenes/images/rocks.jpg" />
+    </textures>
+
+    <materials>
+        <material id = "default2" shininess = "100">
+            <emission r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <ambient r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <diffuse r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <specular r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+        </material>
+
+        <material id = "default" shininess = "1">
+            <emission r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </material>
+
+        <material id = "branco" shininess = "1">
+            <emission r = "1" g = "1" b = "1" a = "1" />
+            <ambient r = "1" g = "1" b = "1" a = "1" />
+            <diffuse r = "1" g = "1" b = "1" a = "1" />
+            <specular r = "1" g = "1" b = "1" a = "1" />
+        </material>
+
+        <material id = "preto" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0" g = "0" b = "0" a = "1" />
+            <diffuse r = "0" g = "0" b = "0" a = "1" />
+            <specular r = "0" g = "0" b = "0" a = "1" />
+        </material>
+    </materials>
+
+    <!--  TRANSFORMATIONS TAG  -->
+    <transformations>
+
+        <!-- Rotacao a aplicar no boneco de neve inteiro -->
+        <transformation id = "rotacao45Y">
+            <rotate axis = "y" angle = "45" />
+        </transformation>
+
+        <!-- Aumentar o tamanho para se tornar no cubo grande e coloca lo no sitio -->
+        <transformation id = "quadruplaTamanho">
+            <translate x = "0" y = "2" z = "0" />
+            <scale x = "4" y = "4" z = "4" />            
+        </transformation>
+
+        <!-- Aumentar o tamanho para se tornar no cubo pequeno e coloca lo no sitio -->
+        <transformation id = "duplicaTamanho">
+            <translate x = "0" y = "5" z = "0" />
+            <scale x = "2" y = "2" z = "2" />
+        </transformation>
+
+        <!-- Operacao inutil apenas para manter tamanho -->
+        <transformation id = "mantemTamanho">
+            <scale x = "1" y = "1" z = "1" />
+        </transformation>
+
+        <!-- Operacao a aplicar na Face 1 do cubo unitário FINAL -->
+        <transformation id = "Face 1 Transf">
+            <translate x = "0" y = "0" z ="0.5" />
+        </transformation>
+
+        <!-- Operacao a aplicar na Face 2 do cubo unitário FINAL -->
+        <transformation id = "Face 2 Transf">
+            <translate x = "0.5" y = "0" z ="0" />
+            <rotate axis = "y" angle = "90" />
+        </transformation>
+
+        <!-- Operacao a aplicar na Face 3 do cubo unitário -->
+        <transformation id = "Face 3 Transf">
+            <translate x = "0" y = "0.5" z ="0" />
+            <rotate axis = "x" angle = "-90" />
+        </transformation>
+
+
+        <!-- Operacao a aplicar na Face 4 do cubo unitário FINAL -->
+        <transformation id = "Face 4 Transf">
+            <translate x = "-0.5" y = "0" z ="0" />
+            <rotate axis = "y" angle = "-90" />
+        </transformation>
+
+        <!-- Operacao a aplicar na Face 5 do cubo unitário -->
+        <transformation id = "Face 5 Transf">
+            <rotate axis = "y" angle = "180" />
+            <translate x = "0" y = "0" z ="0.5" />
+        </transformation>
+        
+
+        <!-- Operacao a aplicar na Face 6 do cubo unitário -->
+        <transformation id = "Face 6 Transf">
+            <translate x = "0" y = "-0.5" z ="0" />
+            <rotate axis = "x" angle = "90" />   
+        </transformation>
+
+
+    </transformations>
+
+    <!-- ANIMATIONS TAG -->
+    <animations>
+        <linear id = "linear1" span = "5">
+            <controlpoint xx = "0" yy = "0" zz = "0" />
+            <controlpoint xx = "-5" yy = "0" zz = "5" />
+            <controlpoint xx = "0" yy = "0" zz = "1" />
+            <controlpoint xx = "0" yy = "0" zz = "0" />
+        </linear>
+
+        <linear id = "linear2" span = "3">
+            <controlpoint xx = "10" yy = "0" zz = "0" />
+            <controlpoint xx = "10" yy = "0" zz = "5" />
+        </linear>
+
+        <circular id = "circular" span = "3" center = "5 0 0" radius = "5" startang = "180" rotang = "-180" />
+        <circular id = "circular3" span = "3" center = "0 0 0" radius = "0" startang = "-45" rotang = "0" />
+        <circular id = "circular2" span = "3" center = "5 0 0" radius = "5" startang = "0" rotang = "180" />
+    </animations>
+
+    <!--  PRIMITIVES TAG  -->
+    <primitives>
+
+        <primitive id = "Quadrado Unitario">
+            <rectangle x1 = "-0.5" y1 = "-0.5" x2 = "0.5" y2 = "0.5" />
+        </primitive>
+
+        <primitive id = "tronco">
+            <cylinder base = "5" top = "3" height = "2" slices = "20" stacks = "10" />
+        </primitive>
+
+    </primitives>
+
+    <!--  COMPONENT TAG  -->   
+    <components>
+
+        <!-- Componente principal, vai ser o corpo do boneco de neve -->
+        <component id = "Boneco de Neve">
+            <transformation>
+                <translate x = "0" y = "0" z = "0" />
+            </transformation>
+
+            <animations>
+                <animationref id = "circular3" />
+            </animations>
+
+            <materials>
+                <material id = "default" />
+                <material id = "preto" />
+                <material id = "branco" />
+                <material id = "default2" />
+            </materials>
+
+             <texture id = "defaultTexture" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "Cubo Grande" />
+                <componentref id = "Cubo Pequeno" />
+            </children>
+        </component>
+
+        <!-- Vai ser o cubo da parte de baixo do boneco de neve -->
+        <component id = "Cubo Grande">
+            <transformation>
+                <transformationref id = "quadruplaTamanho" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+             <texture id = "inherit" length_s = "10" length_t = "10" />
+
+            <children>
+                <componentref id = "Cubo Unitario" />
+            </children>
+        </component>
+
+        <!-- Vai ser o cubo da parte de cima do boneco de neve -->
+        <component id = "Cubo Pequeno">
+            <transformation>
+                <transformationref id = "duplicaTamanho" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+             <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "Cubo Unitario" />
+            </children>
+        </component>
+
+        <!-- Cubo unitário com uma unidade de aresta e volume -->
+        <component id = "Cubo Unitario">
+            <transformation>
+                <transformationref id = "mantemTamanho" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+             <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "Face 1" />
+                <componentref id = "Face 2" />
+                <componentref id = "Face 3" />
+                <componentref id = "Face 4" />
+                <componentref id = "Face 5" />
+                <componentref id = "Face 6" />
+            </children>
+        </component>
+
+        <!-- Face 1 para o cubo unitário -->
+        <component id = "Face 1">
+            <transformation>
+                <transformationref id = "Face 1 Transf" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "Quadrado Unitario" />
+            </children>
+        </component>
+
+        <!-- Face 2 para o cubo unitário -->
+        <component id = "Face 2">
+            <transformation>
+                <transformationref id = "Face 2 Transf" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+             <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "Quadrado Unitario" />
+            </children>
+        </component>
+
+        <!-- Face 3 para o cubo unitário -->
+        <component id = "Face 3">
+            <transformation>
+                <transformationref id = "Face 3 Transf" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+             <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "Quadrado Unitario" />
+            </children>
+        </component>
+
+        <!-- Face 4 para o cubo unitário -->
+        <component id = "Face 4">
+            <transformation>
+                <transformationref id = "Face 4 Transf" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+             <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "Quadrado Unitario" />
+            </children>
+        </component>
+
+        <!-- Face 5 para o cubo unitário -->
+        <component id = "Face 5">
+            <transformation>
+                <transformationref id = "Face 5 Transf" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+             <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "Quadrado Unitario" />
+            </children>
+        </component>
+
+        <!-- Face 6 para o cubo unitário -->
+        <component id = "Face 6">
+            <transformation>
+                <transformationref id = "Face 6 Transf" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+             <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "Quadrado Unitario" />
+            </children>
+        </component>
+
+    </components>
+
+</yas>

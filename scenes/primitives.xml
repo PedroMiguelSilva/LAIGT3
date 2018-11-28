@@ -1,0 +1,185 @@
+<yas> 
+    <scene root = "Rec" axis_length = "7" />
+
+    <views default = "defaultView">
+        <perspective id = "defaultPerspective" near = "10" far = "20" angle = "30">
+            <from x = "1" y = "3" z = "5"/>
+            <to x = "2" y = "4" z = "6"/>
+        </perspective>  
+
+         <ortho id = "defaultOrtho" near = "10" far = "20" left = "5" right = "15" top = "25" bottom = "0" />
+    </views>
+
+    <ambient>
+        <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        <background r = "0.8" g = "0.3" b = "0.9" a = "1" />
+    </ambient>  
+
+    <lights>
+        <omni id = "omniDefault" enabled = "1">
+            <location x = "5" y = "0" z = "5" w = "1" />
+            <ambient r = "0" g = "0" b = "1" a = "1" />
+            <diffuse r = "0" g = "1" b = "0" a = "1" />
+            <specular r = "1" g = "0" b = "0" a = "1" />
+        </omni>
+
+    </lights>
+
+    <textures>
+        <texture id = "defaultTexture" file = "scenes/images/rocks.jpg" /> 
+    </textures>
+
+    <materials>
+        <material id = "default2" shininess = "100">
+            <emission r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <ambient r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <diffuse r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <specular r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+        </material>
+
+        <material id = "default" shininess = "1">
+            <emission r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </material>
+    </materials>
+
+    <!--  TRANSFORMATIONS TAG  -->
+    <transformations>
+
+        <transformation id = "Identity">
+            <translate x = "0" y = "0" z = "0" />
+        </transformation>
+
+        <transformation id = "RecTrans">
+            <translate x = "-10" y = "0" z = "0" />
+        </transformation>
+
+        <transformation id = "TruTrans">
+            <translate x = "-5" y = "0" z = "0" />
+        </transformation>
+
+        <transformation id = "SphTrans">
+            <translate x = "5" y = "0" z = "0" />
+        </transformation>
+
+    </transformations>
+
+
+    <!--  PRIMITIVES TAG  -->
+    <primitives>
+
+        <primitive id = "quad">
+            <rectangle x1 = "-0.5" y1 = "-0.5" x2 = "0.5" y2 = "0.5" />
+        </primitive>
+        <!--
+        <primitive id = "trunk">
+            <cylinder base = "5" top = "3" height = "2" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "sphere">
+            <sphere radius = "2" slices = "20" stacks = "10" />
+        </primitive> -->
+
+    </primitives>
+
+    <!--  COMPONENT TAG  -->   
+    <components>
+
+        <!-- RECTANGLE -->
+        <component id = "Rec">
+            <transformation>
+                <transformationref id = "RecTrans" />
+            </transformation>
+
+            <materiasl>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "defaultTexture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <!-- TRUNK -->
+        <component id = "Tru">
+            <transformation>
+                <transformationref id = "TruTrans" />
+            </transformation>
+
+            <materiasl>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "trunk" />
+            </children>
+
+        </component>
+
+        <!-- SPHERE -->
+        <component id = "Sph">
+            <transformation>
+                <transformationref id = "SphTrans" />
+            </transformation>
+
+            <materiasl>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "triangle" />
+            </children>
+
+        </component>
+
+        <!-- TRIANGLE -->
+        <component id = "Tri">
+            <transformation>
+                <transformationref id = "Identity" />
+            </transformation>
+
+            <materiasl>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "triangle" />
+            </children>
+
+        </component>
+
+
+
+        <!-- PRIMITIVES -->
+        <component id = "Primitives">
+            <transformation>
+                <transformationref id = "Identity" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "defaultTexture" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "Rec" />
+            <!-- <componentref id = "Tru" /> 
+                <componentref id = "Sph" />
+                <componentref id = "Tri" /> -->
+            </children>
+        </component>
+        
+    </components>
+
+</yas>

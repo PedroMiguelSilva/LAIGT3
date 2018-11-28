@@ -1,0 +1,413 @@
+<yas>
+    <scene root = "Primitives" axis_length = "7" />
+
+    <views default = "default">
+        <perspective id = "default" near = "0.1" far = "500" angle = "45">
+            <from x = "15" y = "15" z = "15"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+        <perspective id = "farAway" near = "1.26" far = "500" angle = "45">
+            <from x = "50" y = "50" z = "50"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+        <ortho id = "ortho1" near = "0.1" far = "500" left = "-30" right = "30" top  = "10" bottom = "-10">
+            <from x = "15" y = "15" z = "15"/>
+            <to x = "0" y = "0" z = "0"/>
+        </ortho>
+    </views>
+
+    <ambient>
+        <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        <background r = "0.8" g = "0.3" b = "0.9" a = "1" />
+    </ambient>  
+
+    <lights>
+    
+        <omni id = "omni1" enabled = "1">
+            <location x = "6" y = "20" z = "0" w = "1" />
+            <ambient r = "0" g = "1" b = "0" a = "1" />
+            <diffuse r = "1" g = "1" b = "0" a = "1" />
+            <specular r = "0" g = "1" b = "0" a = "1" />
+        </omni>
+   
+        <spot id = "spot1"  enabled = "1" angle = "10" exponent = "100">
+            <location x = "0" y = "0" z = "6" w = "1" />
+            <target x = "0" y = "0" z = "5" /> 
+            <ambient r = "1" g = "0" b = "0" a = "1" /> 
+            <diffuse r = "1" g = "0" b = "0" a = "1" />
+            <specular r = "1" g = "0" b = "0" a = "1" />
+        </spot>
+
+    </lights>
+
+    <textures>
+        <texture id = "rocksTexture" file = "scenes/images/rocks.jpg" />
+        <texture id = "hogwartsTexture" file = "scenes/images/hogwarts2.jpg" /> 
+    </textures>
+
+    <materials>
+        <material id = "default2" shininess = "100">
+            <emission r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <ambient r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <diffuse r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <specular r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+        </material>
+
+        <material id = "default" shininess = "1">
+            <emission r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </material>
+    </materials>
+
+    <!--  TRANSFORMATIONS TAG  -->
+    <transformations>
+
+        <!-- Identity -->
+        <transformation id = "Identity">
+            <translate x = "0" y = "0" z = "0" />
+        </transformation>
+
+        <!-- RecTrans -->
+        <transformation id = "RecTrans">
+            <translate x = "0" y = "0" z = "5" />
+        </transformation>
+
+        <!-- TriTrans -->
+        <transformation id = "TriTrans">
+            <translate x = "-20" y = "0" z = "5" />
+            <scale x = "5" y = "5" z = "1" />
+        </transformation>
+
+        <!-- Tri2Trans -->
+        <transformation id = "Tri2Trans">
+            <translate x = "20" y = "0" z = "5" />
+            <scale x = "5" y = "5" z = "1" />
+        </transformation>
+
+        <!-- TruTrans -->
+        <transformation id = "TruTrans">
+            <translate x = "-10" y = "0" z = "5" />
+        </transformation>
+
+        <!-- SphTrans -->
+        <transformation id = "SphTrans">
+            <translate x = "10" y = "0" z = "10" />
+        </transformation>
+
+        <!-- TorTrans -->
+        <transformation id = "TorTrans">
+            <translate x = "20" y = "0" z = "5" />
+        </transformation>
+
+        <!-- SpotTrans -->
+        <transformation id = "SpotTrans">
+            <rotate axis = "y" angle = "90" />
+            <scale x = "10" y = "10" z = "10" />
+        </transformation>
+
+        <!-- PlaTrans -->
+        <transformation id = "PlaTrans">
+            <translate x = "10" y = "0" z = "0" />
+            <scale x = "10" y = "10" z = "10" />
+        </transformation>
+
+        <!-- PatTrans -->
+        <transformation id = "PatTrans">
+            <scale x = "0" y = "0" z = "0" />
+        </transformation>
+
+        <!-- Cy2Trans -->
+        <transformation id = "Cy2Trans">
+            <translate x = "0" y = "0" z = "0" />
+        </transformation>
+    
+
+    </transformations>
+
+
+    <!-- ANIMATIONS TAG -->
+    <animations>
+        <linear id = "linear1" span = "5">
+            <controlpoint xx = "0" yy = "0" zz = "0" />
+            <controlpoint xx = "-5" yy = "0" zz = "5" />
+        </linear>
+
+        <linear id = "linear2" span = "5">
+            <controlpoint xx = "-5" yy = "0" zz = "0" />
+            <controlpoint xx = "0" yy = "0" zz = "0" />
+        </linear>
+
+        <circular id = "circular" span = "20" center = "1 1 1" radius = "0" startang = "0" rotang = "100000" />
+    </animations>
+
+
+    <!--  PRIMITIVES TAG  -->
+    <primitives>
+
+        <primitive id = "quad">
+            <rectangle x1 = "-3" y1 = "-3" x2 = "3" y2 = "3" />
+        </primitive>
+
+        <primitive id = "trunk">
+            <cylinder base = "5" top = "1" height = "5" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "sphere">
+            <sphere radius = "2" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "triangle">
+            <triangle x1 = "-0.5" y1 = "-0.5" z1 = "0"
+                      x2 = "0.5" y2 = "-0.5" z2 = "0"
+                      x3 = "0" y3 = "0.5" z3 = "0" />
+        </primitive>
+
+        <primitive id = "torus">
+            <torus inner = "0.5" outer = "1" slices = "50" loops = "50" />
+        </primitive>
+
+        <primitive id = "plane" >
+            <plane npartsU = "5" npartsV = "8" />
+        </primitive>
+
+        <primitive id = "patch" >
+            <patch npointsU = "3" npointsV = "2" npartsU = "20" npartsV = "20">
+                <controlpoint xx = "-1.5" yy = "-1.5" zz = "0.0" />
+                <controlpoint xx = "-1.5" yy = "1.5" zz = "0.0" />
+                <controlpoint xx = "0" yy = "-1.5" zz = "3.0" />
+                <controlpoint xx = "0" yy = "1.5" zz = "3.0" />
+                <controlpoint xx = "1.5" yy = "-1.5" zz = "0.0" />
+                <controlpoint xx = "1.5" yy = "1.5" zz = "0.0" />
+            </patch>
+        </primitive>
+
+
+        <primitive id = "cylinder2">
+            <cylinder2 base = "5" top = "1" height = "5" slices = "6" stacks = "50" />
+        </primitive>
+
+    </primitives>
+
+    <!--  COMPONENT TAG  -->   
+    <components>
+
+        <!-- Rec -->
+        <component id = "Rec">
+            <transformation>
+                <transformationref id = "RecTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+
+        <!-- Tru -->
+        <component id = "Tru">
+            <transformation>
+            <!--
+                <transformationref id = "TruTrans" />
+            -->
+                <rotate axis = "y" angle = "180" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "trunk" />
+            </children>
+        </component>
+
+
+        <!-- Sph -->
+        <component id = "Sph">
+            <transformation>
+                <transformationref id = "SphTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "hogwartsTexture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "sphere" />
+            </children>
+        </component>
+
+        <!-- Tri -->
+        <component id = "Tri">
+            <transformation>
+                <transformationref id = "TriTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.5" length_t = "0.5" />
+
+            <children>
+                <primitiveref id = "triangle" />
+            </children>
+        </component>
+
+        <!-- Tri2 -->
+        <component id = "Tri2">
+            <transformation>
+                <transformationref id = "Tri2Trans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "hogwartsTexture" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <primitiveref id = "triangle" />
+            </children>
+        </component>
+
+        <!-- Spot -->
+        <component id = "Spot">
+            <transformation>
+                <transformationref id = "SpotTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "hogwartsTexture" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <primitiveref id = "trunk" />
+            </children>
+        </component>
+
+        <!-- Torus -->
+        <component id = "Tor">
+            <transformation>
+                <transformationref id = "TorTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "hogwartsTexture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "torus" />
+            </children>
+        </component>
+
+        <!-- Plane -->
+        <component id = "Pla">
+            <transformation>
+                <transformationref id = "PlaTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "hogwartsTexture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "plane" />
+            </children>
+        </component>
+
+        <!-- Patch -->
+        <component id = "Pat">
+            <transformation>
+                <translate x = "0" y = "0" z = "0" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "hogwartsTexture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "patch" />
+            </children>
+        </component>
+
+        <!-- Cy2 -->
+        <component id = "Cy2">
+            <transformation>
+                <transformationref id = "Cy2Trans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "cylinder2" />
+            </children>
+        </component>
+
+        <!-- Primitives -->
+        <component id = "Primitives">
+            <transformation>
+                <transformationref id = "Identity" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "hogwartsTexture" length_s = "1" length_t = "1" />
+
+            <children>
+            <!--
+                <componentref id = "Rec" />
+                <componentref id = "Tru" />
+                <componentref id = "Sph" />
+                <componentref id = "Tri" />
+            
+                <componentref id = "Spot" />
+            
+                <componentref id = "Tor" /> 
+            
+                
+            -->
+            <!--
+                <componentref id = "Sph" />
+
+                <componentref id = "Pat" />
+            -->
+                <componentref id = "Tru" />
+
+                <componentref id = "Pla" />
+                <componentref id = "Cy2" />
+            </children>
+        </component>
+
+
+    </components>
+
+</yas>

@@ -1,0 +1,1692 @@
+<yas>
+    <scene root = "great_hall" axis_length = "7" />
+
+    <views default = "salon_overview">
+        <perspective id = "salon_overview" near = "0.1" far = "500" angle = "45">
+            <from x = "60" y = "30" z = "90"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+        <perspective id = "candles_overview" near = "0.1" far = "500" angle = "45">
+            <from x = "25" y = "35" z = "63"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+        <perspective id = "tables_closeup" near = "0.1" far = "500" angle = "45">
+            <from x = "30" y = "7" z = "65"/>
+            <to x = "0" y = "0" z = "5"/>
+        </perspective>
+
+        <perspective id = "plate_closeup" near = "0.1" far = "90" angle = "35">
+            <from x = "30" y = "7" z = "38.5"/>
+            <to x = "26" y = "2.7" z = "38.5"/>
+        </perspective>
+
+        <perspective id = "candle_closeup" near = "0.1" far = "90" angle = "35">
+            <from x = "28" y = "28" z = "39"/>
+            <to x = "26" y = "26.5" z = "39"/>
+        </perspective>
+
+        <ortho id = "ortho_sphere" near = "0.1" far = "500" left = "-30" right = "30" top  = "30" bottom = "-30">
+            <from x = "20" y = "20" z = "15"/>
+            <to x = "20" y = "20" z = "0"/>
+        </ortho>
+    </views>
+
+    <ambient>
+        <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        <background r = "0" g = "0" b = "0" a = "1" />
+    </ambient>  
+
+    <lights>
+   
+        <omni id = "tables_light_1" enabled = "0">
+            <location x = "20" y = "15" z = "20" w = "1" />
+            <ambient r = "0" g = "0" b = "0" a = "1" />
+            <diffuse r = "0.3" g = "0.3" b = "0.3" a = "1" />
+            <specular r = "0.3" g = "0.3" b = "0.3" a = "1" />
+        </omni>
+
+        <omni id = "tables_light_2" enabled = "0">
+            <location x = "20" y = "15" z = "45" w = "1" />
+            <ambient r = "0" g = "0" b = "0" a = "1" />
+            <diffuse r = "0.3" g = "0.3" b = "0.3" a = "1" />
+            <specular r = "0.3" g = "0.3" b = "0.3" a = "1" />
+        </omni>
+
+        <omni id = "tables_light_3" enabled = "0">
+            <location x = "20" y = "15" z = "60" w = "1" />
+            <ambient r = "0" g = "0" b = "0" a = "1" />
+            <diffuse r = "0.3" g = "0.3" b = "0.3" a = "1" />
+            <specular r = "0.3" g = "0.3" b = "0.3" a = "1" />
+        </omni>
+
+        <omni id = "candles_light_1" enabled = "1">
+            <location x = "20" y = "30" z = "20" w = "1" />
+            <ambient r = "0" g = "0" b = "0" a = "1" />
+            <diffuse r = "0.3" g = "0.3" b = "0.3" a = "1" />
+            <specular r = "0.3" g = "0.3" b = "0.3" a = "1" />
+        </omni>
+
+        <omni id = "candles_light_2" enabled = "1">
+            <location x = "20" y = "30" z = "45" w = "1" />
+            <ambient r = "0" g = "0" b = "0" a = "1" />
+            <diffuse r = "0.3" g = "0.3" b = "0.3" a = "1" />
+            <specular r = "0.3" g = "0.3" b = "0.3" a = "1" />
+        </omni>
+
+        <omni id = "candles_light_3" enabled = "1">
+            <location x = "20" y = "30" z = "60" w = "1" />
+            <ambient r = "0" g = "0" b = "0" a = "1" />
+            <diffuse r = "0.3" g = "0.3" b = "0.3" a = "1" />
+            <specular r = "0.3" g = "0.3" b = "0.3" a = "1" />
+        </omni>
+
+        <spot id = "spot_plate" enabled = "0" angle = "10" exponent = "1">
+            <location x = "29" y = "7" z = "38" w ="1" />
+            <target x = "26" y = "2.7" z = "38.5" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="0.65" g="0.65" b="0.65" a="1" />
+            <specular r="0.65" g="0.65" b="0.65" a="1" />
+        </spot>
+
+    </lights>
+
+    <textures>
+        <texture id = "wood_texture" file = "scenes/images/wood.png" />
+        <texture id = "dish_texture" file = "scenes/images/dish.png" />
+        <texture id = "candle_texture" file = "scenes/images/candle.jpg" />
+        <texture id = "floor_texture" file = "scenes/images/stone.jpg" />
+        <texture id = "wall_texture" file = "scenes/images/wall.jpg" />
+
+        <texture id = "frame_1_texture" file = "scenes/images/frame_1.jpg" />
+        <texture id = "frame_2_texture" file = "scenes/images/frame_2.jpg" />
+        <texture id = "frame_3_texture" file = "scenes/images/frame_3.jpg" />
+
+        <texture id = "hogwarts_texture" file = "scenes/images/hogwarts.jpg" />
+        <texture id = "harry" file = "scenes/images/harry.jpg" />
+    </textures>
+
+    <materials>
+
+        <material id = "dark_brown_wood" shininess = "1">
+            <emission r = "0.1015625" g = "0.05078125" b = "0" a = "1" />
+            <ambient r = "0.1015625" g = "0.05078125" b = "0" a = "1" />
+            <diffuse r = "0.1015625" g = "0.05078125" b = "0" a = "1" />
+            <specular r = "0.1015625" g = "0.05078125" b = "0" a = "1" />
+        </material>
+
+        <material id = "darker_white" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.3" g = "0.3" b = "0.3" a = "1" />
+            <diffuse r = "0.3" g = "0.3" b = "0.3" a = "1" />
+            <specular r = "0.3" g = "0.3" b = "0.3" a = "1" />
+        </material>
+
+        <material id = "white" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </material>
+
+        <material id = "default" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </material>
+
+        <material id = "gold" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.98" g = "0.85" b = "0.40" a = "1" />
+            <diffuse r = "0.98" g = "0.85" b = "0.40" a = "1" />
+            <specular r = "0.98" g = "0.85" b = "0.40" a = "1" />
+        </material>
+
+        <material id = "yellow_fire" shininess = "100">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "1" g = "1" b = "0.1992" a = "1" />
+            <diffuse r = "1" g = "1" b = "0.1992" a = "1" />
+            <specular r = "1" g = "1" b = "1" a = "1" />
+        </material>
+
+        <material id = "blue_fire" shininess = "100">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.1992" g = "1" b = "1" a = "1" />
+            <diffuse r = "0.1992" g = "1" b = "1" a = "1" />
+            <specular r = "0.1992" g = "1" b = "1" a = "1" />
+        </material>
+
+        <material id = "red_fire" shininess = "100">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "1" g = "0.1992" b = "0.1992" a = "1" />
+            <diffuse r = "1" g = "0.1992" b = "0.1992" a = "1" />
+            <specular r = "1" g = "0.1992" b = "0.1992" a = "1" />
+        </material>
+
+        <material id = "broom tail material" shininess = "100">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.2" g = "0.2" b = "0.2" a = "1" />
+            <diffuse r = "0.2" g = "0.2" b = "0.2" a = "1" />
+            <specular r = "0.2" g = "0.2" b = "0.2" a = "1" />
+        </material>
+
+        <material id = "broom stick material" shininess = "100">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.5" g = "0" b = "0" a = "1" />
+            <diffuse r = "0.5" g = "0" b = "0" a = "1" />
+            <specular r = "0.5" g = "0" b = "0" a = "1" />
+        </material>
+
+
+    </materials>
+
+
+    <!--  TRANSFORMATIONS TAG  -->
+    <transformations>
+
+        <transformation id = "position right arm">
+            <translate x = "-1.75" y = "1.5" z = "0" />
+        </transformation>
+
+        <transformation id = "position left arm">
+            <translate x = "1.75" y = "1.5" z = "0" />
+        </transformation>
+
+        <transformation id = "position right leg">
+            <translate x = "-0.75" y = "-1.5" z = "0" />
+        </transformation>
+
+        <transformation id = "position left leg">
+            <translate x = "0.75" y = "-1.5" z = "0" />
+        </transformation>
+
+        <transformation id = "harry head transf">
+            <translate x = "0" y = "2.5" z = "0" />
+            <rotate axis = "x" angle = "-90" />
+            <rotate axis = "z" angle = "90" />
+        </transformation>
+
+        <transformation id = "harry body transf">
+            <translate x = "0" y = "0" z = "0" />
+            <scale x = "2.5" y = "3" z = "1" /> 
+        </transformation>
+
+        <transformation id = "harry left arm transf">
+            <translate x = "0" y = "-1.5" z = "0" />
+            <scale x = "1" y = "3" z = "1" /> 
+        </transformation>
+
+        <transformation id = "harry right arm transf">
+            <translate x = "0" y = "-1.5" z = "0" />
+            <scale x = "1" y = "3" z = "1" /> 
+        </transformation>
+
+        <transformation id = "harry left leg transf">
+            <translate x = "0" y = "-1.5" z = "0" />
+            <scale x = "1" y = "3" z = "1" /> 
+        </transformation>
+
+        <transformation id = "harry right leg transf">
+            <translate x = "0" y = "-1.5" z = "0" />
+            <scale x = "1" y = "3" z = "1" /> 
+        </transformation>
+
+        <transformation id = "broom tail back transf">
+            <translate x = "0" y = "0" z = "0.5" />
+        </transformation>
+
+        <transformation id = "broom tail middle transf">
+            <translate x = "0" y = "0" z = "1.5" />
+        </transformation>
+
+        <transformation id = "broom tail front transf">
+            <translate x = "0" y = "0" z = "3" />
+        </transformation>
+
+        <transformation id = "broom tail transf">
+            <translate x = "0" y = "0" z = "0" />
+        </transformation>
+
+        <transformation id = "broom stick transf">
+            <translate x = "0" y = "0" z = "4" />
+        </transformation>
+
+        <transformation id = "broom transf">
+            <translate x = "0" y = "0" z = "-5" />
+        </transformation>
+
+        <transformation id = "identity">
+            <scale x = "1" y = "1" z = "1" />
+        </transformation>
+
+        <transformation id = "all_tables_transformation">
+            <translate x = "20" y = "0" z = "45" />
+        </transformation>
+
+        <transformation id = "all_candles_transformation">
+            <translate x = "15" y = "25" z = "45" />
+            <scale x = "0.7" y = "0.7" z = "0.7" />
+        </transformation>
+
+        <transformation id = "balcon_transformation">
+            <translate x = "20" y = "0" z = "4.9" />
+            <scale x = "1" y = "0.6" z = "1" />
+        </transformation>
+
+        <transformation id = "frames_transformation">
+            <translate x = "0.01" y = "10" z = "40" />
+            <rotate axis = "y" angle = "90" />
+        </transformation>
+
+        <transformation id = "hogwarts_sphere_transformation">
+            <translate x = "20" y = "10" z = "5.5" />
+            <rotate axis = "z" angle = "90" />
+            <rotate axis = "y" angle = "90" />
+        </transformation>
+
+        <transformation id = "harry">
+            <translate x = "0" y = "1.55" z = "0" />
+        </transformation>
+
+    </transformations>
+
+    <animations>
+
+        <linear id = "wait in start" span = "5">
+            <controlpoint xx = "30" yy = "3" zz = "60.1" />
+            <controlpoint xx = "30" yy = "3" zz = "60" />
+        </linear>
+
+        <linear id = "first line" span = "3">
+            <controlpoint xx = "30" yy = "3" zz = "60" />
+            <controlpoint xx = "30" yy = "20" zz = "40" />
+        </linear>
+
+        <circular id = "circular left" span = "3" center = "20 20 40" radius = "10" startang = "0" rotang = "180" />
+
+        <linear id = "second line" span = "3">
+            <controlpoint xx = "10" yy = "20" zz = "40" />
+            <controlpoint xx = "10" yy = "20" zz = "70" />
+        </linear>
+
+        <linear id = "harry walk into broom" span = "4.99">
+            <controlpoint xx = "-5" yy = "0" zz = "20" />
+            <controlpoint xx = "0" yy = "0" zz = "0" />
+        </linear>
+
+        <circular id = "harry turn around" span = "0.01" center = "0 0 0" radius = "0" startang = "-90" rotang = "0" />
+
+    </animations>
+
+    <!--  PRIMITIVES TAG  -->
+    <primitives>
+
+        <primitive id = "quad">
+            <rectangle x1 = "-0.5" y1 = "-0.5" x2 = "0.5" y2 = "0.5" />
+        </primitive>
+
+        <primitive id = "candle_cylinder">
+            <cylinder base = "0.2" top = "0.2" height = "1.5" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "candle_sphere">
+            <sphere radius = "0.1" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "candle_cone">
+            <cylinder base = "0.1" top = "0.01" height = "0.5" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "border_dish">
+            <torus inner = "0.2" outer = "1" slices = "40" loops = "40" />
+        </primitive>
+
+        <primitive id = "base_dish">
+            <cylinder base = "0.9" top = "0.9" height = "0.05" slices = "40" stacks = "40" />
+        </primitive>
+
+        <primitive id = "hogwarts_symbol_sphere">
+            <sphere radius = "5" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "broom">
+            <vehicle />
+        </primitive>
+
+        <primitive id = "harry">
+            <cylinder base = "1" top = "1" height = "4" slices = "20" stacks = "20" />
+        </primitive>
+
+        <primitive id = "harry head">
+            <sphere radius = "1" slices = "20" stacks = "10" />
+        </primitive>
+
+    </primitives>
+
+
+    <!--  COMPONENTS TAG  -->   
+    <components>
+
+        <!-- UNITARY CUBE -->
+        <component id = "cube">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <componentref id = "right_face" />
+                <componentref id = "left_face" />
+                <componentref id = "front_face" />
+                <componentref id = "back_face" />
+                <componentref id = "up_face" />
+                <componentref id = "down_face" />
+            </children>
+        </component>
+
+        <component id = "right_face">
+            <transformation>
+                <translate x = "0.5" y = "0" z ="0" />
+                <rotate axis = "y" angle = "90" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "left_face">
+            <transformation>
+                <translate x = "-0.5" y = "0" z ="0" />
+                <rotate axis = "y" angle = "-90" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "front_face">
+            <transformation>
+                <translate x = "0" y = "0" z ="0.5" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "back_face">
+            <transformation>
+                <rotate axis = "y" angle = "180" />
+                <translate x = "0" y = "0" z ="0.5" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "up_face">
+            <transformation>
+                <translate x = "0" y = "0.5" z ="0" />
+                <rotate axis = "x" angle = "-90" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "down_face">
+            <transformation>
+                <translate x = "0" y = "-0.5" z ="0" />
+                <rotate axis = "x" angle = "90" />  
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <!-- FLOOR AND WALLS -->
+
+        <component id = "floor">
+            <transformation>
+                <translate x = "20" y = "0" z = "35" />
+                <rotate axis = "x" angle = "-90" />
+                <scale x = "40" y = "70" z = "1" />
+            </transformation>
+
+            <materials>
+                <material id = "darker_white" />
+            </materials>
+
+            <texture id = "floor_texture" length_s = "0.1" length_t = "0.1" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "side_wall">
+            <transformation>
+                <translate x = "0" y = "10" z = "35" />
+                <rotate axis = "y" angle = "90" />
+                <scale x = "70" y = "20" z = "1" />
+            </transformation>
+
+            <materials>
+                <material id = "darker_white" />
+            </materials>
+
+            <texture id = "wall_texture" length_s = "0.12" length_t = "0.2" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "back_wall">
+            <transformation>
+                <translate x = "20" y = "10" z = "0" />
+                <scale x = "40" y = "20" z = "1" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "wall_texture" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <!-- FRAMES -->
+
+        <component id = "frames">
+            <transformation>
+                <transformationref id = "frames_transformation" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" />
+
+            <children>
+                <componentref id = "frame_1" />
+                <componentref id =  "frame_2" />
+                <componentref id = "frame_3" />
+            </children>
+        </component>
+
+        <component id = "frame_1">
+            <transformation>
+                <scale x = "11" y = "16" z = "1" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "frame_1_texture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "frame_2">
+            <transformation>
+                <translate x = "-15" y = "0" z = "0" />
+                <scale x = "11" y = "16" z = "1" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "frame_2_texture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "frame_3">
+            <transformation>
+                <translate x = "15" y = "0" z = "0" />
+                <scale x = "11" y = "16" z = "1" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "frame_3_texture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <!-- BALCON -->
+        <component id = "balcon">
+            <transformation>
+                <transformationref id = "balcon_transformation" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "wood_texture" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "balcon_body" />
+                <componentref id = "balcon_stair" />
+            </children>
+        </component>
+
+        <component id = "balcon_body">
+            <transformation>
+                <translate x = "0" y = "2.5" z = "0" />
+                <scale x = "40" y = "5" z = "10" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "balcon_stair">
+            <transformation>
+                <translate x = "0" y = "1.5" z = "6.5" />
+                <scale x = "40" y = "3" z = "3" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <!-- HOGWARTS SPHERE -->
+        <component id = "hogwarts_sphere">
+            <transformation>
+                <transformationref id = "hogwarts_sphere_transformation" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "hogwarts_texture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "hogwarts_symbol_sphere" />
+            </children>
+        </component>
+
+
+        <!-- TABLE -->
+
+        <component id = "top">
+            <transformation>
+                <translate x = "0" y = "2.5" z = "0" />
+                <scale x = "5" y = "0.1" z = "15" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "leg_body">
+            <transformation>
+                <translate x = "0" y = "1.25" z = "0" />
+                <scale x = "1.3" y = "2.5" z = "1.3" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "leg_base">
+            <transformation>
+                <translate x = "0" y = "0.5" z = "0" />
+                <scale x = "1.6" y = "1" z = "1.6" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "leg">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "leg_body" />
+                <componentref id = "leg_base" />
+            </children>
+        </component>
+
+        <component id = "front_leg">
+            <transformation>
+                <translate x = "0" y = "0" z = "4.5" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "leg" />
+            </children>
+        </component>
+
+        <component id = "back_leg">
+            <transformation>
+                <translate x = "0" y = "0" z = "-4.5" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "leg" />
+            </children>
+        </component>
+
+        <component id = "beam">
+            <transformation>
+                <translate x = "0" y = "0.5" z = "0" />
+                <scale x = "0.4" y = "1" z = "9" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "table">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <materials>
+                <material id = "dark_brown_wood" />
+            </materials>
+
+            <texture id = "wood_texture" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "top" />
+                <componentref id = "front_leg" />
+                <componentref id = "back_leg" />
+                <componentref id = "beam" />
+            </children>
+        </component>
+
+
+        <!-- CROCKERY -->
+
+        <!-- Dish -->
+        <component id = "dish">
+            <transformation>
+                <rotate axis = "x" angle = "-90" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "dish_base" />
+                <componentref id = "dish_border" />
+            </children>
+        </component>
+
+        <component id = "dish_base">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <materials>
+                <material id = "darker_white" />
+                <material id = "gold" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "base_dish" />
+            </children>
+        </component>
+
+        <component id = "dish_border">
+            <transformation>
+                <scale x = "1" y = "1" z = "0.2" />
+                <translate x = "0" y = "0" z = "0.4" /> 
+            </transformation>
+
+            <materials>
+                <material id = "white" />
+            </materials>
+
+            <texture id = "dish_texture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "border_dish" />
+            </children>
+        </component>
+
+
+        <!-- ORNATE TABLE -->
+        <component id = "dish_1">
+            <transformation>
+                <translate x = "1" y = "2.6" z = "-5.625" />
+                <scale x = "0.8" y = "0.8" z = "0.8" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "dish" />
+            </children>
+        </component>
+
+        <component id = "dish_2">
+            <transformation>
+                <translate x = "-1" y = "2.6" z = "-1.875" />
+                <scale x = "0.8" y = "0.8" z = "0.8" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "dish" />
+            </children>
+        </component>
+
+        <component id = "dish_3">
+            <transformation>
+                <translate x = "1" y = "2.6" z = "1.875" />
+                <scale x = "0.8" y = "0.8" z = "0.8" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "dish" />
+            </children>
+        </component>
+
+        <component id = "dish_4">
+            <transformation>
+                <translate x = "-1" y = "2.6" z = "5.625" />
+                <scale x = "0.8" y = "0.8" z = "0.8" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "dish" />
+            </children>
+        </component>
+
+
+        <component id = "table_ornate">
+            <transformation>
+                <transformationref id = "identity" /> 
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "table" />
+                <componentref id = "dish_1" />
+                <componentref id = "dish_2" />
+                <componentref id = "dish_3" />
+                <componentref id = "dish_4" />
+            </children>
+        </component>
+
+
+        <!-- LONG TABLE -->
+        <component id = "long_table">
+            <transformation>
+                <transformationref id = "identity" /> 
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "table_ornate_front" />
+                <componentref id = "table_ornate_midle" />
+                <componentref id = "table_ornate_back" />
+            </children>
+        </component>
+
+        <component id = "table_ornate_front">
+            <transformation>
+                <translate x = "0" y = "0" z = "15" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "table_ornate" />
+            </children>
+        </component>
+
+        <component id = "table_ornate_midle">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "table_ornate" />
+            </children>
+        </component>
+
+        <component id = "table_ornate_back">
+            <transformation>
+                <translate x = "0" y = "0" z = "-15" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "table_ornate" />
+            </children>
+        </component>
+        
+        <!-- ALL TABLES -->
+        <component id = "all_tables">
+            <transformation>
+                <transformationref id = "all_tables_transformation" /> 
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "gryffindor_table" />
+                <componentref id = "slytherin_table" />
+            </children>
+        </component>
+        
+        <component id = "gryffindor_table">
+            <transformation>
+                <translate x = "5" y = "0" z = "0" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "long_table" />
+            </children>
+        </component>
+
+        <component id = "slytherin_table">
+            <transformation>
+                <translate x = "-5" y = "0" z = "0" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "long_table" />
+            </children>
+        </component>
+
+        <!-- CANDLE -->
+        <component id = "candle">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "candle_body" />
+                <componentref id = "candle_fire" />
+            </children>
+        </component>
+
+        <component id = "candle_body">
+            <transformation>
+                <rotate axis = "x" angle ="-90" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "candle_texture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "candle_cylinder" />
+            </children>
+        </component>
+
+        <component id = "candle_fire_bottom">
+            <transformation>
+                <translate x = "0" y = "1.65" z = "0" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "candle_sphere" />
+            </children>
+        </component>
+
+        <component id = "candle_fire_top">
+            <transformation>
+                <translate x = "0" y = "1.65" z = "0" />
+                <rotate axis = "x" angle = "-90" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "candle_cone" />
+            </children>
+        </component>
+
+        <component id = "candle_fire">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <materials>
+                <material id = "yellow_fire" />
+                <material id = "blue_fire" />
+                <material id = "red_fire" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "candle_fire_bottom" />
+                <componentref id = "candle_fire_top" />
+            </children>
+        </component>
+
+        <!-- GROUP CANDLES -->
+        <component id = "group_candles">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "candle_1" />
+                <componentref id = "candle_2" />
+                <componentref id = "candle_3" />
+                <componentref id = "candle_4" />
+                <componentref id = "candle_5" />
+            </children>
+        </component>
+
+        <component id = "candle_1">
+            <transformation>
+                <translate x = "-2" y = "-1" z = "3" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "candle" />
+            </children>
+        </component>
+
+        <component id = "candle_2">
+            <transformation>
+                <translate x = "-3" y = "2" z = "-3" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "candle" />
+            </children>
+        </component>
+
+        <component id = "candle_3">
+            <transformation>
+                <translate x = "3" y = "-1" z = "3" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "candle" />
+            </children>
+        </component>
+
+        <component id = "candle_4">
+            <transformation>
+                <translate x = "0" y = "1" z = "0" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "candle" />
+            </children>
+        </component>
+
+        <component id = "candle_5">
+            <transformation>
+                <translate x = "2" y = "2" z = "-2" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "candle" />
+            </children>
+        </component>
+
+        <!-- COLUMN CANDLES -->
+        <component id = "column_candles">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "group_candles_1" />
+                <componentref id = "group_candles_2" />
+                <componentref id = "group_candles_3" />
+                <componentref id = "group_candles_4" />
+            </children>
+        </component>
+
+        <component id = "group_candles_1">
+            <transformation>
+                <translate x = "-3" y = "0.5" z = "-10" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "group_candles" />
+            </children>
+        </component>
+        
+        <component id = "group_candles_2">
+            <transformation>
+                <translate x = "3" y = "-0.5" z = "0" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "group_candles" />
+            </children>
+        </component>
+
+        <component id = "group_candles_3">
+            <transformation>
+                <translate x = "-3" y = "0.5" z = "10" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "group_candles" />
+            </children>
+        </component>
+
+        <component id = "group_candles_4">
+            <transformation>
+                <translate x = "3" y = "-0.5" z = "20" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "group_candles" />
+            </children>
+        </component>
+
+        <!-- ALL CANDLES-->
+        <component id = "all_candles">
+            <transformation>
+                <transformationref id = "all_candles_transformation" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "column_candles_1" />
+                <componentref id = "column_candles_2" />
+                <componentref id = "column_candles_3" />
+            </children>
+        </component>
+
+        <component id = "column_candles_1">
+            <transformation>
+                <translate x = "-13" y = "0" z = "-1" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "column_candles" />
+            </children>
+        </component>
+
+        <component id = "column_candles_2">
+            <transformation>
+                <translate x = "0" y = "0" z = "1" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "column_candles" />
+            </children>
+        </component>
+
+        <component id = "column_candles_3">
+            <transformation>
+                <translate x = "13" y = "0" z = "-1" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "column_candles" />
+            </children>
+        </component>
+
+
+        <!-- GREAT HALL -->
+        <component id = "great_hall">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <componentref id = "all_tables" /> 
+                <componentref id = "all_candles" /> 
+
+                <componentref id = "floor" />
+                <componentref id = "side_wall" />
+                <componentref id = "back_wall" /> 
+
+                <componentref id = "harry with broom" />
+
+                <componentref id = "balcon" /> 
+                <componentref id = "frames" />
+                <componentref id = "hogwarts_sphere" />
+            </children>
+        </component>
+
+
+        <!-- BROOM -->
+        <component id = "broom">
+            <transformation>
+                <transformationref id = "broom transf" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1"/>
+        
+            <children>
+                <primitiveref id = "broom" />
+            </children>
+        </component>
+    
+
+        <!-- HARRY POTTER -->
+        <component id = "harry">
+            <transformation>
+                <transformationref id = "harry" />
+            </transformation>
+
+            <animations>
+                <animationref id = "harry walk into broom" />
+                <animationref id = "harry turn around" />
+            </animations>
+            
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "harry" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "harry head" />
+                <componentref id = "harry body" />
+                <componentref id = "position left arm" />
+                <componentref id = "position right arm" />
+                <componentref id = "position left leg" />
+                <componentref id = "position right leg" />
+            </children>
+        </component>
+
+        <component id = "harry head">
+            <transformation>
+                <transformationref id = "harry head transf" />
+            </transformation>
+
+            <materials>
+                <material id = "broom tail material" />
+            </materials>
+        
+            <texture id = "harry" length_s = "" length_t = "" />
+        
+            <children>
+                <primitiveref id = "harry head" />
+            </children>
+        </component>
+
+        <component id = "harry body">
+            <transformation>
+                <transformationref id = "harry body transf" />
+            </transformation>
+        
+            <materials>
+                <material id = "broom tail material" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "harry left arm">
+            <transformation>
+                <transformationref id = "harry left arm transf" />
+            </transformation>
+
+            <materials>
+                <material id = "broom tail material" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "harry right arm">
+            <transformation>
+                <transformationref id = "harry right arm transf" />
+            </transformation>
+
+            <materials>
+                <material id = "broom tail material" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "harry left leg">
+            <transformation>
+                <transformationref id = "harry left leg transf" />
+            </transformation>
+
+            <materials>
+                <material id = "broom tail material" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "harry right leg">
+            <transformation>
+                <transformationref id = "harry right leg transf" />
+            </transformation>
+
+            <materials>
+                <material id = "broom tail material" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "position left leg">
+            <transformation>
+                <transformationref id = "position left leg" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "harry left leg" />
+            </children>
+        </component>
+
+        <component id = "position right leg">
+            <transformation>
+                <transformationref id = "position right leg" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "harry right leg" />
+            </children>
+        </component>
+
+        <component id = "position left arm">
+            <transformation>
+                <transformationref id = "position left arm" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "harry left arm" />
+            </children>
+        </component>
+
+        <component id = "position right arm">
+            <transformation>
+                <transformationref id = "position right arm" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "harry right arm" />
+            </children>
+        </component>
+
+        <component id = "harry with broom">
+            <transformation>
+                <transformationref id = "identity" />
+            </transformation>
+
+            <animations>
+                <animationref id = "wait in start" />
+                <animationref id = "first line" />
+                <animationref id = "circular left" />
+                <animationref id = "second line" />
+            </animations>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "harry" />
+                <componentref id = "broom" />
+            </children>
+        </component>
+
+
+    </components>
+
+</yas>

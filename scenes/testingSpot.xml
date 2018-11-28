@@ -1,0 +1,317 @@
+<yas>
+    <scene root = "Plane" axis_length = "7" />
+
+    <views default = "defaultView">
+        <perspective id = "defaultPerspective" near = "10" far = "20" angle = "30">
+            <from x = "1" y = "3" z = "5"/>
+            <to x = "2" y = "4" z = "6"/>
+        </perspective>  
+
+         <ortho id = "defaultOrtho" near = "10" far = "20" left = "5" right = "15" top = "25" bottom = "0" />
+    </views>
+
+    <ambient>
+        <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        <background r = "0.8" g = "0.3" b = "0.9" a = "1" />
+    </ambient>  
+
+    <lights>
+        
+        <omni id = "omni1" enabled = "1">
+            <location x = "0" y = "20" z = "0" w = "1" />
+            <ambient r = "0" g = "1" b = "0" a = "1" />
+            <diffuse r = "0" g = "1" b = "0" a = "1" />
+            <specular r = "0" g = "1" b = "0" a = "1" />
+        </omni>
+
+        <spot id = "spot1" enabled = "1" angle = "30" exponent = "1">
+            <location x = "0" y = "0" z = "10" w = "1" />
+            <target x = "0" y = "0" z = "5" />
+            <ambient r = "1" g = "0" b = "0" a = "1" />
+            <diffuse r = "1" g = "0" b = "0" a = "1" />
+            <specular r = "1" g = "0" b = "0" a = "1" />
+        </spot>
+       
+
+    </lights>
+
+    <textures>
+        <texture id = "rocksTexture" file = "scenes/images/rocks.jpg" />
+        <texture id = "hogwartsTexture" file = "scenes/images/hogwarts2.jpg" /> 
+    </textures>
+
+    <materials>
+        <material id = "default2" shininess = "100">
+            <emission r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <ambient r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <diffuse r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+            <specular r = "0.2" g = "0.2" b = "0.2" a = "0.2" />
+        </material>
+
+        <material id = "default" shininess = "1">
+            <emission r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </material>
+    </materials>
+
+    <!--  TRANSFORMATIONS TAG  -->
+    <transformations>
+
+        <!-- Identity -->
+        <transformation id = "Identity">
+            <translate x = "0" y = "0" z = "0" />
+        </transformation>
+
+        <!-- RecTrans -->
+        <transformation id = "RecTrans">
+            <scale x = "5" y = "5" z = "5" />
+        </transformation>
+
+        <!-- RecLITrans -->
+        <transformation id = "RecLITrans">
+            <translate x = "-2.5" y = "-2.5" z = "0" />
+        </transformation>
+
+        <!-- RecLSTrans -->
+        <transformation id = "RecLSTrans">
+            <translate x = "-2.5" y = "2.5" z = "0" />
+        </transformation>
+
+        <!-- RecRITrans -->
+        <transformation id = "RecRITrans">
+            <translate x = "2.5" y = "-2.5" z = "0" />
+        </transformation>
+
+        <!-- RecRSTrans -->
+        <transformation id = "RecRSTrans">
+            <translate x = "2.5" y = "2.5" z = "0" />
+        </transformation>
+
+    </transformations>
+
+
+    <!--  PRIMITIVES TAG  -->
+    <primitives>
+
+        <primitive id = "quad">
+            <rectangle x1 = "-0.5" y1 = "-0.5" x2 = "0.5" y2 = "0.5" />
+        </primitive>
+
+    </primitives>
+
+    <!--  COMPONENT TAG  -->   
+    <components>
+
+        <component id = "Rec">
+            <transformation>
+                <transformationref id = "RecTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "hogwartsTexture" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+
+        <!-- Recs -->
+        <component id = "RecLS">
+            <transformation>
+                <transformationref id = "RecLSTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "Rec" />
+            </children>
+        </component>
+
+        <component id = "RecLI">
+            <transformation>
+                <transformationref id = "RecLITrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "Rec" />
+            </children>
+        </component>
+
+        <component id = "RecRS">
+            <transformation>
+                <transformationref id = "RecRSTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "Rec" />
+            </children>
+        </component>
+
+        <component id = "RecRI">
+            <transformation>
+                <transformationref id = "RecRITrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "Rec" />
+            </children>
+        </component>
+
+        <!-- small Group Rec -->
+        <component id = "SGroupRec">
+            <transformation>
+                <transformationref id = "Identity" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "RecLI" />
+                <componentref id = "RecLS" />
+                <componentref id = "RecRI" />
+                <componentref id = "RecRS" />
+            </children>
+        </component>
+
+        <!-- small Groups -->
+        <component id = "SGroupRecLI">
+            <transformation>
+                <transformationref id = "SLITrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "SGroupRec" />
+            </children>
+        </component>
+
+        <component id = "SGroupRecLS">
+            <transformation>
+                <transformationref id = "SLSTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "SGroupRec" />
+            </children>
+        </component>
+
+        <component id = "SGroupRecRI">
+            <transformation>
+                <transformationref id = "SRITrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "SGroupRec" />
+            </children>
+        </component>
+
+        <component id = "SGroupRecRS">
+            <transformation>
+                <transformationref id = "SRSTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "SGroupRec" />
+            </children>
+        </component>
+
+        <!-- Big Groups -->
+        <component id = "BGroupRec">
+            <transformation>
+                <transformationref id = "Identity" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "inherit" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+                <componentref id = "SGroupRecLI" />
+                <componentref id = "SGroupRecLS" />
+                <componentref id = "SGroupRecRI" />
+                <componentref id = "SGroupRecRS" />
+            </children>
+        </component>
+
+
+        <!-- PLANE -->
+        <component id = "Plane">
+            <transformation>
+                <transformationref id = "Identity" />
+            </transformation>
+
+            <materials>
+                <material id = "default2" />
+            </materials>
+
+            <texture id = "hogwartsTexture" length_s = "0.2" length_t = "0.2" />
+
+            <children>
+            
+                <componentref id = "BGroupRec" />
+
+            </children>
+        </component>
+
+
+    </components>
+
+</yas>
