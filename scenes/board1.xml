@@ -103,6 +103,10 @@
             <rectangle x1 = "-50" y1 = "-50" x2 = "50" y2 = "50" />
         </primitive>
 
+        <primitive id = "side board">
+            <rectangle x1 = "-1.5" y1 = "-10.5" x2 = "1.5" y2 = "10.5" />
+        </primitive>
+
     </primitives>
 
     <!--  COMPONENT TAG  -->   
@@ -123,6 +127,149 @@
             <children>
                 <componentref id = "board" />
                 <componentref id = "universe" />
+                <componentref id = "side board dark" />
+                <componentref id = "side board light" />
+            </children>
+        </component>
+
+        <!-- SIDE BOARDS -->
+
+        <component id = "side board dark">
+            <transformation>
+                <translate x = "20" y = "-2.5" z ="0" />
+            </transformation>
+        
+            <materials>
+                <material id = "dark tiles" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "side board rim" />
+                <componentref id = "side board" />
+            </children>
+        </component>
+
+        <component id = "side board">
+            <transformation>
+                <translate x = "0" y = "0.1" z = "0" />
+                <rotate axis = "x" angle = "-90" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "side board" />
+            </children>
+        </component>
+
+        <component id = "side board light">
+            <transformation>
+                <translate x = "-20" y = "-2.5" z ="0" />
+            </transformation>
+        
+            <materials>
+                <material id = "light tiles" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "side board rim" />
+                <componentref id = "side board" />
+            </children>
+        </component>
+
+        <component id = "side board rim">
+            <transformation>
+                <translate x = "0" y = "0" z ="0" />
+            </transformation>
+
+            <materials>
+                <material id = "black" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "top side board" />
+                <componentref id = "bot side board" />
+                <componentref id = "left side board" />
+                <componentref id = "right side board" />
+            </children>
+        </component>
+
+        <component id = "top side board">
+            <transformation>
+                <translate x = "0" y = "0" z ="-11" />
+                <scale x = "5" y = "1" z = "1" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "bot side board">
+        
+            <transformation>
+                <translate x = "0" y = "0" z ="11" />
+                <scale x = "5" y = "1" z = "1" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "left side board">
+            <transformation>
+                <translate x = "-2" y = "0" z ="0" />
+                <scale x = "1" y = "1" z = "22" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "right side board">
+            <transformation>
+                <translate x = "2" y = "0" z ="0" />
+                <scale x = "1" y = "1" z = "22" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "cube" />
             </children>
         </component>
 
