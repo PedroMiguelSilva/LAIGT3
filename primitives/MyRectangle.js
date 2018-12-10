@@ -4,7 +4,7 @@
  */
 class MyRectangle extends CGFobject
 {
-	constructor(scene, x1, y1, x2, y2, minS, maxS, minT, maxT) 
+	constructor(scene, x1, y1, x2, y2, pickingId) 
 	{
         super(scene);
         
@@ -13,10 +13,12 @@ class MyRectangle extends CGFobject
         this.x2 = x2;
         this.y2 = y2;
 
-		this.minS = minS || 0.0;
-		this.maxS = maxS || 1.0;
-		this.minT = minT || 0.0;
-		this.maxT = maxT || 1.0;
+		this.minS =  0.0;
+		this.maxS =  1.0;
+		this.minT =  0.0;
+		this.maxT =  1.0;
+
+		this.pickingId = pickingId;
 		
 		this.initBuffers();
 	};
@@ -37,7 +39,6 @@ class MyRectangle extends CGFobject
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 
-		//==========TO CHANGE LATER=============
 		this.normals = [
 			0, 0, 1,
 			0, 0, 1,
@@ -51,7 +52,6 @@ class MyRectangle extends CGFobject
 			this.minS, this.minT,
 			this.maxS, this.minT
 		];
-		//=====================================
 
 		this.initGLBuffers();
     };

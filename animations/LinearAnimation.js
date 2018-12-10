@@ -93,6 +93,7 @@ class LinearAnimation extends Animation {
      *           0 - animation still going
      */
     update(deltaTime){
+
         //Calculate current time
         this.currentTime += deltaTime;
 

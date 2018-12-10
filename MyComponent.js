@@ -38,12 +38,17 @@ class MyComponent
      * @param {Counter of the number of 'm's pressed so far} materialIndexSum 
      */
     display(parentMaterial, parentTexture, parentTextureInf, materialIndexSum){
-        
+
+        if(parentTexture = "teste")
+            this.debug = true;
+
         this.scene.pushMatrix();
 
         //Update values
         var indexOfMaterial = materialIndexSum%this.materialsId.length;
         this.currentMaterialId = this.materialsId[indexOfMaterial];
+
+        
 
         //Check if the values should be inherited or not
         if(this.currentMaterialId == "inherit"){
@@ -58,6 +63,9 @@ class MyComponent
                 return;
                   
         }
+
+
+
 
         //Set Component's Texture and Component's TextureInf
         var textureId = this.textureInf.id;
@@ -80,10 +88,14 @@ class MyComponent
 
             this.currentTexture = this.graph.textures[textureId];
         }
+
+        
             
         //Apply Material
         this.currentMaterial.apply();
-    
+        
+        
+
         //Apply Texture
         if(this.currentTexture != null){
 
@@ -107,6 +119,8 @@ class MyComponent
         if(this.animations.length > 0){ 
             this.animations[this.currentAnimationIndex].apply();
         }
+
+
         
         //Print Comonent's Children (Primitives and Components)
         this.printChildren(materialIndexSum);
@@ -161,11 +175,9 @@ class MyComponent
      */
     printChildren(materialIndexSum){
         for(var i = 0; i < this.primitivesId.length; i++){
-            
             this.graph.primitives[this.primitivesId[i]].display();
         }
         for(var i = 0; i < this.componentsId.length; i++){
-            //console.log(this.componentsId[i]);
             this.graph.components[this.componentsId[i]].display(this.currentMaterial, this.currentTexture, this.textureInf,materialIndexSum);
         }
     }

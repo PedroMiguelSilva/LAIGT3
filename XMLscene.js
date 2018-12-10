@@ -15,6 +15,7 @@ class XMLscene extends CGFscene {
         this.interface = myinterface;
         this.lightValues = {};
         this.previousTime = 0;
+       
     }
 
     /**
@@ -43,6 +44,8 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(UPDATE_SPEED);
+
+        this.setPickEnabled(true);
     }
 
     /**
@@ -50,6 +53,22 @@ class XMLscene extends CGFscene {
      */
     initCamera() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+    }
+
+    logPicking() {
+
+        if(this.pickMode == false) {
+            if(this.pickResults != null && this.pickResults.length > 0) {
+                for(var i = 0 ; i < this.pickResults.length; i++){
+                    var obj = this.pickResults[i][0];
+                    if(obj){
+                        var customId = this.pickResults[i][1];
+                        console.log("Object: " + obj + ", with id = " + customId);
+                    }
+                }
+                this.pickResults.splice(0,this.pickResults.length);
+            }
+        }
     }
 
 
@@ -61,6 +80,12 @@ class XMLscene extends CGFscene {
 
         //Calculates deltaTime/timeElapsed since last update
         var timeElapsed = currTime - this.previousTime;
+
+        // UPDATE GAME STATE
+        if(this.graph.loadedOk){
+            this.graph.game.update(timeElapsed);
+        }
+        
 
         //Updates previous time to next update
         this.previousTime = currTime;
@@ -80,6 +105,8 @@ class XMLscene extends CGFscene {
                 this.graph.componentsIdWithAnimations.splice(i,1);
             }
         }
+
+        
 
     }
 
@@ -180,6 +207,9 @@ class XMLscene extends CGFscene {
 
 
         this.sceneInited = true;
+
+
+        
     }
 
 
@@ -215,6 +245,8 @@ class XMLscene extends CGFscene {
      */
     display() {
         // ---- BEGIN Background, camera and axis setup
+        this.logPicking();
+        this.clearPickRegistration();
 
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -253,8 +285,10 @@ class XMLscene extends CGFscene {
             }
 
             // Displays the scene (MySceneGraph function).
-            if(this.graph.loadedOk)
+            if(this.graph.loadedOk){
                 this.graph.displayScene();
+            }
+                
         }
         else {
             // Draw axis

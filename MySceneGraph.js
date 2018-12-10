@@ -75,6 +75,9 @@ class MySceneGraph {
         // Here should go the calls for different functions to parse the various blocks
         var error = this.parseXMLFile(rootElement);
 
+        //Teste
+        this.game = new Game(this.scene);
+
         if (error != null) {
             this.onXMLError(error);
             return;
@@ -1061,8 +1064,6 @@ class MySceneGraph {
         var primitive;
         var type = primitiveNode.nodeName;
 
-        console.log(primitiveID);
-
         switch(type){
             case "rectangle":
                 primitive = this.createRectangle(primitiveNode);
@@ -1097,6 +1098,9 @@ class MySceneGraph {
             case "water":
                 primitive = this.createWater(primitiveNode);
                 this.primitivesIdWithUpdate.push(primitiveID);
+                break;
+            case "board":
+                primitive = new Board(this.scene);
                 break;
             default:
                 this.onXMLError("Primitive with unkown name:" + type);
@@ -1322,6 +1326,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
+        this.game.display();
         if( this.components[this.idRoot] != null)
             this.components[this.idRoot].display(this.defaultMaterial,null,null,this.materialCurrentIndex);
     }
