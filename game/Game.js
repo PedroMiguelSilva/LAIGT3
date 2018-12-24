@@ -19,10 +19,17 @@ class Game {
             new Man(this.scene,-3,-6),
             new Man(this.scene, 0,-6),
             new Man(this.scene, 3,-6),
-            new Man(this.scene, 6,-6)
+            new Man(this.scene, 6,-6),
+            0,
+            0,
+            new Man(this.scene,-6,6),
+            new Man(this.scene,-3,6),
+            new Man(this.scene, 0,6),
+            new Man(this.scene, 3,6),
+            new Man(this.scene, 6,6),
+            0,
+            0
         ] // 7 first for white, 7 last for black, in order: MMMMMKKmmmmmkk
-
-        this.playerTurn = null;
 
         /**
          * Possible States of the Game
@@ -56,25 +63,15 @@ class Game {
             MEDIUM: "Hard bot and lots of time",
             HARD: "Hard bot and less time"
         }
-
-        this.man1 = new Man(this.scene, 3,0);
-        this.anime = new LinearAnimation(this.scene, 5);
-        this.anime.addControlPoint(this.man1.x, 0 , this.man1.z);
-        this.anime.addControlPoint(this.man1.x+3, 0 , this.man1.z);
-        this.anime.init();
-        console.log(this.anime)
-        this.total = 0;
-        this.loaded = true;
     }
 
-    update(delta){
-        // update das animaçoes das peças
-        // muda as coordenadas 
-        this.total += delta;
-        //console.log(this.anime)
-        if(this.loaded && this.total < 10000){
-             this.anime.update(delta);
-        }   
+    update(delta){ 
+
+        for(var i = 0; i < this.pieces.length; i++){
+            if(this.pieces[i].animation != undefined){
+                this.pieces[i].animation.update(delta);
+            }
+        }
        
     }
 
@@ -88,8 +85,9 @@ class Game {
         for(var i = 0 ;  i < 5 ; i++ ){
             this.scene.pushMatrix();
             var anime = this.pieces[i].animation;
-            if(anime != null)
+            if(anime != null){
                 anime.apply();
+            }
                 
             //de acordo com a state machine, registar ou nao a peça para picking
             this.scene.registerForPick(i+1,this.scene.graph.components[nameOfMan] );
@@ -100,15 +98,15 @@ class Game {
 
 
         // CHANGE 5 TO 7 ONCE THE KNIGHTS ARE DESINED AND WORKING
-        for(var i = 0 ;  i < 5 ; i++ ){
+        for(var i = 7 ;  i < 12 ; i++ ){
             this.scene.pushMatrix();
             var anime = this.pieces[i].animation;
             if(anime != null)
                 anime.apply();
                 
             //de acordo com a state machine, registar ou nao a peça para picking
-            this.scene.registerForPick(i+1,this.scene.graph.components[nameOfMan] );
-            this.scene.graph.components[nameOfMan].display(this.materialWhite,"teste",null,0);
+            this.scene.registerForPick(i+1,this.scene.graph.components[nameOfMan]);
+            this.scene.graph.components[nameOfMan].display(this.materialBlack,"teste",null,0);
         
             this.scene.popMatrix();
         }

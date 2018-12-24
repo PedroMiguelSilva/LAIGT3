@@ -11,6 +11,7 @@ class Man
        this.animation.addControlPoint(x-0.01,0,z);
        this.animation.addControlPoint(x,0,z);
        this.animation.init();
+       
        this.x = x;
        this.z = z;
 
@@ -39,7 +40,14 @@ class Man
     */
    move(xFinal, yFinal){
        // note - save the end position of the animatino in the x and z values of this object for next animation reference
-
+        let newAnime = new LinearAnimation(this.scene,5);
+        newAnime.addControlPoint(this.x,0,this.z);
+        newAnime.addControlPoint(xFinal,0,yFinal);
+        newAnime.init();
+        this.animation = newAnime;
+        this.x = xFinal;
+        this.y = yFinal;
+        console.log(this)
    }
 
    /**
