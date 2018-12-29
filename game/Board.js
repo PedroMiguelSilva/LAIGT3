@@ -28,7 +28,64 @@ class Board extends CGFobject {
 
     init(){
         //Auxiliar
-        var emptyLine = [this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS]
+        var emptyLine = [this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS]
+        var sizeX = 3;
+        var sizeZ = 3;
+
+        let lineTop = emptyLine.slice();
+        lineTop[3] = new Cell(this.scene, 1, 4,-1.5,-19.5, 1.5,-16.5)
+        this.matrix.push(lineTop);
+
+        lineTop = emptyLine.slice();
+        lineTop[2] = new Cell(this.scene, 2, 3,-4.5,-16.5,-1.5,-13.5);
+        lineTop[3] = new Cell(this.scene, 2, 4,-1.5,-16.5, 1.5,-13.5);
+        lineTop[4] = new Cell(this.scene, 2, 5, 1.5,-16.5, 4.5,-13.5);
+        this.matrix.push(lineTop);
+
+        lineTop = emptyLine.slice();
+        lineTop[1] = new Cell(this.scene, 3, 2,-7.5,-13.5,-4.5,-10.5);
+        lineTop[2] = new Cell(this.scene, 3, 3,-4.5,-13.5,-1.5,-10.5);
+        lineTop[3] = new Cell(this.scene, 3, 4,-1.5,-13.5, 1.5,-10.5);
+        lineTop[4] = new Cell(this.scene, 3, 5, 1.5,-13.5, 4.5,-10.5);
+        lineTop[5] = new Cell(this.scene, 3, 6, 4.5,-13.5, 7.5,-10.5);
+        this.matrix.push(lineTop);
+
+        let x1 = -10.5;
+        let y1 = -10.5;
+
+        for(var i = 4; i <= 10; i++){
+            let line = [];
+
+            for(var j = 1; j <= 7; j++){
+                line.push(new Cell(this.scene, i, j, x1, y1, x1+sizeX, y1+sizeZ));
+                x1 += sizeX;
+            }
+            this.matrix.push(line);
+            x1 = -10.5;
+            y1 += sizeZ;
+        }
+
+        lineTop = emptyLine.slice();
+        lineTop[1] = new Cell(this.scene, 11, 2,-7.5, 10.5,-4.5, 13.5);
+        lineTop[2] = new Cell(this.scene, 11, 3,-4.5, 10.5,-1.5, 13.5);
+        lineTop[3] = new Cell(this.scene, 11, 4,-1.5, 10.5, 1.5, 13.5);
+        lineTop[4] = new Cell(this.scene, 11, 5, 1.5, 10.5, 4.5, 13.5);
+        lineTop[5] = new Cell(this.scene, 11, 6, 4.5, 10.5, 7.5, 13.5);
+        this.matrix.push(lineTop);
+
+        lineTop = emptyLine.slice();
+        lineTop[2] = new Cell(this.scene, 12, 3,-4.5, 13.5,-1.5, 16.5);
+        lineTop[3] = new Cell(this.scene, 12, 4,-1.5, 13.5, 1.5, 16.5);
+        lineTop[4] = new Cell(this.scene, 12, 5, 1.5, 13.5, 4.5, 16.5);
+        this.matrix.push(lineTop);
+
+        lineTop = emptyLine.slice();
+        lineTop[3] = new Cell(this.scene, 13, 4,-1.5, 16.5, 1.5, 19.5);
+        this.matrix.push(lineTop);
+
+        console.log(this.matrix);
+
+        /*
         let pickingId = 15;
         //First few lines
         let line1 = emptyLine.slice();
@@ -101,52 +158,51 @@ class Board extends CGFobject {
         last1[3] = new MyRectangle(this.scene, -1.5,16.5,1.5,19.5,pickingId);
         pickingId++;
         this.matrix.push(last1);
+        */
 
     }
 
+    updateBoard() {
+        var game = this.scene.graph.game;
+        if(game.changedPiece == false)
+            return;
+
+        
+        for(var i = 0; i < this.matrix.length; i++){
+            for(var j = 0; j < this.matrix[i].length; j++){
+                if(this.matrix[i][j] != this.OUT_OF_BOUNDS)
+                    this.matrix[i][j].updateCell();
+            }
+        }
+        
+        
+        game.changedPiece = false;
+    }
+
     display() {
+        var darkTilesMaterial = this.scene.graph.materials['dark tiles'];
+        var whiteTilesMaterial = this.scene.graph.materials['light tiles'];
+
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2,1,0,0);
 
-        //Display all the light color tiles =========================================
-        this.scene.graph.materials['dark tiles'].apply();
-
-        //All whites besides matrix        
-
-        //Main Matrix
         for(var i = 0 ; i < this.matrix.length ; i++){
-            if(i%2 == 0){
-                var j = 0;
-            }
-            else{
-                var j = 1;
-            }
-            for(; j < this.matrix[i].length ; j += 2){
+            for(var j = 0; j < this.matrix[i].length ; j += 1){
+
+                if((i%2==0 && j%2!=0) || (i%2!=0 && j%2==0))
+                    whiteTilesMaterial.apply();
+                else
+                    darkTilesMaterial.apply();
+
+                
+
                 if(this.matrix[i][j] != this.OUT_OF_BOUNDS){
                     this.matrix[i][j].display();
                 }
             }
+
         }
 
-        //Display all the dark color tiles ===========================================
-        this.scene.graph.materials['light tiles'].apply();
-
-        //All blacks besides matrix
-
-        //Main Matrix
-        for(var i = 0 ; i < this.matrix.length ; i++){
-            if(i%2 == 0){
-                var j = 1;
-            }
-            else{
-                var j = 0;
-            }
-            for(; j < this.matrix[i].length ; j += 2){
-                if(this.matrix[i][j] != this.OUT_OF_BOUNDS){
-                    this.matrix[i][j].display();
-                }
-            }
-        }
         this.scene.popMatrix();
     }
 

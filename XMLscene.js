@@ -45,7 +45,9 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(UPDATE_SPEED);
 
+        /* Project 3 */
         this.setPickEnabled(true);
+        this.client = new Client();
     }
 
     /**
@@ -64,6 +66,10 @@ class XMLscene extends CGFscene {
                     if(obj){
                         var customId = this.pickResults[i][1];
                         console.log("Object: " + obj + ", with id = " + customId);
+                        console.log(obj);
+
+                        this.graph.game.selectPiece(customId);
+                        this.graph.game.movePiece(customId, obj);
                     }
                 }
                 this.pickResults.splice(0,this.pickResults.length);
@@ -84,6 +90,7 @@ class XMLscene extends CGFscene {
         // UPDATE GAME STATE
         if(this.graph.loadedOk){
             this.graph.game.update(timeElapsed);
+            this.graph.primitives["board"].updateBoard();
         }
         
 
@@ -105,6 +112,8 @@ class XMLscene extends CGFscene {
                 this.graph.componentsIdWithAnimations.splice(i,1);
             }
         }
+
+       
 
         
 

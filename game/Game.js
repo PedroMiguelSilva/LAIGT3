@@ -15,6 +15,26 @@ class Game {
 
         //Create the pieces and set their initial positions
         this.pieces = [
+            new Piece(this.scene,-6, 6),
+            new Piece(this.scene,-3, 6),
+            new Piece(this.scene, 0, 6),
+            new Piece(this.scene, 3, 6),
+            new Piece(this.scene, 6, 6),
+            new Piece(this.scene, 0, 0),
+            new Piece(this.scene, 0, 0),
+            new Piece(this.scene,-6,-6),
+            new Piece(this.scene,-3,-6),
+            new Piece(this.scene, 0,-6),
+            new Piece(this.scene, 3,-6),
+            new Piece(this.scene, 6,-6),
+            new Piece(this.scene, 0,0),
+            new Piece(this.scene, 0,0)
+        ] // 7 first for white, 7 last for black, in order: MMMMMKKmmmmmkk
+
+        this.selectedPiece = null;
+        this.changedPiece = false;
+        /*
+        this.pieces = [
             new Man(this.scene,-6,-6),
             new Man(this.scene,-3,-6),
             new Man(this.scene, 0,-6),
@@ -30,6 +50,8 @@ class Game {
             0,
             0
         ] // 7 first for white, 7 last for black, in order: MMMMMKKmmmmmkk
+        */
+
 
         /**
          * Possible States of the Game
@@ -63,7 +85,121 @@ class Game {
             MEDIUM: "Hard bot and lots of time",
             HARD: "Hard bot and less time"
         }
+
+
+        /**
+         * Game Variables
+         */
+        this.board;
+        this.currentPlayer;
+        this.currentState;
+
+        this.initBoard();
     }
+
+
+    /**
+     * 
+     */
+    initBoard() {
+        var game = this;
+
+        this.scene.client.getPrologRequest("initial_board",
+            function(data){
+                game.board = data.target.response;
+            },
+            function(data){
+                console.log("Connection error: initBoard");
+            }
+        );
+    }
+
+    /**
+     * 
+     */
+    boardToProlog() {
+        var stringBoard = "";
+
+        for(var i=0; i < this.board.length; i++) {
+            var char = this.board[i];
+
+            if(char == 'X' || char == 'C' || char == 'W' || char == 'B'){
+                var encapsulated = "'" + char + "'";
+                stringBoard += encapsulated;
+            }
+            else {
+                stringBoard += char;
+            }
+        }
+
+        return stringBoard;
+    }
+
+
+    /**
+     * 
+     * @param {*} pieceID 
+     */
+    selectPiece(pieceID) {
+
+        if(pieceID >= 1 && pieceID <= this.pieces.length) {
+            //this.selectedPiece = this.pieces[pieceID - 1];
+            
+            var selectedPiece = this.pieces[pieceID - 1];
+            if(selectedPiece != this.selectPiece){
+                this.selectedPiece = selectedPiece;
+                this.changedPiece = true;
+            }
+        }
+    }
+
+    /**
+     * 
+     */
+    movePiece(cellID, cell){
+        console.log(cell);
+
+        if(cellID <= this.pieces.length)
+            return;
+    
+        if(this.selectedPiece == null || this.selectedPiece == undefined)
+            return;
+
+        if(!cell.active)
+            return;
+
+        var pieceRow = this.selectedPiece.getRow();
+        //var pieceCol = this.scelece
+        this.selectedPiece.move(cell.x,cell.z);
+
+        this.updatePrologBoard("white", this.selectedPiece.getRow(), this.selectedPiece.getColumn(), cell.row, cell.column);
+        console.log(this.board);
+    }
+
+
+    /**
+     *  
+     */
+    updatePrologBoard(player, row, col, moveRow, moveCol){
+        var this_game = this;
+
+        var board = this.boardToProlog();
+ 
+        //update_board(Board, Player, Row, Col, MoveRow, MoveCol)
+        var command = "update_board(" + board + "," + player + "," + row + "," + col + "," + moveRow + "," + moveCol + ")"; 
+
+        this.scene.client.getPrologRequest(command,
+            function(data){
+                this_game.board = data.target.response;
+            },
+            function(data){
+                console.log("Connection error: updateBoard");
+            }
+        );
+
+
+    }
+
 
     update(delta){ 
 
