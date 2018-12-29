@@ -13,7 +13,7 @@ class Man
        this.animation.init();
        
        this.x = x;
-       this.z = z;
+       this.y = z;
 
        this.move_state = {
            PLAIN : "Plain",
@@ -39,14 +39,16 @@ class Man
     * @param {Coordinate of the destination of the move} yFinal 
     */
    move(xFinal, yFinal){
+    console.log("Piece moved from (" + this.x + "," + this.y + ") to (" + xFinal + "," + yFinal + ")");
        // note - save the end position of the animatino in the x and z values of this object for next animation reference
-        let newAnime = new LinearAnimation(this.scene,5);
-        newAnime.addControlPoint(this.x,0,this.z);
+        let newAnime = new LinearAnimation(this.scene,2);
+        newAnime.addControlPoint(this.x,0,this.y);
         newAnime.addControlPoint(xFinal,0,yFinal);
         newAnime.init();
         this.animation = newAnime;
         this.x = xFinal;
         this.y = yFinal;
+        
    }
 
    /**

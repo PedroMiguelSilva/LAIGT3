@@ -39,17 +39,27 @@ class Game {
         this.state = {
             START : "Please select a game mode",
             PLAYER_1_SELECT_PIECE: "WHITE: Select a piece to move",
-            PLAYER_1_MOVE_PIECE: "WHITE: Select a destination of move",
+            PLAYER_1_MOVE_PIECE_CANTER: "WHITE: Select a destination of move",
+            PLAYER_1_MOVE: "WHITE: Select a destination of move",
             PLAYER_2_SELECT_PIECE: "BLACK: Select a piece to move",
-            PLAYER_2_MOVE_PIECE: "BLACK: Select a destination of move",
-            WON_GAME: "Congrats, game won",
+            PLAYER_2_MOVE: "BLACK: Select a destination of move",
+            END_GAME: "Game ended",
             QUIT_GAME: "Quit Game",
             MOVIE: "Showing game movie, please wait",
             CONNECTION_ERROR: "Error connecting with game engine"
         };
 
+        this.movementState = {
+            START : "No move",
+            PLAIN : "Plain move",
+            CANTER : "Canter move",
+            JUMP : "Jump move",
+            KNIGHTS_CHARGE : "Knights charge move"
+        }
+
+        this.currentMovementState = this.movementState.START;
         this.currentState = this.state.PLAYER_1_SELECT_PIECE;
-        console.log(this.currentState);
+        this.selectedPiece = null;
 
         /**
          * Possible Game Modes
@@ -68,6 +78,16 @@ class Game {
             MEDIUM: "Hard bot and lots of time",
             HARD: "Hard bot and less time"
         }
+
+        this.whiteAlivePieces = [1,2,3,4,5,6,7];
+        this.blackAlivePieces = [8,9,10,11,12,13,14];
+
+        this.whiteCastle = new Object();
+        this.whiteCastle.x = 0;
+        this.whiteCastle.y = -18;
+        this.blackCastle = new Object();
+        this.blackCastle.x = 0;
+        this.blackCastle.y = 18;
     }
 
     update(delta){ 
@@ -125,5 +145,119 @@ class Game {
 
 
 
+    stateMachine(customId, obj){
+        console.log(this.currentState);
+        switch(this.currentState){
+            case this.state.START:
+                break;
+            case this.state.PLAYER_1_SELECT_PIECE:
+                //Valid piece for selection
+                if(this.whiteAlivePieces.includes(customId)){
+                    //Select piece
+                    this.selectedPiece = this.pieces[customId-1];
+                    this.currentMovementState = this.movementState.START;
 
+                    //Update Game state
+                    this.currentState = this.state.PLAYER_1_MOVE;
+                }
+                break;
+            case this.state.PLAYER_1_MOVE:
+                //Chose another white piece
+                if(this.whiteAlivePieces.includes(customId)){
+                    this.selectedPiece = this.pieces[customId-1];
+                    this.currentMovementState = this.movementState.START;
+                }
+                //Chose destination tile
+                else if(customId >= 15 && customId <= 81){
+                    //Need to add logic here
+                    this.selectedPiece.move(obj.x,obj.y);
+                    //Check for game over
+                    if(this.isGameOver()){
+                        console.log("nunca e game over")
+                        this.currentState = this.state.END_GAME;
+                        return;
+                    }
+                    //Some more logic to check if it has stoped playing or not 
+                    this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                }
+                break;
+            case this.state.PLAYER_2_SELECT_PIECE:
+                //Valid piece for selection
+                if(this.blackAlivePieces.includes(customId)){
+                    //Select piece
+                    this.selectedPiece = this.pieces[customId-1];
+                    this.currentMovementState = this.movementState.START;
+
+                    //Update Game state
+                    this.currentState = this.state.PLAYER_2_MOVE;
+                }
+                break;
+            case this.state.PLAYER_2_MOVE:
+                //Chose another black piece
+                if(this.blackAlivePieces.includes(customId)){
+                    this.selectedPiece = this.pieces[customId-1];
+                    this.currentMovementState = this.movementState.START;
+                }
+                //Chose destination tile
+                else if(customId >= 15 && customId <= 81){
+                    //Need to add logic here
+                    this.selectedPiece.move(obj.x,obj.y);
+                    //Check for game over
+                    if(this.isGameOver()){
+                        console.log("nunca e game over")
+                        this.currentState = this.state.END_GAME;
+                        return;
+                    }
+                        
+                    //Some more logic to check if it has stoped playing or not 
+                    this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                }
+                break;
+            case this.state.END_GAME:
+                console.log("end of game")
+                break;
+            case this.state.QUIT_GAME:
+                break;
+            case this.state.MOVIE:
+                break;
+            case this.state.CONNECTION_ERROR:
+                break;
+            default:
+                break;
+        }
+
+        
+    }//end of state machine
+
+    isGameOver(){
+        
+        //White has no pieces alive
+        if(this.whiteAlivePieces.length === 0){
+            return true;
+        }
+
+        //Black has no pieces alive
+        if(this.blackAlivePieces.length === 0){
+            return true;
+        }
+
+        //White conquered Black castle
+        for(var i = 0 ; i < this.whiteAlivePieces.length; i++){
+            var piece = this.pieces[this.whiteAlivePieces[i]-1];
+            if(piece.x === this.blackCastle.x && piece.y === this.blackCastle.y){
+                return true;
+            }
+        }
+
+        //Black conquered White castle
+        for(var i = 0 ; i < this.blackAlivePieces.length; i++){
+            var piece = this.pieces[this.blackAlivePieces[i]-1];
+            console.log(piece)
+            if(piece.x === this.whiteCastle.x && piece.y === this.whiteCastle.y){
+                return true;
+            }
+        }
+        
+        return false;
+    }
 }
