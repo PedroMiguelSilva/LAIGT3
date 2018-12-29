@@ -173,7 +173,6 @@ class Game {
                     this.selectedPiece.move(obj.x,obj.y);
                     //Check for game over
                     if(this.isGameOver()){
-                        console.log("nunca e game over")
                         this.currentState = this.state.END_GAME;
                         return;
                     }
@@ -204,7 +203,6 @@ class Game {
                     this.selectedPiece.move(obj.x,obj.y);
                     //Check for game over
                     if(this.isGameOver()){
-                        console.log("nunca e game over")
                         this.currentState = this.state.END_GAME;
                         return;
                     }
