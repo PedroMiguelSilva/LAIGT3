@@ -1,0 +1,91 @@
+<yas>
+    <scene root = "Tor" axis_length = "7" />
+
+    <views default = "default">
+        <perspective id = "default" near = "0.1" far = "500" angle = "45">
+            <from x = "15" y = "15" z = "15"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+    </views>
+
+    <ambient>
+        <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        <background r = "0.8" g = "0.3" b = "0.9" a = "1" />
+    </ambient>  
+
+    <lights>
+        
+        <omni id = "omni1" enabled = "1">
+            <location x = "0" y = "20" z = "0" w = "1" />
+            <ambient r = "0" g = "1" b = "0" a = "1" />
+            <diffuse r = "0" g = "1" b = "0" a = "1" />
+            <specular r = "0" g = "1" b = "0" a = "1" />
+        </omni>
+        
+    </lights>
+
+    <textures>
+        <texture id = "rocksTexture" file = "scenes/images/rocks.jpg" />
+        <texture id = "hogwartsTexture" file = "scenes/images/hogwarts2.jpg" /> 
+    </textures>
+
+    <materials>
+        <material id = "default" shininess = "100">
+            <emission r = "0.2" g = "0.2" b = "0.2" a = "1" />
+            <ambient r = "0.2" g = "0.2" b = "0.2" a = "1" />
+            <diffuse r = "0.2" g = "0.2" b = "0.2" a = "1" />
+            <specular r = "0.2" g = "0.2" b = "0.2" a = "1" />
+        </material>
+
+        
+    </materials>
+
+    <!--  TRANSFORMATIONS TAG  -->
+    <transformations>
+
+        <!-- Identity -->
+        <transformation id = "Identity">
+            <translate x = "0" y = "0" z = "0" />
+        </transformation>
+
+    
+
+    </transformations>
+
+
+    <animations>
+    </animations>
+
+    <!--  PRIMITIVES TAG  -->
+    <primitives>
+
+        <primitive id = "torus">
+            <torus inner = "0.5" outer = "1" slices = "50" loops = "50" />
+        </primitive>
+
+    </primitives>
+
+    <!--  COMPONENT TAG  -->   
+    <components>
+
+        <!-- Torus -->
+        <component id = "Tor">
+            <transformation>
+                <transformationref id = "TorTrans" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+            <texture id = "hogwartsTexture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "torus" />
+            </children>
+        </component>
+
+    </components>
+
+</yas>

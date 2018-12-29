@@ -1,0 +1,114 @@
+<yas>
+    <scene root = "terrain" axis_length = "7" />
+
+    <views default = "farAway">
+
+        <perspective id = "farAway" near = "1.26" far = "500" angle = "23">
+            <from x = "50" y = "50" z = "50"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+    </views>
+
+    <ambient>
+        <ambient r = "1" g = "0.5" b = "0.5" a = "1" />
+        <background r = "0.8" g = "0.3" b = "0.9" a = "1" />
+    </ambient>  
+
+    <lights>
+        <omni id = "omniDefault" enabled = "1">
+            <location x = "5" y = "0" z = "5" w = "1" />
+            <ambient r = "1" g = "0" b = "0" a = "1" />
+            <diffuse r = "1" g = "0" b = "0" a = "1" />
+            <specular r = "1" g = "0" b = "0" a = "1" />
+        </omni>
+    </lights>
+
+    <textures>
+        <texture id = "defaultTexture" file = "scenes/images/final.jpg" />
+        <texture id = "water" file = "scenes/images/water.jpg" />
+    </textures>
+
+    <materials>
+
+        <material id = "default" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "1" g = "0" b = "0" a = "1" />
+            <diffuse r = "1" g = "0" b = "0" a = "1" />
+            <specular r = "1" g = "0" b = "0" a = "1" />
+        </material>
+
+    </materials>
+
+    <!--  TRANSFORMATIONS TAG  -->
+    <transformations>
+
+        <!-- Operacao inutil apenas para manter tamanho -->
+        <transformation id = "aumenta">
+            <scale x = "20" y = "1" z = "20" />
+        </transformation>
+
+        <transformation id = "aumenta pouco">
+            <scale x = "1.5" y = "1" z = "1.5" />
+        </transformation>
+
+    </transformations>
+
+    <!-- ANIMATIONS TAG -->
+    <animations>
+        
+    </animations>
+
+    <!--  PRIMITIVES TAG  -->
+    <primitives>
+
+        <primitive id = "terrain">
+            <terrain idtexture = "scenes/images/final.jpg" idheightmap = "scenes/images/final2.jpg" parts = "50" heightscale = "3" />
+        </primitive>
+
+        <primitive id = "water">
+            <water idtexture = "scenes/images/water.jpg" idwavemap = "scenes/images/hmap.jpg" parts = "50" heightscale = "2" texscale = "1"/>
+        </primitive>
+
+    </primitives>
+
+    <!--  COMPONENT TAG  -->   
+    <components>
+
+        <!-- Cubo unitário com uma unidade de aresta e volume -->
+        <component id = "terrain">
+            <transformation>
+                <transformationref id = "aumenta" />
+            </transformation>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+             <texture id = "defaultTexture" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id = "terrain" />
+                <componentref id = "water" />
+            </children>
+        </component>
+
+        <component id = "water">
+            <transformation>
+                <transformationref id = "aumenta pouco" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "water" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "water" />
+            </children>
+        </component>
+
+    </components>
+
+</yas>

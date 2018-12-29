@@ -1,0 +1,108 @@
+<yas>
+    <scene root = "component" axis_length = "7" />
+
+    <views default = "farAway">
+        <perspective id = "default" near = "0.1" far = "500" angle = "23">
+            <from x = "15" y = "15" z = "15"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+        <perspective id = "farAway" near = "1.26" far = "500" angle = "23">
+            <from x = "50" y = "50" z = "50"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+        <ortho id = "ortho1" near = "0.1" far = "500" left = "-30" right = "30" top  = "10" bottom = "-10">
+            <from x = "0" y = "15" z = "0"/>
+            <to x = "0" y = "0" z = "0"/>
+        </ortho>
+    </views>
+
+    <ambient>
+        <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        <background r = "0.8" g = "0.3" b = "0.9" a = "1" />
+    </ambient>  
+
+    <lights>
+        <omni id = "omniDefault" enabled = "1">
+            <location x = "5" y = "0" z = "5" w = "1" />
+            <ambient r = "0" g = "0" b = "1" a = "1" />
+            <diffuse r = "0" g = "1" b = "0" a = "1" />
+            <specular r = "1" g = "0" b = "0" a = "1" />
+        </omni>
+    </lights>
+
+    <textures>
+        <texture id = "defaultTexture" file = "scenes/images/rocks.jpg" />
+    </textures>
+
+    <materials>
+       
+        <material id = "default" shininess = "1">
+            <emission r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </material>
+
+    </materials>
+
+    <!--  TRANSFORMATIONS TAG  -->
+    <transformations>
+
+        <!-- Rotacao a aplicar no boneco de neve inteiro -->
+        <transformation id = "identity">
+            <translate x="0" y="0" z="0" />
+        </transformation>
+
+    </transformations>
+
+    <!-- ANIMATIONS TAG -->
+    <animations>
+        <linear id = "anima_l" span = "4" selfrotation = "720">
+            <controlpoint xx = "0" yy = "0" zz = "0" />
+            <controlpoint xx = "10" yy = "0" zz = "0" />
+            <controlpoint xx = "10" yy = "0" zz = "10" />
+            <controlpoint xx = "0" yy = "0" zz = "10" />
+        </linear>
+
+        <circular id = "anima_c" span = "2" center = "0 10 0" radius = "0" startang = "-90" rotang = "180" selfrotation = "-360" />
+    </animations>
+
+    <!--  PRIMITIVES TAG  -->
+    <primitives>
+
+        <primitive id = "primitive">
+            <cylinder base = "2" top = "0.03" height = "5" slices = "6" stacks = "10" />
+        </primitive>
+
+    </primitives>
+
+    <!--  COMPONENT TAG  -->   
+    <components>
+
+        <!-- Componente principal, vai ser o corpo do boneco de neve -->
+        <component id = "component">
+            <transformation>
+                <transformationref id="identity" />
+            </transformation>
+
+            <animations>
+                <animationref id = "anima_l" />
+                <animationref id = "anima_c" />   
+            </animations>
+
+            <materials>
+                <material id = "default" />
+            </materials>
+
+             <texture id = "none" length_s = "1" length_t = "1" />
+
+            <children>
+                <primitiveref id="primitive" />
+            </children>
+        </component>
+
+    </components>
+
+</yas>
