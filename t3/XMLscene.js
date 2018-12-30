@@ -64,7 +64,7 @@ class XMLscene extends CGFscene {
                     if(obj){
                         var customId = this.pickResults[i][1];
                         console.log("Object: " + obj + ", with id = " + customId);
-                        this.graph.game.stateMachine(customId, obj);
+                        this.graph.game.stateMachine(customId,this.graph.game.pieces[customId-1] | null,obj);
                     }
                 }
                 this.pickResults.splice(0,this.pickResults.length);

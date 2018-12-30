@@ -17,18 +17,18 @@ class Game {
 
         //Create the pieces and set their initial positions
         this.pieces = [
-            new Man(this.scene,-6,-6),
-            new Man(this.scene,-3,-6),
-            new Man(this.scene, 0,-6),
-            new Man(this.scene, 3,-6),
-            new Man(this.scene, 6,-6),
+            new Man(this.scene,-6,-6,"White"),
+            new Man(this.scene,-3,-6,"White"),
+            new Man(this.scene, 0,-6,"White"),
+            new Man(this.scene, 3,-6,"White"),
+            new Man(this.scene, 6,-6,"White"),
             0,
             0,
-            new Man(this.scene,-6,6),
-            new Man(this.scene,-3,6),
-            new Man(this.scene, 0,6),
-            new Man(this.scene, 3,6),
-            new Man(this.scene, 6,6),
+            new Man(this.scene,-6,6,"Black"),
+            new Man(this.scene,-3,6,"Black"),
+            new Man(this.scene, 0,6,"Black"),
+            new Man(this.scene, 3,6,"Black"),
+            new Man(this.scene, 6,6,"Black"),
             0,
             0
         ] // 7 first for white, 7 last for black, in order: MMMMMKKmmmmmkk
@@ -156,9 +156,12 @@ class Game {
     /**
      * State machine that handles the state of the game
      */
-    stateMachine(customId, obj){
+    stateMachine(customId, piecePicked, comp){
         console.log("==============================");
         console.log(this.currentState);
+
+        var validMoves = [];
+
         switch(this.currentState){
             case this.state.START:
                 break;
@@ -168,7 +171,8 @@ class Game {
                     //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-
+                    validMoves = this.getValidMoves(piecePicked);
+                    console.log(validMoves)
                     //Update Game state
                     this.currentState = this.state.PLAYER_1_MOVE;
                 }
@@ -178,11 +182,13 @@ class Game {
                 if(this.whiteAlivePieces.includes(customId)){
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
+                    validMoves = this.getValidMoves(piecePicked);
+                    console.log(validMoves)
                 }
                 //Chose destination tile
                 else if(customId >= 15 && customId <= 81){
                     //Need to add logic here
-                    this.selectedPiece.move(obj.x,obj.y);
+                    this.selectedPiece.move(comp.x,comp.y);
                     //Check for game over
                     if(this.isGameOver()){
                         this.currentState = this.state.END_GAME;
@@ -198,7 +204,8 @@ class Game {
                     //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-
+                    validMoves = this.getValidMoves(piecePicked);
+                    console.log(validMoves)
                     //Update Game state
                     this.currentState = this.state.PLAYER_2_MOVE;
                 }
@@ -207,12 +214,16 @@ class Game {
                 //Chose another black piece
                 if(this.blackAlivePieces.includes(customId)){
                     this.selectedPiece = this.pieces[customId-1];
+                    validMoves = this.getValidMoves(piecePicked);
+                    console.log(validMoves)
                     this.currentMovementState = this.movementState.START;
                 }
                 //Chose destination tile
                 else if(customId >= 15 && customId <= 81){
+                    validMoves = this.getValidMoves(piecePicked);
+                    console.log(validMoves)
                     //Need to add logic here
-                    this.selectedPiece.move(obj.x,obj.y);
+                    this.selectedPiece.move(comp.x,comp.y);
                     //Check for game over
                     if(this.isGameOver()){
                         this.currentState = this.state.END_GAME;
@@ -272,5 +283,74 @@ class Game {
         }
         
         return false;
+    }
+
+    //Only checks for 4 possible orientations for now
+    getValidMoves(movingPiece){
+        var results = [];
+        let upX = movingPiece.x + 3;
+        let upY = movingPiece.y;
+        let pieceUp = this.getPiece(upX,upY);
+        if(pieceUp){
+            upX += 3;
+            pieceUp = this.getPiece(upX,upY);
+        }
+        //If it doesn't exist any piece, then we can create a move
+        if(!pieceUp){
+            let move = new Move(this.scene, movingPiece, upX,upY);
+            results.push(move);
+        }
+
+        let downX = movingPiece.x - 3;
+        let downY = movingPiece.y;
+        let pieceDown = this.getPiece(downX,downY);
+        if(pieceDown){
+            downX -= 3;
+            pieceDown = this.getPiece(downX,downY);
+        }
+        //If it doesn't exist any piece, then we can create a move
+        if(!pieceDown){
+            let move = new Move(this.scene, movingPiece, downX,downY);
+            results.push(move);
+        }
+        
+        let rightX = movingPiece.x;
+        let rightY = movingPiece.y + 3;
+        let pieceRight = this.getPiece(rightX,rightY);
+        if(pieceRight){
+            rightY += 3;
+            pieceRight = this.getPiece(rightX,rightY);
+        }
+        //If it doesn't exist any piece, then we can create a move
+        if(!pieceRight){
+            let move = new Move(this.scene, movingPiece, rightX,rightY);
+            results.push(move);
+        }
+
+        let leftX = movingPiece.x;
+        let leftY = movingPiece.y - 3;
+        let pieceLeft = this.getPiece(leftX,leftY);
+        if(pieceLeft){
+            leftY -= 3;
+            pieceLeft = this.getPiece(leftX,leftY);
+        }
+        //If it doesn't exist any piece, then we can create a move
+        if(!pieceLeft){
+            let move = new Move(this.scene, movingPiece, leftX,leftY);
+            results.push(move);
+        }
+
+        return results;
+    }
+
+
+    getPiece(x,y){
+        for(let i = 0 ; i < this.pieces.length; i++){
+            let tempPiece = this.pieces[i];
+            if(tempPiece.x == x && tempPiece.y == y){
+                return tempPiece;
+            }
+        }
+        return null;
     }
 }

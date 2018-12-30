@@ -3,7 +3,7 @@
  */
 class Man 
 {
-    constructor(scene, x, z){
+    constructor(scene, x, z,type){
        this.scene = scene;
 
        //Animations 
@@ -14,6 +14,8 @@ class Man
        
        this.x = x;
        this.y = z;
+
+        this.type = type;
 
        this.move_state = {
            PLAIN : "Plain",
