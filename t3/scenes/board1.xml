@@ -259,7 +259,6 @@
 
         <component id = "man">
             <transformation>
-                <translate x = "3" y = "0" z ="0" />
                 <rotate axis = "x" angle = "-90" />
             </transformation>
         
