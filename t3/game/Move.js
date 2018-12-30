@@ -32,6 +32,20 @@ class Move {
         this.init();
     }
 
+    /**
+     * Executes this same movement
+     */
+    execute(){
+        this.piece.move(this.destX,this.destY);
+    }
+
+    /**
+     * Executes the reverse movement of this movement
+     */
+    executeReverse(){
+
+    }
+
     init(){
         //Check for a plain move
         let deltaX = (this.fromX - this.destX);

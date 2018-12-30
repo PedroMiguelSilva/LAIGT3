@@ -42,7 +42,6 @@ class Piece
 
    }
 
-
    /**
     * Creates an animation to allow the man to move from current position to the position given in arguments
     * @param {Coordinate of the destination of the move} xFinal 

@@ -210,8 +210,9 @@ class Game {
                 //Chose destination tile
                 else if(customId >= 15 && customId <= 81){
                     //Need to add logic here
-                    if(this.isMoveInValidMoves(comp.x,comp.y)){
-                       this.selectedPiece.move(comp.x,comp.y);
+                    let move = this.isMoveInValidMoves(comp.x,comp.y);
+                    if(move){
+                       move.execute();
                        this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
                     }
                     //Check for game over
@@ -229,8 +230,10 @@ class Game {
                 }
                 if(customId >= 15 && customId <= 81){
                     this.validMoves = this.getValidMoves(this.selectedPiece);
-                    if(this.isMoveInValidMoves(comp.x,comp.y)){
-                        this.selectedPiece.move(comp.x,comp.y);
+                    
+                    let move = this.isMoveInValidMoves(comp.x,comp.y)
+                    if(move){
+                        move.execute();
                         this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
                      }
                 }
@@ -257,8 +260,9 @@ class Game {
                 else if(customId >= 15 && customId <= 81){
 
                     //Need to add logic here
-                    if(this.isMoveInValidMoves(comp.x,comp.y)){
-                        this.selectedPiece.move(comp.x,comp.y);
+                    let move = this.isMoveInValidMoves(comp.x,comp.y)
+                    if(move){
+                        move.execute();
                         this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
                      }
 
@@ -276,8 +280,9 @@ class Game {
                 }
                 if(customId >= 15 && customId <= 81){
                     this.validMoves = this.getValidMoves(this.selectedPiece);
-                    if(this.isMoveInValidMoves(comp.x,comp.y)){
-                        this.selectedPiece.move(comp.x,comp.y);
+                    let move = this.isMoveInValidMoves(comp.x,comp.y);
+                    if(move){
+                        move.execute();
                         this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
                      }
                 }
@@ -298,14 +303,17 @@ class Game {
         
     }//end of state machine
 
+    /**
+     * Returns move if its valid, null otherwise
+     */
     isMoveInValidMoves(x,y){
         for(let i = 0 ; i < this.validMoves.length; i++){
             let move = this.validMoves[i];
             if(move.destX == x && move.destY == y){
-                return true;
+                return move;
             }
         }
-        return false;
+        return null;
     }
 
     /**
