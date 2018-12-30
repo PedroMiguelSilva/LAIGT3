@@ -59,6 +59,8 @@ class Game {
 
         this.currentMovementState = this.movementState.START;
         this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+        console.log("==============================");
+        console.log(this.currentState);
         this.selectedPiece = null;
 
         /**
@@ -82,6 +84,7 @@ class Game {
         this.whiteAlivePieces = [1,2,3,4,5,6,7];
         this.blackAlivePieces = [8,9,10,11,12,13,14];
 
+        // Castle coordinates
         this.whiteCastle = new Object();
         this.whiteCastle.x = 0;
         this.whiteCastle.y = -18;
@@ -90,6 +93,10 @@ class Game {
         this.blackCastle.y = 18;
     }
 
+    /**
+     * Updates the values of the game
+     * @param {Variation of time between 2 updates} delta 
+     */
     update(delta){ 
 
         for(var i = 0; i < this.pieces.length; i++){
@@ -100,6 +107,9 @@ class Game {
        
     }
 
+    /**
+     * Displays the scene
+     */
     display(){
         //for each piece, performe their animations and then display it
         this.defaultMaterial = new CGFappearance(this.scene);
@@ -143,9 +153,11 @@ class Game {
         // posiçao fixa se nao houver
     }
 
-
-
+    /**
+     * State machine that handles the state of the game
+     */
     stateMachine(customId, obj){
+        console.log("==============================");
         console.log(this.currentState);
         switch(this.currentState){
             case this.state.START:
@@ -227,6 +239,10 @@ class Game {
         
     }//end of state machine
 
+    /**
+     * Checks if the game is over
+     * @returns true if game over, false otherwise
+     */
     isGameOver(){
         
         //White has no pieces alive
@@ -250,7 +266,6 @@ class Game {
         //Black conquered White castle
         for(var i = 0 ; i < this.blackAlivePieces.length; i++){
             var piece = this.pieces[this.blackAlivePieces[i]-1];
-            console.log(piece)
             if(piece.x === this.whiteCastle.x && piece.y === this.whiteCastle.y){
                 return true;
             }
