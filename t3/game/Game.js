@@ -91,6 +91,8 @@ class Game {
         this.blackCastle = new Object();
         this.blackCastle.x = 0;
         this.blackCastle.y = 18;
+
+        this.validMoves = [];
     }
 
     /**
@@ -171,8 +173,8 @@ class Game {
                     //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-                    let valid = this.getValidMoves(piecePicked);
-                    console.log(valid)
+                    this.validMoves = this.getValidMoves(piecePicked);
+                    console.log(this.validMoves)
                     //Update Game state
                     this.currentState = this.state.PLAYER_1_MOVE;
                 }
@@ -182,20 +184,29 @@ class Game {
                 if(this.whiteAlivePieces.includes(customId)){
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-                    let valid = this.getValidMoves(piecePicked);
-                    console.log(valid)
+                    this.validMoves = this.getValidMoves(piecePicked);
+                    console.log(this.validMoves)
                 }
                 //Chose destination tile
                 else if(customId >= 15 && customId <= 81){
+
+                    console.log("valid moves before:")
+                    console.log(this.validMoves)
                     //Need to add logic here
-                    this.selectedPiece.move(comp.x,comp.y);
+                    if(this.isMoveInValidMoves(comp.x,comp.y)){
+                       this.selectedPiece.move(comp.x,comp.y);
+                       this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                    }
+                    
+
+
+
+
                     //Check for game over
                     if(this.isGameOver()){
                         this.currentState = this.state.END_GAME;
                         return;
-                    }
-                    //Some more logic to check if it has stoped playing or not 
-                    this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                    }                    
                 }
                 break;
             case this.state.PLAYER_2_SELECT_PIECE:
@@ -204,8 +215,8 @@ class Game {
                     //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-                    let valid = this.getValidMoves(piecePicked);
-                    console.log(valid)
+                    this.validMoves = this.getValidMoves(piecePicked);
+                    console.log(this.validMoves)
                     //Update Game state
                     this.currentState = this.state.PLAYER_2_MOVE;
                 }
@@ -214,24 +225,27 @@ class Game {
                 //Chose another black piece
                 if(this.blackAlivePieces.includes(customId)){
                     this.selectedPiece = this.pieces[customId-1];
-                    let valid = this.getValidMoves(piecePicked);
-                    console.log(valid)
+                    this.validMoves = this.getValidMoves(piecePicked);
+                    console.log(this.validMoves)
                     this.currentMovementState = this.movementState.START;
                 }
                 //Chose destination tile
                 else if(customId >= 15 && customId <= 81){
-                    let valid = this.getValidMoves(piecePicked);
-                    console.log(valid)
+
+
                     //Need to add logic here
-                    this.selectedPiece.move(comp.x,comp.y);
+                    if(this.isMoveInValidMoves(comp.x,comp.y)){
+                        this.selectedPiece.move(comp.x,comp.y);
+                        this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                     }
+
+
+
                     //Check for game over
                     if(this.isGameOver()){
                         this.currentState = this.state.END_GAME;
                         return;
                     }
-                        
-                    //Some more logic to check if it has stoped playing or not 
-                    this.currentState = this.state.PLAYER_1_SELECT_PIECE;
                 }
                 break;
             case this.state.END_GAME:
@@ -249,6 +263,16 @@ class Game {
 
         
     }//end of state machine
+
+    isMoveInValidMoves(x,y){
+        for(let i = 0 ; i < this.validMoves.length; i++){
+            let move = this.validMoves[i];
+            if(move.destX == x && move.destY == y){
+                return true;
+            }
+        }
+        return false;
+    }
 
     /**
      * Checks if the game is over
