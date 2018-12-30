@@ -159,8 +159,8 @@ class Game {
     stateMachine(customId, piecePicked, comp){
         console.log("==============================");
         console.log(this.currentState);
+        console.log(piecePicked)
 
-        var validMoves = [];
 
         switch(this.currentState){
             case this.state.START:
@@ -171,8 +171,8 @@ class Game {
                     //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-                    validMoves = this.getValidMoves(piecePicked);
-                    console.log(validMoves)
+                    let valid = this.getValidMoves(piecePicked);
+                    console.log(valid)
                     //Update Game state
                     this.currentState = this.state.PLAYER_1_MOVE;
                 }
@@ -182,8 +182,8 @@ class Game {
                 if(this.whiteAlivePieces.includes(customId)){
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-                    validMoves = this.getValidMoves(piecePicked);
-                    console.log(validMoves)
+                    let valid = this.getValidMoves(piecePicked);
+                    console.log(valid)
                 }
                 //Chose destination tile
                 else if(customId >= 15 && customId <= 81){
@@ -204,8 +204,8 @@ class Game {
                     //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-                    validMoves = this.getValidMoves(piecePicked);
-                    console.log(validMoves)
+                    let valid = this.getValidMoves(piecePicked);
+                    console.log(valid)
                     //Update Game state
                     this.currentState = this.state.PLAYER_2_MOVE;
                 }
@@ -214,14 +214,14 @@ class Game {
                 //Chose another black piece
                 if(this.blackAlivePieces.includes(customId)){
                     this.selectedPiece = this.pieces[customId-1];
-                    validMoves = this.getValidMoves(piecePicked);
-                    console.log(validMoves)
+                    let valid = this.getValidMoves(piecePicked);
+                    console.log(valid)
                     this.currentMovementState = this.movementState.START;
                 }
                 //Chose destination tile
                 else if(customId >= 15 && customId <= 81){
-                    validMoves = this.getValidMoves(piecePicked);
-                    console.log(validMoves)
+                    let valid = this.getValidMoves(piecePicked);
+                    console.log(valid)
                     //Need to add logic here
                     this.selectedPiece.move(comp.x,comp.y);
                     //Check for game over
