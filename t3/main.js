@@ -17,8 +17,9 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
                                 'animations/Animation.js','animations/LinearAnimation.js','Coord.js','animations/CircularAnimation.js',
                                 'primitives/Plane.js', 'primitives/Patch.js', 'primitives/Cylinder2.js', 'primitives/Vehicle.js',
                                 'primitives/Terrain.js','primitives/Water.js',
-                                'game/Board.js','game/Game.js','game/Man.js','game/Knight.js',
+                                'game/Board.js','game/Game.js','game/Piece.js',
                                 'game/Move.js','game/Timer.js',
+                                'game/Client.js','game/Bot.js',
 main=function()
 {
 	// Standard application, scene and interface setup

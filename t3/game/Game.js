@@ -18,20 +18,20 @@ class Game {
 
         //Create the pieces and set their initial positions
         this.pieces = [
-            new Man(this.scene,-6,-6,"White"),
-            new Man(this.scene,-3,-6,"White"),
-            new Man(this.scene, 0,-6,"White"),
-            new Man(this.scene, 3,-6,"White"),
-            new Man(this.scene, 6,-6,"White"),
-            0,
-            0,
-            new Man(this.scene,-6,6,"Black"),
-            new Man(this.scene,-3,6,"Black"),
-            new Man(this.scene, 0,6,"Black"),
-            new Man(this.scene, 3,6,"Black"),
-            new Man(this.scene, 6,6,"Black"),
-            0,
-            0
+            new Piece(this.scene,-6,-6,"Man","White"),
+            new Piece(this.scene,-3,-6,"Man","White"),
+            new Piece(this.scene, 0,-6,"Man","White"),
+            new Piece(this.scene, 3,-6,"Man","White"),
+            new Piece(this.scene, 6,-6,"Man","White"),
+            new Piece(this.scene,-3,-9,"Knight","White"),
+            new Piece(this.scene, 3,-9,"Knight","White"),
+            new Piece(this.scene,-6,6,"Man","Black"),
+            new Piece(this.scene,-3,6,"Man","Black"),
+            new Piece(this.scene, 0,6,"Man","Black"),
+            new Piece(this.scene, 3,6,"Man","Black"),
+            new Piece(this.scene, 6,6,"Man","Black"),
+            new Piece(this.scene,-3, 9,"Knight","Black"),
+            new Piece(this.scene, 3, 9,"Knight","Black")
         ] // 7 first for white, 7 last for black, in order: MMMMMKKmmmmmkk
 
         /**
