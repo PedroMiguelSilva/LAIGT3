@@ -213,7 +213,13 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
                        move.execute();
-                       this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
+                       if(move.moveType == "plain move"){
+                           this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                       }
+                       else{
+                           this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
+                       }
+                       
                     }
                     //Check for game over
                     if(this.isGameOver()){
@@ -234,7 +240,11 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
                         move.execute();
-                        this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
+                        if(move.moveType == "plain move"){
+                            this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                        }else{
+                            this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
+                        }
                      }
                 }
                 break;
@@ -263,7 +273,11 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
                         move.execute();
-                        this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
+                        if(move.moveType == "plain move"){
+                            this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                        }else{
+                            this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
+                        }
                      }
 
                     //Check for game over
@@ -283,7 +297,11 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
                         move.execute();
-                        this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
+                        if(move.moveType == "plain move"){
+                            this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                        }else{
+                            this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
+                        }
                      }
                 }
                 break;
