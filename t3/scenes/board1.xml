@@ -1,5 +1,5 @@
 <yas>
-    <scene root = "boardPrim" axis_length = "7" />
+    <scene root = "root" axis_length = "7" />
 
     <views default = "default">
         <perspective id = "default" near = "0.1" far = "500" angle = "23">
@@ -34,6 +34,16 @@
 
     <textures>
         <texture id = "defaultTexture" file = "scenes/images/rocks.jpg" />
+        <texture id = "number0" file = "scenes/images/number0.png" />
+        <texture id = "number1" file = "scenes/images/number1.png" />
+        <texture id = "number2" file = "scenes/images/number2.png" />
+        <texture id = "number3" file = "scenes/images/number3.png" />
+        <texture id = "number4" file = "scenes/images/number4.png" />
+        <texture id = "number5" file = "scenes/images/number5.png" />
+        <texture id = "number6" file = "scenes/images/number6.png" />
+        <texture id = "number7" file = "scenes/images/number7.png" />
+        <texture id = "number8" file = "scenes/images/number8.png" />
+        <texture id = "number9" file = "scenes/images/number9.png" />
     </textures>
 
     <materials>
@@ -70,6 +80,20 @@
             <ambient r = "0" g = "0" b = "0" a = "1" />
             <diffuse r = "0" g = "0" b = "0" a = "1" />
             <specular r = "0" g = "0" b = "0" a = "1" />
+        </material>
+
+        <material id = "red" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "1" g = "0" b = "0" a = "1" />
+            <diffuse r = "1" g = "0" b = "0" a = "1" />
+            <specular r = "1" g = "0" b = "0" a = "1" />
+        </material>
+
+        <material id = "green" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0" g = "1" b = "0" a = "1" />
+            <diffuse r = "0" g = "1" b = "0" a = "1" />
+            <specular r = "0" g = "1" b = "0" a = "1" />
         </material>
     </materials>
 
@@ -119,6 +143,10 @@
             <board />
         </primitive>
 
+        <primitive id = "timer">
+            <timer />
+        </primitive>
+
         <!-- 
         <primitive id = "board">
             <board defaultMan = "man" defaultKnight = "knight">
@@ -156,6 +184,24 @@
         
             <children>
                 <primitiveref id = "board" />
+                <componentref id = "timer" />
+            </children>
+        </component>
+
+        <component id = "timer">
+            <transformation>
+                <translate x = "-20" y = "0" z ="0" />
+                <rotate axis = "y" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "black" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "timer" />
             </children>
         </component>
 

@@ -1102,6 +1102,9 @@ class MySceneGraph {
             case "board":
                 primitive = new Board(this.scene);
                 break;
+            case "timer":
+                primitive = new Timer(this.scene);
+                break;
             default:
                 this.onXMLError("Primitive with unkown name:" + type);
         }

@@ -11,6 +11,9 @@ class Man
        this.animation.addControlPoint(x-0.01,0,z);
        this.animation.addControlPoint(x,0,z);
        this.animation.init();
+
+       this.startX = x;
+       this.startY = z;
        
        this.x = x;
        this.y = z;
@@ -27,6 +30,10 @@ class Man
        this.selected = false;
     }
 
+    restart(){
+        this.move(this.startX,this.startY);
+    }
+
     /**
      * Checks if its a valid move given the current game and board
      */
@@ -41,16 +48,15 @@ class Man
     * @param {Coordinate of the destination of the move} yFinal 
     */
    move(xFinal, yFinal){
-    console.log("Piece moved from (" + this.x + "," + this.y + ") to (" + xFinal + "," + yFinal + ")");
+        //console.log("Piece moved from (" + this.x + "," + this.y + ") to (" + xFinal + "," + yFinal + ")");
        // note - save the end position of the animatino in the x and z values of this object for next animation reference
         let newAnime = new LinearAnimation(this.scene,2);
-        newAnime.addControlPoint(this.x,0,this.y);
+        newAnime.addControlPoint(this.x-0.01,0,this.y-0.01);
         newAnime.addControlPoint(xFinal,0,yFinal);
         newAnime.init();
         this.animation = newAnime;
         this.x = xFinal;
         this.y = yFinal;
-        
    }
 
    /**

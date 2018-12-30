@@ -41,8 +41,10 @@ class Game {
             PLAYER_1_SELECT_PIECE: "WHITE: Select a piece to move",
             PLAYER_1_MOVE_PIECE_CANTER: "WHITE: Select a destination of move",
             PLAYER_1_MOVE: "WHITE: Select a destination of move",
+            PLAYER_1_CONTINUE_MOVE: "WHITE: Select a destination of move",
             PLAYER_2_SELECT_PIECE: "BLACK: Select a piece to move",
             PLAYER_2_MOVE: "BLACK: Select a destination of move",
+            PLAYER_2_CONTINUE_MOVE: "BLACK: Select a destination of move",
             END_GAME: "Game ended",
             QUIT_GAME: "Quit Game",
             MOVIE: "Showing game movie, please wait",
@@ -105,8 +107,7 @@ class Game {
             if(this.pieces[i].animation != undefined){
                 this.pieces[i].animation.update(delta);
             }
-        }
-       
+        } 
     }
 
     /**
@@ -155,14 +156,24 @@ class Game {
         // posiçao fixa se nao houver
     }
 
+    restart(){
+        for(var i = 0 ; i < this.pieces.length; i++){
+            if(this.pieces[i] != 0)
+            this.pieces[i].restart();
+        }
+    }
+
     /**
      * State machine that handles the state of the game
      */
     stateMachine(customId, piecePicked, comp){
         console.log("==============================");
         console.log(this.currentState);
-        console.log(piecePicked)
 
+        // Restart game
+        if(customId == 102){
+            this.restart();
+        }
 
         switch(this.currentState){
             case this.state.START:
@@ -198,8 +209,6 @@ class Game {
                        this.currentState = this.state.PLAYER_2_SELECT_PIECE;
                     }
                     
-
-
 
 
                     //Check for game over
