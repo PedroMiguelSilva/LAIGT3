@@ -1,5 +1,5 @@
 <yas>
-    <scene root = "pieces" axis_length = "7" />
+    <scene root = "root" axis_length = "7" />
 
     <views default = "default">
         <perspective id = "default" near = "0.1" far = "500" angle = "23">
