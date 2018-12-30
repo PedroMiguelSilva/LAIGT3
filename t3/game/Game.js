@@ -63,7 +63,7 @@ class Game {
         }
 
         this.currentMovementState = this.movementState.START;
-        this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+        this.currentState = this.state.START;
         console.log("==============================");
         console.log(this.currentState);
         this.selectedPiece = null;
@@ -181,6 +181,11 @@ class Game {
 
         switch(this.currentState){
             case this.state.START:
+                // Someone presse the start button
+                if(customId == 102){
+                    this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                    this.timer.start();
+                }
                 break;
             case this.state.PLAYER_1_SELECT_PIECE:
                 //Valid piece for selection
@@ -214,6 +219,11 @@ class Game {
                 }
                 break;
             case this.state.PLAYER_1_CONTINUE_MOVE:
+                //If white player presses button
+                if(customId == 101){
+                    this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                    this.timer.changePlayer();
+                }
                 if(customId >= 15 && customId <= 81){
                     this.validMoves = this.getValidMoves(this.selectedPiece);
                     if(this.isMoveInValidMoves(comp.x,comp.y)){
@@ -257,6 +267,10 @@ class Game {
                 }
                 break;
             case this.state.PLAYER_2_CONTINUE_MOVE:
+                if(customId == 100){
+                    this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                    this.timer.changePlayer();
+                }
                 if(customId >= 15 && customId <= 81){
                     this.validMoves = this.getValidMoves(this.selectedPiece);
                     if(this.isMoveInValidMoves(comp.x,comp.y)){

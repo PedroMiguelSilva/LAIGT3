@@ -1,3 +1,9 @@
+
+/**
+ * left button picking id is 100
+ * right button pickin id is 101
+ * restart button picking id is 102
+ */
 class Timer {
     constructor(scene){
         this.scene = scene
@@ -33,6 +39,32 @@ class Timer {
         this.previousTime = 0;
     }
 
+    changePlayer(){
+        if(this.isLeftButtonDown){
+            this.isLeftButtonDown = false;
+            this.isRightButtonDown = true;
+            this.rightBigDigit = 6;
+            this.rightSmallDigit = 0;
+        }else{
+            this.isLeftButtonDown = true;
+            this.isRightButtonDown = false;
+            this.leftBigDigit = 6; //Game.dificulty.MEDIUM.time;
+            this.leftSmallDigit = 0;
+        }
+    }
+
+    start(){
+        //TODO change according to dificulty
+        this.leftBigDigit = 6; //Game.dificulty.MEDIUM.time;
+        this.leftSmallDigit = 0;
+
+        //TODO change this according to dificulty
+        this.rightBigDigit = 6;
+        this.rightSmallDigit = 0;
+
+        this.isRightButtonDown = true;
+    }
+
     restart(){
         
     }
@@ -50,6 +82,8 @@ class Timer {
             if(this.leftSmallDigit == 0){
                 if(this.leftBigDigit == 0){
                     //GAME OVER BECAUSE TIME IT UP
+                    this.playingGame = false;
+                    console.log("White pieces won")
                 }else{
                     this.leftBigDigit -= 1;
                     this.leftSmallDigit = 9;
@@ -64,6 +98,8 @@ class Timer {
             if(this.rightSmallDigit == 0){
                 if(this.rightBigDigit == 0){
                     //GAME OVER BECAUSE TIME IT UP
+                    this.playingGame = false;
+                    console.log("Black pieces won");
                 }else{
                     this.rightBigDigit -= 1;
                     this.rightSmallDigit = 9;
