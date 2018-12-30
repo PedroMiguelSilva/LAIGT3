@@ -63,10 +63,21 @@ class Timer {
         this.rightSmallDigit = 0;
 
         this.isRightButtonDown = true;
+        this.playingGame = true;
     }
 
     restart(){
-        
+        //TODO change according to dificulty
+        this.leftBigDigit = 6; //Game.dificulty.MEDIUM.time;
+        this.leftSmallDigit = 0;
+
+        //TODO change this according to dificulty
+        this.rightBigDigit = 6;
+        this.rightSmallDigit = 0;
+        this.isLeftButtonDown = false;
+        this.isRightButtonDown = false;
+        this.isRestartButtonDown = false;
+        this.playingGame = false;
     }
 
     update(currTime){

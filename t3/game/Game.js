@@ -165,6 +165,7 @@ class Game {
             if(this.pieces[i] != 0)
             this.pieces[i].restart();
         }
+        this.timer.restart();
     }
 
     /**
@@ -175,8 +176,10 @@ class Game {
         console.log(this.currentState);
 
         // Restart game
-        if(customId == 102){
+        if(customId == 102 && this.currentState != this.state.START){
             this.restart();
+            this.currentState = this.state.START;
+            return;
         }
 
         switch(this.currentState){
