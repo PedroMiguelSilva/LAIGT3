@@ -9,6 +9,7 @@ class Game {
         this.pieceGeoIdent_Index = 0;
 
         this.board = this.scene.graph.primitives['board'];
+        this.timer = this.scene.graph.primitives['timer'];
 
         this.material = this.scene.graph.materials["dark tiles"];
 
@@ -38,13 +39,15 @@ class Game {
          */
         this.state = {
             START : "Please select a game mode",
+
             PLAYER_1_SELECT_PIECE: "WHITE: Select a piece to move",
-            PLAYER_1_MOVE_PIECE_CANTER: "WHITE: Select a destination of move",
-            PLAYER_1_MOVE: "WHITE: Select a destination of move",
+            PLAYER_1_MOVE: "WHITE: Select a destination for first move",
             PLAYER_1_CONTINUE_MOVE: "WHITE: Select a destination of move",
+
             PLAYER_2_SELECT_PIECE: "BLACK: Select a piece to move",
-            PLAYER_2_MOVE: "BLACK: Select a destination of move",
+            PLAYER_2_MOVE: "BLACK: Select a destination for first move",
             PLAYER_2_CONTINUE_MOVE: "BLACK: Select a destination of move",
+
             END_GAME: "Game ended",
             QUIT_GAME: "Quit Game",
             MOVIE: "Showing game movie, please wait",
@@ -82,6 +85,7 @@ class Game {
             MEDIUM: "Hard bot and lots of time",
             HARD: "Hard bot and less time"
         }
+        this.currentDificulty = this.dificulty.MEDIUM;
 
         this.whiteAlivePieces = [1,2,3,4,5,6,7];
         this.blackAlivePieces = [8,9,10,11,12,13,14];
@@ -184,9 +188,7 @@ class Game {
                     //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-                    this.validMoves = this.getValidMoves(piecePicked);
-                    console.log(this.validMoves)
-                    //Update Game state
+                    this.validMoves = this.getValidMoves(this.selectedPiece);
                     this.currentState = this.state.PLAYER_1_MOVE;
                 }
                 break;
@@ -195,27 +197,29 @@ class Game {
                 if(this.whiteAlivePieces.includes(customId)){
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-                    this.validMoves = this.getValidMoves(piecePicked);
-                    console.log(this.validMoves)
+                    this.validMoves = this.getValidMoves(this.selectedPiece);
                 }
                 //Chose destination tile
                 else if(customId >= 15 && customId <= 81){
-
-                    console.log("valid moves before:")
-                    console.log(this.validMoves)
                     //Need to add logic here
                     if(this.isMoveInValidMoves(comp.x,comp.y)){
                        this.selectedPiece.move(comp.x,comp.y);
-                       this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                       this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
                     }
-                    
-
-
                     //Check for game over
                     if(this.isGameOver()){
                         this.currentState = this.state.END_GAME;
                         return;
                     }                    
+                }
+                break;
+            case this.state.PLAYER_1_CONTINUE_MOVE:
+                if(customId >= 15 && customId <= 81){
+                    this.validMoves = this.getValidMoves(this.selectedPiece);
+                    if(this.isMoveInValidMoves(comp.x,comp.y)){
+                        this.selectedPiece.move(comp.x,comp.y);
+                        this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
+                     }
                 }
                 break;
             case this.state.PLAYER_2_SELECT_PIECE:
@@ -224,8 +228,7 @@ class Game {
                     //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-                    this.validMoves = this.getValidMoves(piecePicked);
-                    console.log(this.validMoves)
+                    this.validMoves = this.getValidMoves(this.selectedPiece);
                     //Update Game state
                     this.currentState = this.state.PLAYER_2_MOVE;
                 }
@@ -234,27 +237,32 @@ class Game {
                 //Chose another black piece
                 if(this.blackAlivePieces.includes(customId)){
                     this.selectedPiece = this.pieces[customId-1];
-                    this.validMoves = this.getValidMoves(piecePicked);
-                    console.log(this.validMoves)
+                    this.validMoves = this.getValidMoves(this.selectedPiece);
                     this.currentMovementState = this.movementState.START;
                 }
                 //Chose destination tile
                 else if(customId >= 15 && customId <= 81){
 
-
                     //Need to add logic here
                     if(this.isMoveInValidMoves(comp.x,comp.y)){
                         this.selectedPiece.move(comp.x,comp.y);
-                        this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                        this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
                      }
-
-
 
                     //Check for game over
                     if(this.isGameOver()){
                         this.currentState = this.state.END_GAME;
                         return;
                     }
+                }
+                break;
+            case this.state.PLAYER_2_CONTINUE_MOVE:
+                if(customId >= 15 && customId <= 81){
+                    this.validMoves = this.getValidMoves(this.selectedPiece);
+                    if(this.isMoveInValidMoves(comp.x,comp.y)){
+                        this.selectedPiece.move(comp.x,comp.y);
+                        this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
+                     }
                 }
                 break;
             case this.state.END_GAME:

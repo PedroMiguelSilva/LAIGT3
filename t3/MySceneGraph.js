@@ -73,9 +73,8 @@ class MySceneGraph {
         var rootElement = this.reader.xmlDoc.documentElement;
 
         // Here should go the calls for different functions to parse the various blocks
-        var error = this.parseXMLFile(rootElement);
+        var error = this.parseXMLFile(rootElement); 
 
-        //Teste
         this.game = new Game(this.scene);
 
         if (error != null) {
@@ -1104,6 +1103,7 @@ class MySceneGraph {
                 break;
             case "timer":
                 primitive = new Timer(this.scene);
+                this.primitivesIdWithUpdate.push(primitiveID);
                 break;
             default:
                 this.onXMLError("Primitive with unkown name:" + type);

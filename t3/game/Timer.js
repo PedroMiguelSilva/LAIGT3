@@ -20,16 +20,59 @@ class Timer {
         this.isLeftButtonDown = false;
         this.isRightButtonDown = false;
         this.isRestartButtonDown = false;
+        this.playingGame = false;
 
-        this.leftBigDigit = 1;
+        //TODO change according to dificulty
+        this.leftBigDigit = 6; //Game.dificulty.MEDIUM.time;
         this.leftSmallDigit = 0;
 
-        this.rightBigDigit = 2;
-        this.rightSmallDigit = 5;
+        //TODO change this according to dificulty
+        this.rightBigDigit = 6;
+        this.rightSmallDigit = 0;
+
+        this.previousTime = 0;
     }
 
     restart(){
         
+    }
+
+    update(currTime){
+        var timeElapsed = currTime - this.previousTime;
+        if(timeElapsed > 1000){
+            this.previousTime = currTime;
+            this.decreaseOneSecondOnActive();
+        }
+    }
+
+    decreaseOneSecondOnActive(){
+        if(this.isLeftButtonDown){
+            if(this.leftSmallDigit == 0){
+                if(this.leftBigDigit == 0){
+                    //GAME OVER BECAUSE TIME IT UP
+                }else{
+                    this.leftBigDigit -= 1;
+                    this.leftSmallDigit = 9;
+                }
+            }
+            else{
+                this.leftSmallDigit -= 1;
+            }
+        }
+
+        if(this.isRightButtonDown){
+            if(this.rightSmallDigit == 0){
+                if(this.rightBigDigit == 0){
+                    //GAME OVER BECAUSE TIME IT UP
+                }else{
+                    this.rightBigDigit -= 1;
+                    this.rightSmallDigit = 9;
+                }
+            }
+            else{
+                this.rightSmallDigit -= 1;
+            }
+        }
     }
 
     display(){
