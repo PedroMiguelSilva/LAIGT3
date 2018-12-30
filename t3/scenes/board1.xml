@@ -1,5 +1,5 @@
 <yas>
-    <scene root = "root" axis_length = "7" />
+    <scene root = "pieces" axis_length = "7" />
 
     <views default = "default">
         <perspective id = "default" near = "0.1" far = "500" angle = "23">
@@ -139,6 +139,22 @@
             <torus inner = "0.2" outer = "0.2" slices = "50" loops = "50" />
         </primitive>
 
+        <primitive id = "horse body">
+            <cylinder base = "0.6" top = "0.5" height = "1.6" slices = "50" stacks = "50" />
+        </primitive>
+
+        <primitive id = "horse head">
+            <sphere radius = "0.6" slices = "50" stacks = "50" />
+        </primitive>
+
+        <primitive id = "horse nose">
+            <cylinder base = "0.5" top = "0.4" height = "0.6" slices = "50" stacks = "50" />
+        </primitive>
+
+        <primitive id = "horse mouth">
+            <sphere radius = "0.4" slices = "50" stacks = "50" />
+        </primitive>
+
         <primitive id = "board">
             <board />
         </primitive>
@@ -170,6 +186,25 @@
     <components>
 
         <!-- ROOT =============================================== -->
+        <component id = "pieces">
+            <transformation>
+                <translate x = "0" y = "0" z ="0" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "" />
+        
+            <children>
+                <componentref id = "man" />
+                <componentref id = "horse" />  
+            </children>
+        </component>
+
+        
+
 
         <component id = "root">
             <transformation>
@@ -224,6 +259,7 @@
 
         <component id = "man">
             <transformation>
+                <translate x = "3" y = "0" z ="0" />
                 <rotate axis = "x" angle = "-90" />
             </transformation>
         
@@ -240,6 +276,77 @@
                 <primitiveref id = "man core" />
                 <componentref id = "man neck" />
                 <componentref id = "man necklace" />
+            </children>
+        </component>
+
+        <component id = "horse">
+            <transformation>
+                <translate x = "0" y = "0" z ="0" />
+                <rotate axis = "x" angle = "-90" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "man base" />
+                <primitiveref id = "man core" />
+                <componentref id = "horse body" />
+                <componentref id = "horse head" />
+                <componentref id = "horse nose" />
+                <componentref id = "horse mouth" />
+            </children>
+        </component>
+
+        <component id = "horse mouth">
+            <transformation>
+                <translate x = "0" y = "-0.85" z ="2.2" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "horse mouth" />
+            </children>
+        </component>
+
+        <component id = "horse nose">
+            <transformation>
+                <translate x = "0" y = "-0.3" z ="2.2" />
+                <rotate axis = "x" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "horse nose" />
+            </children>
+        </component>
+
+        <component id = "horse head">
+            <transformation>
+                <translate x = "0" y = "0" z ="2.2" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none"  />
+        
+            <children>
+                <primitiveref id = "horse head" />
             </children>
         </component>
 
@@ -305,6 +412,22 @@
         
             <children>
                 <primitiveref id = "man body" />
+            </children>
+        </component>
+
+        <component id = "horse body">
+            <transformation>
+                <translate x = "0" y = "0" z = "0.6" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "horse body" />
             </children>
         </component>
 
