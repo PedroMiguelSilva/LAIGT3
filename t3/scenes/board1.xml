@@ -195,7 +195,7 @@
                 <material id = "default" />
             </materials>
         
-            <texture id = "" />
+            <texture id = "none" />
         
             <children>
                 <componentref id = "man" />

@@ -21,7 +21,7 @@ class Move {
         this.types = {
             PLAIN : "plain move",
             CANTER : "canter move",
-            PLAIN : "plain move"
+            JUMP : "jump move"
         }
 
         //Id of captured piece, null if nothing captured
@@ -36,7 +36,14 @@ class Move {
      * Executes this same movement
      */
     execute(){
+        console.log(this)
+        //Actually move it
         this.piece.move(this.destX,this.destY);
+
+        //If it has captured any piece, then move it and kill it in the game
+        if(this.capturedPiece){
+            this.capturedPiece.move(100,100);
+        }
     }
 
     /**
@@ -49,21 +56,23 @@ class Move {
     init(){
         //Check for a plain move
         let deltaX = (this.fromX - this.destX);
-        let deltaY = (this.fromY - this.destY);
-        if(Math.abs(deltaX) == 3 && Math.abs(deltaY) == 3){
+        let deltaY = -(this.fromY - this.destY);
+        if(Math.abs(deltaX) == 3 || Math.abs(deltaY) == 3){
             this.moveType = this.types.PLAIN;
             return;
         }
-
+        
         //Check coordinates of the middle tile
-        let coordX = this.fromX + deltaX;
-        let coordY = this.fromY + deltaY;
+        let coordX = this.fromX + deltaX/2.0;
+        let coordY = this.fromY + deltaY/2.0;
+        
         for(let i = 0 ; i < this.scene.graph.game.pieces.length; i++){
             let pieceTemp = this.scene.graph.game.pieces[i];
+            //console.log("Coordinate: " + pieceTemp.x + " " + pieceTemp.y);
             //Found piece
+            
             if(pieceTemp.x == coordX && pieceTemp.y == coordY){
-                
-                if(pieceTemp.type != this.piece.type){
+                if(pieceTemp.color != this.piece.color){
                     this.moveType = this.types.JUMP;
                     this.capturedPiece = pieceTemp;
                 }else{
