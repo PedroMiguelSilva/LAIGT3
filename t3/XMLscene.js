@@ -45,7 +45,9 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(UPDATE_SPEED);
 
+        /* Project 3 */
         this.setPickEnabled(true);
+        this.client = new Client();
     }
 
     /**

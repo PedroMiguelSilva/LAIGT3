@@ -24,7 +24,62 @@ class Bot {
      * 
      */
     getPrologBoard() {
-        
+        var game = this.scene.graph.game;
+        var prologBoard = "[";
+
+        for(var i = 13; i >= 1; i--){
+            var line = "["
+            for(var j = 1; j <= 7; j++){
+                var cell;
+                
+                if(j!=1)
+                    line += ",";
+
+                //Out of boards (if not assumes empty)
+                cell = "e";
+                if(i==13 || i==1){
+                    if(j!=4)
+                        cell = "'X'";
+                }
+                else if(i==12 || i==2){
+                    if(j<3 || j>5)
+                        cell = "'X'";
+                }
+                else if(i==11 || i==3){
+                    if(j==1 || j==7)
+                        cell = "'X'";
+                }
+
+                //Has piece
+                var x = this.getX(j);
+                var z = this.getZ(i);
+
+                var piece = game.getPiece(x,z);
+                if(piece != null){
+                    if(piece.color == "White"){
+                        if(piece.type == "Man")
+                            cell = "w";
+                        else
+                            cell = "W";
+                    }
+                    else{
+                        if(piece.type == "Man")
+                            cell = "b";
+                        else
+                            cell = "B";
+                    }
+                }
+                
+                
+                line += cell;
+            }
+            line += "]";
+            prologBoard += line;
+        }
+
+        prologBoard += "]";
+        console.log(prologBoard);
+        return prologBoard;
     }
 
     
