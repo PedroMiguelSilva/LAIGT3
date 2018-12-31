@@ -41,6 +41,7 @@ class Timer {
         this.restartButtonAnimation = new AnimationController(this.scene);
         this.leftButtonAnimation = new AnimationController(this.scene);
         this.rightButtonAnimation = new AnimationController(this.scene);
+        this.timerLoaded = true;
     }
 
     changePlayer(){
@@ -70,12 +71,6 @@ class Timer {
         this.playingGame = true;
     }
 
-    update(delta){
-        this.restartButtonAnimation.update(delta);
-        this.leftButtonAnimation.update(delta);
-        this.rightButtonAnimation.update(delta);
-    }
-
     restart(){
         //TODO change according to dificulty
         this.leftBigDigit = 6; //Game.dificulty.MEDIUM.time;
@@ -96,6 +91,13 @@ class Timer {
             this.previousTime = currTime;
             this.decreaseOneSecondOnActive();
         }
+
+        if(this.timerLoaded){
+            this.restartButtonAnimation.update(currTime);
+            this.leftButtonAnimation.update(currTime);
+            this.rightButtonAnimation.update(currTime); 
+        }
+        
     }
 
     decreaseOneSecondOnActive(){

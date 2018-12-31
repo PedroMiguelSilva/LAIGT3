@@ -7,7 +7,7 @@ class AnimationController {
         this.scene = scene;
         this.animations = [];
         this.currentAnimationIndex = 0;
-        this.doneWithAnimations = false;
+        this.doneWithAnimations = true;
     }
 
     /**
