@@ -70,7 +70,7 @@ class Move {
 
         for(let i = 0 ; i < this.scene.graph.game.pieces.length; i++){
             let pieceTemp = this.scene.graph.game.pieces[i];
-            console.log("Coordinate: " + pieceTemp.x + " " + pieceTemp.y);
+            //console.log("Coordinate: " + pieceTemp.x + " " + pieceTemp.y);
             //Found piece
             
             if(pieceTemp.x == coordX && pieceTemp.y == coordY){

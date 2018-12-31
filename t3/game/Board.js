@@ -102,6 +102,8 @@ class Board extends CGFobject {
         pickingId++;
         this.matrix.push(last1);
         this.isLoaded = true;
+
+        this.activatedTiles = [];
     }
 
     /**
@@ -109,7 +111,33 @@ class Board extends CGFobject {
      * Can also highlight the fromX fromY position (position where the piece is)
      */
     highlightTiles(validMoves){
-        
+        for(var i = 0 ; i < validMoves.length; i++){
+            let x = validMoves[i].destX;
+            let y = validMoves[i].destY;
+            console.log("Coordinates of the tile:" + x + " " + y)
+            this.activateTile(x,y);
+        }
+    }
+
+    deactivateTiles(){
+        for(var i = 0 ; i < this.activatedTiles.length; i++){
+            this.activatedTiles[i].deactivate();
+        }
+        this.activatedTiles = [];
+    }
+
+    activateTile(x,y){
+        for(var i = 0; i < this.matrix.length; i++){
+            for(var j = 0 ; j < this.matrix[i].length; j++){
+                //console.log(this.matrix[i][j])
+                let xTile = this.matrix[i][j].x;
+                let yTile = this.matrix[i][j].y;
+                if(x == xTile && y == yTile){
+                    this.matrix[i][j].activate();
+                    this.activatedTiles.push(this.matrix[i][j]);
+                }
+            }
+        }
     }
 
     display() {

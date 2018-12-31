@@ -63,6 +63,14 @@ class Cell {
         );
     }*/
 
+    activate(){
+        this.active = true;
+    }
+
+    deactivate(){
+        this.active = false;
+    }
+
     display(currentMaterial) {
         if(this.active){
             this.activeMaterial.apply();

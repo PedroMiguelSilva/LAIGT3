@@ -245,6 +245,7 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
                         move.execute();
+                        this.board.deactivateTiles();
                         /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
                            this.currentState = this.state.PLAYER_1_WASTING_TIME;
@@ -282,6 +283,7 @@ class Game {
                         if(move.moveType == "canter move"){
                             if(this.currentMovementState == "canter move"){
                                 move.execute();
+                                this.board.deactivateTiles();
                                 //TODO ADD TO THE LIST OF MOVEMENTS
                             }
                         }
@@ -289,10 +291,12 @@ class Game {
                         if(move.moveType == "jump move"){
                             if(this.currentMovementState == "jump move"){
                                 move.execute();
+                                this.board.deactivateTiles();
                                 //TODO ADD TO THE LIST OF MOVEMENTS
                             }
                             if(this.currentMovementState == "canter move" && this.selectedPiece.type == "Knight"){
                                 move.execute();
+                                this.board.deactivateTiles();
                                 this.currentMovementState = "jump move";
                             }
                         }                      
@@ -323,6 +327,7 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
                         move.execute();
+                        this.board.deactivateTiles();
                         /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
                             this.currentState = this.state.PLAYER_2_WASTING_TIME;
@@ -361,6 +366,7 @@ class Game {
                         if(move.moveType == "canter move"){
                             if(this.currentMovementState == "canter move"){
                                 move.execute();
+                                this.board.deactivateTiles();
                                 //TODO ADD TO THE LIST OF MOVEMENTS
                             }
                         }
@@ -368,10 +374,12 @@ class Game {
                         if(move.moveType == "jump move"){
                             if(this.currentMovementState == "jump move"){
                                 move.execute();
+                                this.board.deactivateTiles();
                                 //TODO ADD TO THE LIST OF MOVEMENTS
                             }
                             if(this.currentMovementState == "canter move" && this.selectedPiece.type == "Knight"){
                                 move.execute();
+                                this.board.deactivateTiles();
                                 this.currentMovementState = "jump move";
                             }
                         }  
