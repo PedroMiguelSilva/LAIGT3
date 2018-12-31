@@ -64,12 +64,13 @@ class Move {
         }
         
         //Check coordinates of the middle tile
-        let coordX = this.fromX + deltaX/2.0;
-        let coordY = this.fromY + deltaY/2.0;
+        let coordX = (this.fromX + this.destX)/2.0;
+        let coordY = (this.fromY + this.destY)/2.0;
         
+
         for(let i = 0 ; i < this.scene.graph.game.pieces.length; i++){
             let pieceTemp = this.scene.graph.game.pieces[i];
-            //console.log("Coordinate: " + pieceTemp.x + " " + pieceTemp.y);
+            console.log("Coordinate: " + pieceTemp.x + " " + pieceTemp.y);
             //Found piece
             
             if(pieceTemp.x == coordX && pieceTemp.y == coordY){

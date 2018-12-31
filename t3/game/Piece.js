@@ -37,15 +37,24 @@ class Piece
     kill(){
         this.alive = false;
         if(this.color = "White"){
-            this.scene.graph.game.whiteAlivePieces.splice(this.id-1, 1);
+            this.deleteFromArray(this.scene.graph.game.whiteAlivePieces, this.id);
         }
         else{
-            this.scene.graph.game.blackAlivePieces.splice(this.id-1, 1);
+            this.deleteFromArray(this.scene.graph.game.blackAlivePieces, this.id);
+        }
+    }
+
+    deleteFromArray(array, elem){
+        for(var i = array.length - 1; i >= 0; i--) {
+            if(array[i] === elem) {
+               array.splice(i, 1);
+            }
         }
     }
 
     restart(){
         this.move(this.startX,this.startY);
+        this.alive = true;
     }
 
     /**

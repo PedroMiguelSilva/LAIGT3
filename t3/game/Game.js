@@ -193,6 +193,8 @@ class Game {
             this.pieces[i].restart();
         }
         this.timer.restart();
+        this.whiteAlivePieces = [1,2,3,4,5,6,7];
+        this.blackAlivePieces = [8,9,10,11,12,13,14];
     }
 
     /**
@@ -260,6 +262,7 @@ class Game {
                 if(customId == 101){
                     this.currentState = this.state.PLAYER_2_SELECT_PIECE;
                     this.timer.changePlayer();
+                    this.currentMovementState = this.movementState.START;
                 }
                 /* A tile of the board is pressed */
                 if(customId >= 15 && customId <= 81){
@@ -298,8 +301,7 @@ class Game {
                     //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
-                    this.validMoves = this.getValidMoves(this.selectedPiece);
-                    //Update Game state
+                    this.validMoves = this.getValidMoves(this.selectedPiece)
                     this.currentState = this.state.PLAYER_2_MOVE;
                 }
                 break;
@@ -312,15 +314,15 @@ class Game {
                 }
                 //Chose destination tile
                 else if(customId >= 15 && customId <= 81){
-
-                    //Need to add logic here
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
                         move.execute();
+                        /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
                             this.currentState = this.state.PLAYER_2_WASTING_TIME;
                         }
 
+                        /* Can make any other move as long as its the same one */
                         this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
                         this.currentMovementState = move.moveType;
                      }
@@ -337,6 +339,7 @@ class Game {
                 if(customId == 100){
                     this.currentState = this.state.PLAYER_1_SELECT_PIECE;
                     this.timer.changePlayer();
+                    this.currentMovementState = this.movementState.START;
                 }
                 /* A tile is pressed */
                 if(customId >= 15 && customId <= 81){
@@ -344,12 +347,10 @@ class Game {
                     
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
-                        console.log("tenta fazer o sgeundo movimento")
                         /* If it tries to do a plain move, reject */
                         if(move.moveType == "plain move"){
                             return;
                         }
-
                         /* If tries to make a canter */
                         if(move.moveType == "canter move"){
                             if(this.currentMovementState == "canter move"){
@@ -375,12 +376,14 @@ class Game {
                 if(customId == 101){
                     this.timer.changePlayer();
                     this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                    this.currentMovementState = this.movementState.START;
                 }
                 break;
             case this.state.PLAYER_2_WASTING_TIME:
                 if(customId == 100){
                     this.timer.changePlayer();
                     this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                    this.currentMovementState = this.movementState.START;
                 }
                 break;
             case this.state.END_GAME:
@@ -501,15 +504,73 @@ class Game {
             let move = new Move(this.scene, movingPiece, leftX,leftY);
             results.push(move);
         }
+        
+        /*
+        let leftUpX = movingPiece.x + 3;
+        let leftUpY = movingPiece.y - 3;
+        let pieceLeftUp = this.getPiece(leftUpX,leftUpY);
+        if(pieceLeftUp){
+            leftUpY -= 3;
+            leftUpX += 3;
+            pieceLeftUp = this.getPiece(leftUpX,leftUpY);
+        }
+        //If it doesn't exist any piece, then we can create a move
+        if(!pieceLeftUp){
+            let move = new Move(this.scene, movingPiece, leftUpX,leftUpY);
+            results.push(move);
+        }
 
-        console.log("Movimentos possiveis");
-        for(let i = 0; i < results.length; i++){
+        
+        let leftDownX = movingPiece.x - 3;
+        let leftDownY = movingPiece.y - 3;
+        let pieceLeftDown = this.getPiece(leftDownX,leftDownY);
+        if(pieceLeftDown){
+            leftDownX -= 3;
+            leftDownY -= 3;
+            pieceLeftDown = this.getPiece(leftDownX,leftDownY);
+        }
+        //If it doesn't exist any piece, then we can create a move
+        if(!pieceLeftDown){
+            let move = new Move(this.scene, movingPiece, leftDownX,leftDownY);
+            results.push(move);
+        }
+
+        let rightUpX = movingPiece.x - 3;
+        let rightUpY = movingPiece.y + 3;
+        let pieceRightUp = this.getPiece(rightUpX,rightUpY);
+        if(pieceRightUp){
+            rightUpY += 3;
+            rightUpX -= 3;
+            pieceRightUp = this.getPiece(rightUpX,rightUpY);
+        }
+        //If it doesn't exist any piece, then we can create a move
+        if(!pieceRightUp){
+            let move = new Move(this.scene, movingPiece, rightUpX,rightUpY);
+            results.push(move);
+        }
+
+        let rightDownX = movingPiece.x + 3;
+        let rightDownY = movingPiece.y + 3;
+        let pieceRightDown = this.getPiece(rightDownX,rightDownY);
+        if(pieceRightDown){
+            rightDownY += 3;
+            rightDownX += 3;
+            pieceRightDown = this.getPiece(rightDownX,rightDownY);
+        }
+        //If it doesn't exist any piece, then we can create a move
+        if(!pieceRightDown){
+            let move = new Move(this.scene, movingPiece, rightDownX,rightDownY);
+            results.push(move);
+        }
+        */
+
+        for(var i = 0; i < results.length; i++){
             console.log(results[i].moveType);
             if(results[i].moveType == "jump move"){
-                console.log(this)
                 console.log(results[i])
             }
         }
+        
 
         return results;
     }
