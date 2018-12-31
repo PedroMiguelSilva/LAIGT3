@@ -71,8 +71,8 @@
         <material id = "light tiles" shininess = "1">
             <emission r = "0" g = "0" b = "0" a = "1" />
             <ambient r = "0.7" g = "0.7" b = "0.7" a = "1" />
-            <diffuse r = "0.7" g = "0.7" b = "0.7" a = "1" />
-            <specular r = "0.7" g = "0.7" b = "0.7" a = "1" />
+            <diffuse r = "0.8" g = "0.8" b = "0.8" a = "1" />
+            <specular r = "0.2" g = "0.2" b = "0.2" a = "1" />
         </material>
 
         <material id = "black" shininess = "1">
@@ -148,11 +148,11 @@
         </primitive>
 
         <primitive id = "horse nose">
-            <cylinder base = "0.5" top = "0.4" height = "0.6" slices = "50" stacks = "50" />
+            <cylinder base = "0.6" top = "0.4" height = "1" slices = "50" stacks = "50" />
         </primitive>
 
         <primitive id = "horse mouth">
-            <sphere radius = "0.4" slices = "50" stacks = "50" />
+            <sphere radius = "0.41" slices = "50" stacks = "50" />
         </primitive>
 
         <primitive id = "board">
@@ -296,13 +296,12 @@
                 <componentref id = "horse body" />
                 <componentref id = "horse head" />
                 <componentref id = "horse nose" />
-                <componentref id = "horse mouth" />
             </children>
         </component>
 
         <component id = "horse mouth">
             <transformation>
-                <translate x = "0" y = "-0.85" z ="2.2" />
+                <translate x = "0" y = "-0.9" z ="2.2" />
             </transformation>
         
             <materials>
@@ -318,7 +317,7 @@
 
         <component id = "horse nose">
             <transformation>
-                <translate x = "0" y = "-0.3" z ="2.2" />
+                <translate x = "0" y = "0" z ="2.2" />
                 <rotate axis = "x" angle = "90" />
             </transformation>
         

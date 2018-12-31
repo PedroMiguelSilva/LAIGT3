@@ -5,7 +5,7 @@ class Game {
 
         //Piece geometric identifiers
         this.pieceGeoIdentMan = ["man"]
-        this.pieceGeoIdentKnight = ["knight"]
+        this.pieceGeoIdentKnight = ["horse"]
         this.pieceGeoIdent_Index = 0;
 
         this.board = this.scene.graph.primitives['board'];
@@ -124,6 +124,7 @@ class Game {
         this.defaultMaterial = new CGFappearance(this.scene);
         //Get the name of the component to be printed
         let nameOfMan = this.pieceGeoIdentMan[this.pieceGeoIdent_Index];
+        let nameOfKnight = this.pieceGeoIdentKnight[this.pieceGeoIdent_Index];
 
         // CHANGE 5 TO 7 ONCE THE KNIGHTS ARE DESINED AND WORKING
         for(var i = 0 ;  i < 5 ; i++ ){
@@ -135,6 +136,17 @@ class Game {
             //de acordo com a state machine, registar ou nao a peça para picking
             this.scene.registerForPick(i+1,this.scene.graph.components[nameOfMan]);
             this.scene.graph.components[nameOfMan].display(this.materialWhite,"teste",null,0);
+        
+            this.scene.popMatrix();
+        }
+        for(var i = 5 ; i < 7; i++ ){
+            this.scene.pushMatrix();
+            var anime = this.pieces[i].animation;
+            if(anime!=null){
+                anime.apply();
+            }
+            this.scene.registerForPick(i+1,this.scene.graph.components[nameOfKnight]);
+            this.scene.graph.components[nameOfKnight].display(this.materialWhite,"teste",null,0);
         
             this.scene.popMatrix();
         }
@@ -153,6 +165,19 @@ class Game {
         
             this.scene.popMatrix();
         }
+
+        for(var i = 12 ; i < 14; i++ ){
+            this.scene.pushMatrix();
+            var anime = this.pieces[i].animation;
+            if(anime!=null){
+                anime.apply();
+            }
+            this.scene.registerForPick(i+1,this.scene.graph.components[nameOfKnight]);
+            this.scene.graph.components[nameOfKnight].display(this.materialBlack,"teste",null,0);
+        
+            this.scene.popMatrix();
+        }
+
         this.board.registerAllPieces();
 
         //for loop percorre dos man, e depois dos cavaleiros por causa da diferença das geometrias
