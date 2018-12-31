@@ -43,6 +43,7 @@ class Move {
         //If it has captured any piece, then move it and kill it in the game
         if(this.capturedPiece){
             this.capturedPiece.move(100,100);
+            this.capturedPiece.kill();
         }
     }
 

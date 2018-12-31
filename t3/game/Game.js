@@ -18,20 +18,20 @@ class Game {
 
         //Create the pieces and set their initial positions
         this.pieces = [
-            new Piece(this.scene,-6,-6,"Man","White"),
-            new Piece(this.scene,-3,-6,"Man","White"),
-            new Piece(this.scene, 0,-6,"Man","White"),
-            new Piece(this.scene, 3,-6,"Man","White"),
-            new Piece(this.scene, 6,-6,"Man","White"),
-            new Piece(this.scene,-3,-9,"Knight","White"),
-            new Piece(this.scene, 3,-9,"Knight","White"),
-            new Piece(this.scene,-6,6,"Man","Black"),
-            new Piece(this.scene,-3,6,"Man","Black"),
-            new Piece(this.scene, 0,6,"Man","Black"),
-            new Piece(this.scene, 3,6,"Man","Black"),
-            new Piece(this.scene, 6,6,"Man","Black"),
-            new Piece(this.scene,-3, 9,"Knight","Black"),
-            new Piece(this.scene, 3, 9,"Knight","Black")
+            new Piece(this.scene,-6,-6,"Man","White",1),
+            new Piece(this.scene,-3,-6,"Man","White",2),
+            new Piece(this.scene, 0,-6,"Man","White",3),
+            new Piece(this.scene, 3,-6,"Man","White",4),
+            new Piece(this.scene, 6,-6,"Man","White",5),
+            new Piece(this.scene,-3,-9,"Knight","White",6),
+            new Piece(this.scene, 3,-9,"Knight","White",7),
+            new Piece(this.scene,-6,6,"Man","Black",8),
+            new Piece(this.scene,-3,6,"Man","Black",9),
+            new Piece(this.scene, 0,6,"Man","Black",10),
+            new Piece(this.scene, 3,6,"Man","Black",11),
+            new Piece(this.scene, 6,6,"Man","Black",12),
+            new Piece(this.scene,-3, 9,"Knight","Black",13),
+            new Piece(this.scene, 3, 9,"Knight","Black",14)
         ] // 7 first for white, 7 last for black, in order: MMMMMKKmmmmmkk
 
         /**
@@ -203,27 +203,27 @@ class Game {
                 }
                 break;
             case this.state.PLAYER_1_MOVE:
-                //Chose another white piece
+                /* Chose another white piece */
                 if(this.whiteAlivePieces.includes(customId)){
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
                     this.validMoves = this.getValidMoves(this.selectedPiece);
                 }
-                //Chose destination tile
+                /* Chose destination tile */
                 else if(customId >= 15 && customId <= 81){
-                    //Need to add logic here
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
-                       move.execute();
-                       if(move.moveType == "plain move"){
+                        move.execute();
+                        /* If it makes a plain move then don't allow to move again */
+                        if(move.moveType == "plain move"){
                            this.currentState = this.state.PLAYER_1_WASTING_TIME;
-                       }
-                       else{
-                           this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
-                       }
-                       
+                        }
+                        
+                        /* Can make any other move as long as its the same one */
+                        this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
+                        this.currentMovementState = move.moveType;
                     }
-                    //Check for game over
+                    /* Check for game over */
                     if(this.isGameOver()){
                         this.currentState = this.state.END_GAME;
                         return;
@@ -231,21 +231,39 @@ class Game {
                 }
                 break;
             case this.state.PLAYER_1_CONTINUE_MOVE:
-                //If white player presses button
+                /* Red button is pressed */
                 if(customId == 101){
                     this.currentState = this.state.PLAYER_2_SELECT_PIECE;
                     this.timer.changePlayer();
                 }
+                /* A tile of the board is pressed */
                 if(customId >= 15 && customId <= 81){
                     this.validMoves = this.getValidMoves(this.selectedPiece);
                     
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
+                        /* If player tries to make a plain move, reject */
                         if(move.moveType == "plain move"){
                             return;
                         }
-                        move.execute();
-                        this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
+                        /* If tries to make a canter */
+                        if(move.moveType == "canter move"){
+                            if(this.currentMovementState == "canter move"){
+                                move.execute();
+                                //TODO ADD TO THE LIST OF MOVEMENTS
+                            }
+                        }
+                        /* If tries to make a jump */ 
+                        if(move.moveType == "jump move"){
+                            if(this.currentMovementState == "jump move"){
+                                move.execute();
+                                //TODO ADD TO THE LIST OF MOVEMENTS
+                            }
+                            if(this.currentMovementState == "canter move" && this.selectedPiece.type == "Knight"){
+                                move.execute();
+                                this.currentMovementState = "jump move";
+                            }
+                        }                      
                      }
                 }
                 break;
@@ -276,9 +294,10 @@ class Game {
                         move.execute();
                         if(move.moveType == "plain move"){
                             this.currentState = this.state.PLAYER_2_WASTING_TIME;
-                        }else{
-                            this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
                         }
+
+                        this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
+                        this.currentMovementState = move.moveType;
                      }
 
                     //Check for game over
@@ -289,21 +308,42 @@ class Game {
                 }
                 break;
             case this.state.PLAYER_2_CONTINUE_MOVE:
+                /* Red button is pressed */
                 if(customId == 100){
                     this.currentState = this.state.PLAYER_1_SELECT_PIECE;
                     this.timer.changePlayer();
                 }
+                /* A tile is pressed */
                 if(customId >= 15 && customId <= 81){
                     this.validMoves = this.getValidMoves(this.selectedPiece);
+                    
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
+                        console.log("tenta fazer o sgeundo movimento")
+                        /* If it tries to do a plain move, reject */
                         if(move.moveType == "plain move"){
                             return;
                         }
-                        move.execute();
-                        this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
-                        
-                     }
+
+                        /* If tries to make a canter */
+                        if(move.moveType == "canter move"){
+                            if(this.currentMovementState == "canter move"){
+                                move.execute();
+                                //TODO ADD TO THE LIST OF MOVEMENTS
+                            }
+                        }
+                        /* If tries to make a jump */ 
+                        if(move.moveType == "jump move"){
+                            if(this.currentMovementState == "jump move"){
+                                move.execute();
+                                //TODO ADD TO THE LIST OF MOVEMENTS
+                            }
+                            if(this.currentMovementState == "canter move" && this.selectedPiece.type == "Knight"){
+                                move.execute();
+                                this.currentMovementState = "jump move";
+                            }
+                        }  
+                    }
                 }
                 break;
             case this.state.PLAYER_1_WASTING_TIME:
@@ -435,6 +475,15 @@ class Game {
         if(!pieceLeft){
             let move = new Move(this.scene, movingPiece, leftX,leftY);
             results.push(move);
+        }
+
+        console.log("Movimentos possiveis");
+        for(let i = 0; i < results.length; i++){
+            console.log(results[i].moveType);
+            if(results[i].moveType == "jump move"){
+                console.log(this)
+                console.log(results[i])
+            }
         }
 
         return results;

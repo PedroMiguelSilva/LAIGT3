@@ -3,7 +3,7 @@
  */
 class Piece
 {
-    constructor(scene, x, z, type, color){
+    constructor(scene, x, z, type, color,id){
        this.scene = scene;
 
        //Animations 
@@ -14,6 +14,8 @@ class Piece
 
        this.startX = x;
        this.startY = z;
+
+       this.id = id;
        
        this.x = x;
        this.y = z;
@@ -29,6 +31,17 @@ class Piece
 
        //Allows an extra animation to show the user that its the chosen piece
        this.selected = false;
+       this.alive = true;
+    }
+
+    kill(){
+        this.alive = false;
+        if(this.color = "White"){
+            this.scene.graph.game.whiteAlivePieces.splice(this.id-1, 1);
+        }
+        else{
+            this.scene.graph.game.blackAlivePieces.splice(this.id-1, 1);
+        }
     }
 
     restart(){
