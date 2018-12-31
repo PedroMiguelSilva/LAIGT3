@@ -60,13 +60,13 @@ class Bot {
                         if(piece.type == "Man")
                             cell = "w";
                         else
-                            cell = "W";
+                            cell = "'W'";
                     }
                     else{
                         if(piece.type == "Man")
                             cell = "b";
                         else
-                            cell = "B";
+                            cell = "'B'";
                     }
                 }
                 
