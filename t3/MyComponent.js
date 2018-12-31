@@ -39,9 +39,6 @@ class MyComponent
      */
     display(parentMaterial, parentTexture, parentTextureInf, materialIndexSum){
 
-        if(parentTexture = "teste")
-            this.debug = true;
-
         this.scene.pushMatrix();
 
         //Update values
@@ -97,11 +94,12 @@ class MyComponent
         
 
         //Apply Texture
+        //console.log("Textura atual" + this.currentTexture)
         if(this.currentTexture != null){
 
             //Update primitives TexCoords
             this.updatePrimitivesTexCoords();
-
+            //console.log("Textura atual" + this.currentTexture)
             this.currentTexture.bind();
         }
    

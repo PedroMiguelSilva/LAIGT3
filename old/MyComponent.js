@@ -39,8 +39,6 @@ class MyComponent
      */
     display(parentMaterial, parentTexture, parentTextureInf, materialIndexSum){
 
-        if(parentTexture = "teste")
-            this.debug = true;
 
         this.scene.pushMatrix();
 

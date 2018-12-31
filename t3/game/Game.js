@@ -135,7 +135,7 @@ class Game {
             }
             //de acordo com a state machine, registar ou nao a peça para picking
             this.scene.registerForPick(i+1,this.scene.graph.components[nameOfMan]);
-            this.scene.graph.components[nameOfMan].display(this.materialWhite,"teste",null,0);
+            this.scene.graph.components[nameOfMan].display(this.materialWhite,null,null,0);
         
             this.scene.popMatrix();
         }
@@ -146,7 +146,7 @@ class Game {
                 anime.apply();
             }
             this.scene.registerForPick(i+1,this.scene.graph.components[nameOfKnight]);
-            this.scene.graph.components[nameOfKnight].display(this.materialWhite,"teste",null,0);
+            this.scene.graph.components[nameOfKnight].display(this.materialWhite,null,null,0);
         
             this.scene.popMatrix();
         }
@@ -161,7 +161,7 @@ class Game {
                 
             //de acordo com a state machine, registar ou nao a peça para picking
             this.scene.registerForPick(i+1,this.scene.graph.components[nameOfMan]);
-            this.scene.graph.components[nameOfMan].display(this.materialBlack,"teste",null,0);
+            this.scene.graph.components[nameOfMan].display(this.materialBlack,null,null,0);
         
             this.scene.popMatrix();
         }
@@ -173,7 +173,7 @@ class Game {
                 anime.apply();
             }
             this.scene.registerForPick(i+1,this.scene.graph.components[nameOfKnight]);
-            this.scene.graph.components[nameOfKnight].display(this.materialBlack,"teste",null,0);
+            this.scene.graph.components[nameOfKnight].display(this.materialBlack,null,null,0);
         
             this.scene.popMatrix();
         }
