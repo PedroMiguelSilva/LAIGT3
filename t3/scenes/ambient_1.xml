@@ -1,0 +1,1242 @@
+<yas>
+    <scene root = "root" axis_length = "7" />
+
+    <views default = "default">
+        <perspective id = "default" near = "0.1" far = "500" angle = "23">
+            <from x = "75" y = "75" z = "75"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+        <perspective id = "player1" near = "0.1" far = "500" angle = "23">
+            <from x = "0" y = "75" z = "75"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+
+        <perspective id = "player2" near = "0.1" far = "500" angle = "23">
+            <from x = "0" y = "75" z = "-75"/>
+            <to x = "0" y = "0" z = "0"/>
+        </perspective>
+    </views>
+
+    <ambient>
+        <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        <background r = "0" g = "0" b = "0" a = "1" />
+    </ambient>  
+
+    <lights>
+
+        <omni id = "room_1" enabled = "0">
+            <location x = "10" y = "80" z = "-25" w = "1" />
+            <ambient r = "0.05" g = "0.05" b = "0.05" a = "1" />
+            <diffuse r = "0.1" g = "0.1" b = "0.1" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </omni>
+
+        <omni id = "room_2" enabled = "1">
+            <location x = "-10" y = "80" z = "25" w = "1" />
+            <ambient r = "0.05" g = "0.05" b = "0.05" a = "1" />
+            <diffuse r = "0.1" g = "0.1" b = "0.1" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </omni>
+        
+        <omni id = "table_1" enabled = "0">
+            <location x = "0" y = "10" z = "-20" w = "1" />
+            <ambient r = "0.1" g = "0.1" b = "0.1" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </omni>
+
+        <omni id = "table_2" enabled = "0">
+            <location x = "0" y = "10" z = "20" w = "1" />
+            <ambient r = "0.1" g = "0.1" b = "0.1" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </omni>
+
+        <spot id = "lamp" enabled = "1" angle = "5" exponent = "2">
+            <location x = "13" y = "11" z = "-18" w ="1" />
+            <target x = "0" y = "0" z = "0" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="0.65" g="0.65" b="0.65" a="1" />
+            <specular r="0.65" g="0.65" b="0.65" a="1" />
+        </spot>
+    </lights>
+
+    <textures>
+        <texture id = "default_texture" file = "scenes/images/rocks.jpg" />
+        <texture id = "wood_texture" file = "scenes/images/modern_wood.jpg" />
+        <texture id = "floor_texture" file = "scenes/images/grey_wood.jpg" />
+        <texture id = "tv_texture" file = "scenes/images/tv.PNG" />
+        <texture id = "frame_1_texture" file = "scenes/images/modern_frame_1.jpg" />
+        <texture id = "frame_2_texture" file = "scenes/images/modern_frame_2.jpg" />
+        <texture id = "frame_3_texture" file = "scenes/images/modern_frame_3.jpg" />
+        <texture id = "number0" file = "scenes/images/number0.png" />
+        <texture id = "number1" file = "scenes/images/number1.png" />
+        <texture id = "number2" file = "scenes/images/number2.png" />
+        <texture id = "number3" file = "scenes/images/number3.png" />
+        <texture id = "number4" file = "scenes/images/number4.png" />
+        <texture id = "number5" file = "scenes/images/number5.png" />
+        <texture id = "number6" file = "scenes/images/number6.png" />
+        <texture id = "number7" file = "scenes/images/number7.png" />
+        <texture id = "number8" file = "scenes/images/number8.png" />
+        <texture id = "number9" file = "scenes/images/number9.png" />
+    </textures>
+
+    <materials>
+        <material id = "dark tiles" shininess = "100">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.3" g = "0.3" b = "0.3" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.8" g = "0.8" b = "0.8" a = "1" />
+        </material>
+<!--
+        <material id = "dark tiles" shininess = "100">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.396" g = "0.263" b = "0.129" a = "0.2" />
+            <diffuse r = "0.396" g = "0.263" b = "0.129" a = "0.2" />
+            <specular r = "0.396" g = "0.263" b = "0.129" a = "0.2" />
+        </material>
+-->
+        <material id = "default" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </material>
+
+        <material id = "table_leg_material" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.18" g = "0.18" b = "0.18" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.7" g = "0.7" b = "0.7" a = "1" />
+        </material>
+
+        <material id = "metal_material" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.18" g = "0.18" b = "0.18" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.8" g = "0.8" b = "0.8" a = "1" />
+        </material>
+
+
+        <material id = "table color" shininess = "1">
+            <emission r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </material>
+
+        <material id = "light tiles" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0.7" g = "0.7" b = "0.7" a = "1" />
+            <diffuse r = "0.7" g = "0.7" b = "0.7" a = "1" />
+            <specular r = "0.7" g = "0.7" b = "0.7" a = "1" />
+        </material>
+
+        <material id = "black" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0" g = "0" b = "0" a = "1" />
+            <diffuse r = "0" g = "0" b = "0" a = "1" />
+            <specular r = "0" g = "0" b = "0" a = "1" />
+        </material>
+
+        <material id = "red" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "1" g = "0" b = "0" a = "1" />
+            <diffuse r = "1" g = "0" b = "0" a = "1" />
+            <specular r = "1" g = "0" b = "0" a = "1" />
+        </material>
+
+        <material id = "green" shininess = "1">
+            <emission r = "0" g = "0" b = "0" a = "1" />
+            <ambient r = "0" g = "1" b = "0" a = "1" />
+            <diffuse r = "0" g = "1" b = "0" a = "1" />
+            <specular r = "0" g = "1" b = "0" a = "1" />
+        </material>
+    </materials>
+
+    <!--  TRANSFORMATIONS TAG  -->
+    <transformations>
+
+        <!-- Rotacao a aplicar no boneco de neve inteiro -->
+        <transformation id = "rotacao45Y">
+            <rotate axis = "y" angle = "45" />
+        </transformation>
+
+    </transformations>
+
+    <!-- ANIMATIONS TAG -->
+    <animations>
+        
+    </animations>
+
+    <!--  PRIMITIVES TAG  -->
+    <primitives> 
+        <primitive id = "table_leg_cylinder">
+            <cylinder base = "1" top = "0.5" height = "25" slices = "50" stacks = "10" />
+        </primitive>
+
+    <!--
+        <primitive id = "lamp_top_cylinder">
+            <cylinder base = "3.6" top = "3.6" height = "11" slices = "30" stacks = "10" />
+        </primitive>
+
+        <primitive id = "lamp_side_cylinder">
+            <cylinder base = "0.5" top = "0.5" height = "13.3" slices = "30" stacks = "10" />
+        </primitive>
+
+        <primitive id = "lamp_above_cylinder">
+            <cylinder base = "0.5" top = "0.5" height = "8" slices = "30" stacks = "10" />
+        </primitive>
+    -->
+        <primitive id = "lamp_head_sphere">
+            <sphere radius = "2" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "lamp_head_cylinder">
+            <cylinder base = "2" top = "4" height = "3" slices = "30" stacks = "10" />
+        </primitive>
+
+        <primitive id = "lamp_light_sphere">
+            <sphere radius = "2.5" slices = "20" stacks = "10" />
+        </primitive>
+
+        <primitive id = "lamp_arm_cylinder">
+            <cylinder base = "1.1" top = "1.1" height = "1" slices = "30" stacks = "10" />
+        </primitive>
+
+        <primitive id = "lamp_base_torus">
+            <torus inner = "0.7" outer = "3" slices = "50" loops = "50" />
+        </primitive>
+
+        <primitive id = "lamp_base_cylinder">
+            <cylinder base = "3" top = "3" height = "1.4" slices = "30" stacks = "10" />
+        </primitive>
+
+        <primitive id = "quad">
+            <rectangle x1 = "-0.5" y1 = "-0.5" x2 = "0.5" y2 = "0.5" />
+        </primitive>
+
+
+        <primitive id = "man sphere">
+            <sphere radius = "0.5" slices = "10" stacks = "10" />
+        </primitive>
+
+        <primitive id = "man body">
+            <cylinder base = "0.6" top = "0.5" height = "0.3" slices = "50" stacks = "50" />
+        </primitive>
+
+        <primitive id = "man core">
+            <cylinder base = "0.75" top = "0.75" height = "0.6" slices = "50" stacks = "50" />
+        </primitive>
+
+        <primitive id = "man neck">
+            <cylinder base = "0.4" top = "0.3" height = "1.3" slices = "50" stacks = "50" />
+        </primitive>
+
+        <primitive id = "man base">
+            <torus inner = "0.15" outer = "0.75" slices = "50" loops = "50" />
+        </primitive>
+
+        <primitive id = "man necklace">
+            <torus inner = "0.2" outer = "0.2" slices = "50" loops = "50" />
+        </primitive>
+
+        <primitive id = "horse body">
+            <cylinder base = "0.6" top = "0.5" height = "1.6" slices = "50" stacks = "50" />
+        </primitive>
+
+        <primitive id = "horse head">
+            <sphere radius = "0.6" slices = "50" stacks = "50" />
+        </primitive>
+
+        <primitive id = "horse nose">
+            <cylinder base = "0.5" top = "0.4" height = "0.6" slices = "50" stacks = "50" />
+        </primitive>
+
+        <primitive id = "horse mouth">
+            <sphere radius = "0.4" slices = "50" stacks = "50" />
+        </primitive>
+
+        <primitive id = "board">
+            <board />
+        </primitive>
+
+        <primitive id = "timer">
+            <timer />
+        </primitive>
+
+        <!-- 
+        <primitive id = "board">
+            <board defaultMan = "man" defaultKnight = "knight">
+                <man id = "man" />
+                <man id = "man1" />
+                <man id = "man2" />
+                <knight id = "knight" />
+                <knight id = "knight1" />
+                <knight id = "knight2" />
+                <textureW id = "" />
+                <textureB id = "" />
+                <materialW id = "" />
+                <materialB id = "" />
+            </board>
+        <primitive>
+        -->
+
+    </primitives>
+
+    <!--  COMPONENT TAG  -->   
+    <components>
+
+        <!-- SCENE -->
+        <!-- ROOM -->
+        <component id = "room">
+            <transformation>
+                <translate x = "0" y = "-1" z = "0" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none"/>
+        
+            <children>
+                <componentref id = "floor" />
+                <componentref id = "table" />
+                <componentref id = "wall_back" />
+                <componentref id = "wall_left" />
+                <componentref id = "lamp" />
+                <componentref id = "tv" />
+                <componentref id = "frame_1" />
+                <componentref id = "frame_2" />
+                <componentref id = "frame_3" />
+            </children>
+        </component>
+
+        <!-- TV -->
+        <component id = "tv">
+            <transformation>
+                <translate x = "0" y = "30" z = "-89" />
+                <scale x = "50" y = "25" z = "1" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "tv_texture" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <!-- FRAMES -->
+        <component id = "frame_1">
+            <transformation>
+                <translate x = "-74" y = "30" z = "8" />
+                <rotate axis = "y" angle = "90" />
+                <scale x = "40" y = "20" z = "1" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "frame_1_texture" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "frame_2">
+            <transformation>
+                <translate x = "-74" y = "30" z = "60" />
+                <rotate axis = "y" angle = "90" />
+                <scale x = "40" y = "20" z = "1" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "frame_2_texture" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "frame_3">
+            <transformation>
+                <translate x = "-74" y = "30" z = "-44" />
+                <rotate axis = "y" angle = "90" />
+                <scale x = "40" y = "20" z = "1" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "frame_3_texture" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <!-- FLOOR -->
+        <component id = "floor">
+            <transformation>
+                <translate x="0" y="-25.5" z="0" />
+                <scale x="150" y="1" z="180"/>
+                <rotate axis = "x" angle = "-90" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "floor_texture" length_s = "0.15" length_t = "0.15" />
+        
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <!-- WALLS -->
+        <component id = "wall_back">
+            <transformation>
+                <translate x="0" y="14.5" z="-90" />
+                <scale x="150" y="80" z="1" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none"/>
+        
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "wall_left">
+            <transformation>
+                <translate x= "-75" y = "14.5" z = "0" />
+                <scale x= "1" y = "80" z = "180" />
+                <rotate axis = "x" angle = "-90" />
+                <rotate axis = "y" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none" length_s = "0.05" length_t = "0.05" />
+        
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <!-- TABLE -->
+        <component id = "table">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "wood_texture" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "table_top" />
+                <componentref id = "table_leg_1" />
+                <componentref id = "table_leg_2" />
+                <componentref id = "table_leg_3" />
+                <componentref id = "table_leg_4" />
+            </children>
+        </component>
+
+        <component id = "table_top">
+            <transformation>
+                <scale x = "50" y = "1" z = "70" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "inherit" length_s = "0.1" length_t = "0.1" />
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "table_leg_1">
+            <transformation>
+                <translate x = "-23" y = "-0.5" z = "-32" />
+                <rotate axis = "x" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "table_leg_material" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "table_leg_cylinder" />
+            </children>
+        </component>
+
+        <component id = "table_leg_2">
+            <transformation>
+                <translate x = "23" y = "-0.5" z = "-32" />
+                <rotate axis = "x" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "table_leg_material" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "table_leg_cylinder" />
+            </children>
+        </component>
+
+        <component id = "table_leg_3">
+            <transformation>
+                <translate x = "-23" y = "-0.5" z = "32" />
+                <rotate axis = "x" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "table_leg_material" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "table_leg_cylinder" />
+            </children>
+        </component>
+
+        <component id = "table_leg_4">
+            <transformation>
+                <translate x = "23" y = "-0.5" z = "32" />
+                <rotate axis = "x" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "table_leg_material" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "table_leg_cylinder" />
+            </children>
+        </component>
+
+
+        <!-- LAMP -->
+        <component id = "lamp">
+            <transformation>
+                <translate x="14" y="1" z="-20" />
+                <rotate axis = "y" angle = "-40" />
+            </transformation>
+        
+            <materials>
+                <material id = "metal_material" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "lamp_bottom" />
+                <componentref id = "lamp_arm_bottom" />
+                <componentref id = "lamp_arm_middle" />
+                <componentref id = "lamp_arm_top" />
+                <componentref id = "lamp_head" />
+                <componentref id = "lamp_light" />
+            </children>
+        </component>
+
+        <component id = "lamp_light">
+            <transformation>
+                <translate x = "0" y = "12" z = "-0.3" />
+            </transformation>
+            
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "lamp_light_sphere" />
+            </children>
+        </component>
+
+        <component id = "lamp_head">
+            <transformation>
+                <translate x = "0" y = "13" z = "-2" />
+                <rotate axis = "x" angle = "25" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "lamp_head_sphere" />
+                <primitiveref id = "lamp_head_cylinder" />
+            </children>
+        </component>
+
+        <component id = "lamp_arm_bottom">
+            <transformation>
+                <translate x = "0" y = "4" z = "-2.7" />
+                <rotate axis = "x" angle = "-40" />
+                <scale x = "1" y = "10" z = "1" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none"/>
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "lamp_arm_middle">
+            <transformation>
+                <translate x = "-0.5" y = "8" z = "-6" />
+                <rotate axis = "y" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "lamp_arm_cylinder" />
+            </children>
+        </component>
+
+        <component id = "lamp_arm_top">
+            <transformation>
+                <translate x = "0" y = "10" z = "-4" />
+                <rotate axis = "x" angle = "40" />
+                <scale x = "1" y = "6" z = "1" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none"/>
+        
+            <children>
+                <componentref id = "cube" />
+            </children>
+        </component>
+
+        <component id = "lamp_bottom">
+            <transformation>
+                <rotate axis = "x" angle = "-90" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "lamp_base_torus" />
+                <componentref id = "lamp_bottom_cylinder" />
+            </children>
+        </component>
+
+        <component id = "lamp_bottom_cylinder">
+            <transformation>
+                <translate x="0" y="0" z="-0.7" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "lamp_base_cylinder" />
+            </children>
+        </component>
+        <!--
+        <component id = "lamp">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <scale x="1.3" y="1.3" z="1.3" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "wood_texture" length_s = "1" length_t = "1" />
+        
+            <children>
+                <componentref id = "lamp_top" />
+                <componentref id = "lamp_bottom" />
+            </children>
+        </component>
+
+        <component id = "lamp_bottom">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "lamp_base_torus" />
+                <componentref id = "lamp_bottom_cylinder" />
+            </children>
+        </component>
+
+        <component id = "lamp_bottom_cylinder">
+            <transformation>
+                <translate x="0" y="0" z="-0.7" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "inherit" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "lamp_base_cylinder" />
+            </children>
+        </component>
+
+        <component id = "lamp_top">
+            <transformation>
+                <translate x="0" y="0" z="1.8"/>
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none" length_s = "1" length_t = "1" />
+        
+            <children>
+                <primitiveref id = "lamp_top_cylinder" />
+                <componentref id = "lamp_side_left" />
+                <componentref id = "lamp_side_right" />
+                <componentref id = "lamp_side_bottom" />
+                <componentref id = "lamp_side_top" />
+            </children>
+        </component>
+
+        <component id = "lamp_side_left">
+            <transformation>
+                <translate x="-4.2" y="0" z="-1.1" />
+            </transformation>
+    
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "woodTexture" length_s = "1" length_t = "1"/>
+        
+            <children>
+                <primitiveref id = "lamp_side_cylinder" />
+            </children>
+        </component>
+
+        <component id = "lamp_side_right">
+            <transformation>
+                <translate x="4.2" y="0" z="-1.1" />
+            </transformation>
+    
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "woodTexture" length_s = "1" length_t = "1"/>
+        
+            <children>
+                <primitiveref id = "lamp_side_cylinder" />
+            </children>
+        </component>
+
+        <component id = "lamp_side_bottom">
+            <transformation>
+                <translate x="4" y="0" z="-0.65" />
+                <rotate axis = "y" angle = "-90" />
+            </transformation>
+    
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "woodTexture" length_s = "1" length_t = "1"/>
+        
+            <children>
+                <primitiveref id = "lamp_above_cylinder" />
+            </children>
+        </component>
+
+        <component id = "lamp_side_top">
+            <transformation>
+                <translate x="4" y="0" z="11.7" />
+                <rotate axis = "y" angle = "-90" />
+            </transformation>
+    
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "woodTexture" length_s = "1" length_t = "1"/>
+        
+            <children>
+                <primitiveref id = "lamp_above_cylinder" />
+            </children>
+        </component>
+        -->
+
+        <!-- CUBE -->
+        <component id = "cube">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <componentref id = "right_face" />
+                <componentref id = "left_face" />
+                <componentref id = "front_face" />
+                <componentref id = "back_face" />
+                <componentref id = "up_face" />
+                <componentref id = "down_face" />
+            </children>
+        </component>
+
+        <component id = "right_face">
+            <transformation>
+                <translate x = "0.5" y = "0" z ="0" />
+                <rotate axis = "y" angle = "90" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "left_face">
+            <transformation>
+                <translate x = "-0.5" y = "0" z ="0" />
+                <rotate axis = "y" angle = "-90" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "front_face">
+            <transformation>
+                <translate x = "0" y = "0" z ="0.5" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "back_face">
+            <transformation>
+                <rotate axis = "y" angle = "180" />
+                <translate x = "0" y = "0" z ="0.5" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "up_face">
+            <transformation>
+                <translate x = "0" y = "0.5" z ="0" />
+                <rotate axis = "x" angle = "-90" />
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "down_face">
+            <transformation>
+                <translate x = "0" y = "-0.5" z ="0" />
+                <rotate axis = "x" angle = "90" />  
+            </transformation>
+
+            <materials>
+                <material id = "inherit" />
+            </materials>
+
+            <texture id = "inherit" />
+
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <!-- ROOT =============================================== -->
+        <component id = "pieces">
+            <transformation>
+                <translate x = "0" y = "0" z ="0" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "man" />
+                <componentref id = "horse" />  
+            </children>
+        </component>
+
+        
+
+
+        <component id = "root">
+            <transformation>
+                <translate x = "0" y = "0" z ="0" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "board" />
+                <componentref id = "timer" />
+                <componentref id = "room" />
+                <!--
+                <componentref id = "lamp" />
+                <componentref id = "table" />
+                -->
+            </children>
+        </component>
+
+        <component id = "timer">
+            <transformation>
+                <translate x = "-20" y = "0" z ="0" />
+                <rotate axis = "y" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "black" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "timer" />
+            </children>
+        </component>
+
+        <component id = "boardPrim">
+            <transformation>
+                <translate x = "0" y = "0" z ="0" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "board" />
+                <!-- <componentref id = "man" /> -->
+            </children>
+        </component>
+
+        <component id = "man">
+            <transformation>
+                <rotate axis = "x" angle = "-90" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "man top sphere" />
+                <componentref id = "man body" />
+                <componentref id = "man base" />
+                <primitiveref id = "man core" />
+                <componentref id = "man neck" />
+                <componentref id = "man necklace" />
+            </children>
+        </component>
+
+        <component id = "horse">
+            <transformation>
+                <translate x = "0" y = "0" z ="0" />
+                <rotate axis = "x" angle = "-90" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <componentref id = "man base" />
+                <primitiveref id = "man core" />
+                <componentref id = "horse body" />
+                <componentref id = "horse head" />
+                <componentref id = "horse nose" />
+                <componentref id = "horse mouth" />
+            </children>
+        </component>
+
+        <component id = "horse mouth">
+            <transformation>
+                <translate x = "0" y = "-0.85" z ="2.2" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "horse mouth" />
+            </children>
+        </component>
+
+        <component id = "horse nose">
+            <transformation>
+                <translate x = "0" y = "-0.3" z ="2.2" />
+                <rotate axis = "x" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "horse nose" />
+            </children>
+        </component>
+
+        <component id = "horse head">
+            <transformation>
+                <translate x = "0" y = "0" z ="2.2" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none"  />
+        
+            <children>
+                <primitiveref id = "horse head" />
+            </children>
+        </component>
+
+        <component id = "man necklace">
+            <transformation>
+                <translate x = "0" y = "0" z ="2.2" />
+                <scale x = "1" y = "1" z = "0.5" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "man necklace" />
+            </children>
+        </component>
+
+        <component id = "man neck">
+            <transformation>
+                <translate x = "0" y = "0" z ="0.9" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "man neck" />
+            </children>
+        </component>
+
+        <component id = "man top sphere">
+            <transformation>
+                <translate x = "0" y = "0" z ="2.7" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "man sphere" />
+            </children>
+        </component>
+
+        <component id = "man body">
+            <transformation>
+                <translate x = "0" y = "0" z = "0.6" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "man body" />
+            </children>
+        </component>
+
+        <component id = "horse body">
+            <transformation>
+                <translate x = "0" y = "0" z = "0.6" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "horse body" />
+            </children>
+        </component>
+
+        <component id = "man base">
+            <transformation>
+                <translate x = "0" y = "0" z = "0.15" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "man base" />
+                <componentref id = "man base 2" />
+            </children>
+        </component>
+
+        <component id = "man base 2">
+            <transformation>
+                <translate x = "0" y = "0" z = "0.3" />
+            </transformation>
+        
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "man base" />
+            </children>
+        </component>
+
+    </components>
+
+</yas>
