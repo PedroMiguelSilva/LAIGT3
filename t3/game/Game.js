@@ -505,7 +505,7 @@ class Game {
             results.push(move);
         }
         
-        /*
+        
         let leftUpX = movingPiece.x + 3;
         let leftUpY = movingPiece.y - 3;
         let pieceLeftUp = this.getPiece(leftUpX,leftUpY);
@@ -562,7 +562,7 @@ class Game {
             let move = new Move(this.scene, movingPiece, rightDownX,rightDownY);
             results.push(move);
         }
-        */
+        
 
         for(var i = 0; i < results.length; i++){
             console.log(results[i].moveType);
