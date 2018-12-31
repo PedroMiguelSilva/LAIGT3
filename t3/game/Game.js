@@ -108,12 +108,14 @@ class Game {
      * @param {Variation of time between 2 updates} delta 
      */
     update(delta){ 
-
+        
         for(var i = 0; i < this.pieces.length; i++){
-            if(this.pieces[i].animation != undefined){
-                this.pieces[i].animation.update(delta);
+            if(this.pieces[i].animationController != undefined){
+                this.pieces[i].animationController.update(delta);
             }
-        } 
+        }
+
+        this.timer.update(delta);
     }
 
     /**
@@ -129,7 +131,7 @@ class Game {
         // CHANGE 5 TO 7 ONCE THE KNIGHTS ARE DESINED AND WORKING
         for(var i = 0 ;  i < 5 ; i++ ){
             this.scene.pushMatrix();
-            var anime = this.pieces[i].animation;
+            var anime = this.pieces[i].animationController;
             if(anime != null){
                 anime.apply();
             }
@@ -141,7 +143,7 @@ class Game {
         }
         for(var i = 5 ; i < 7; i++ ){
             this.scene.pushMatrix();
-            var anime = this.pieces[i].animation;
+            var anime = this.pieces[i].animationController;
             if(anime!=null){
                 anime.apply();
             }
@@ -155,7 +157,7 @@ class Game {
         // CHANGE 5 TO 7 ONCE THE KNIGHTS ARE DESINED AND WORKING
         for(var i = 7 ;  i < 12 ; i++ ){
             this.scene.pushMatrix();
-            var anime = this.pieces[i].animation;
+            var anime = this.pieces[i].animationController;
             if(anime != null)
                 anime.apply();
                 
@@ -168,7 +170,7 @@ class Game {
 
         for(var i = 12 ; i < 14; i++ ){
             this.scene.pushMatrix();
-            var anime = this.pieces[i].animation;
+            var anime = this.pieces[i].animationController;
             if(anime!=null){
                 anime.apply();
             }

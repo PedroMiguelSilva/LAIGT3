@@ -37,6 +37,10 @@ class Timer {
         this.rightSmallDigit = 0;
 
         this.previousTime = 0;
+
+        this.restartButtonAnimation = null;
+        this.leftButtonAnimation = null;
+        this.rightButtonAnimation = null;
     }
 
     changePlayer(){
@@ -64,6 +68,10 @@ class Timer {
 
         this.isRightButtonDown = true;
         this.playingGame = true;
+    }
+
+    update(delta){
+        
     }
 
     restart(){

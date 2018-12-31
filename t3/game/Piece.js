@@ -4,34 +4,37 @@
 class Piece
 {
     constructor(scene, x, z, type, color,id){
-       this.scene = scene;
+        this.scene = scene;
 
-       //Animations 
-       this.animation = new LinearAnimation(this.scene,0.01);
-       this.animation.addControlPoint(x-0.01,0,z);
-       this.animation.addControlPoint(x,0,z);
-       this.animation.init();
+        //Animations 
+        let initAnime = new LinearAnimation(this.scene,0.01);
+        initAnime.addControlPoint(x-0.01,0,z);
+        initAnime.addControlPoint(x,0,z);
+        initAnime.init();
 
-       this.startX = x;
-       this.startY = z;
+        this.startX = x;
+        this.startY = z;
 
-       this.id = id;
-       
-       this.x = x;
-       this.y = z;
+        this.id = id;
+        
+        this.x = x;
+        this.y = z;
+
+        this.animationController = new AnimationController(this.scene);
+        this.animationController.addAnimation(initAnime);
 
         this.type = type;
         this.color = color;
 
-       this.move_state = {
-           PLAIN : "Plain",
-           CANTER : "Canter",
-           JUMP : "Jump"
-       }
+        this.move_state = {
+            PLAIN : "Plain",
+            CANTER : "Canter",
+            JUMP : "Jump"
+        }
 
-       //Allows an extra animation to show the user that its the chosen piece
-       this.selected = false;
-       this.alive = true;
+        //Allows an extra animation to show the user that its the chosen piece
+        this.selected = false;
+        this.alive = true;
     }
 
     kill(){
@@ -67,18 +70,48 @@ class Piece
    /**
     * Creates an animation to allow the man to move from current position to the position given in arguments
     * @param {Coordinate of the destination of the move} xFinal 
-    * @param {Coordinate of the destination of the move} yFinal 
+    * @param {Coordinate of the destination of the move} yFinal
     */
    move(xFinal, yFinal){
         //console.log("Piece moved from (" + this.x + "," + this.y + ") to (" + xFinal + "," + yFinal + ")");
-       // note - save the end position of the animatino in the x and z values of this object for next animation reference
+        // note - save the end position of the animatino in the x and z values of this object for next animation reference
+        /* 
         let newAnime = new LinearAnimation(this.scene,2);
         newAnime.addControlPoint(this.x-0.01,0,this.y-0.01);
         newAnime.addControlPoint(xFinal,0,yFinal);
         newAnime.init();
         this.animation = newAnime;
-        this.x = xFinal;
-        this.y = yFinal;
+        */
+
+        let pickUp = this.createAnimation(
+                                        this.x-0.01,this.y-0.01,0,
+                                        this.x,     this.y,     5
+                                        );
+
+        let moveAcross = this.createAnimation(
+                                        this.x,     this.y,     5,
+                                        xFinal,     yFinal,     5
+                                        );
+
+        let putDown = this.createAnimation(
+                                        xFinal,     yFinal,     5,
+                                        xFinal,     yFinal,     0
+                                        );
+        this.animationController.addAnimation(pickUp);
+        this.animationController.addAnimation(moveAcross);
+        this.animationController.addAnimation(putDown);
+        
+
+       this.x = xFinal;
+       this.y = yFinal;
+   }
+
+   createAnimation(fromX, fromY, fromZ, toX, toY, toZ){
+       let anime = new LinearAnimation(this.scene, 2);
+       anime.addControlPoint(fromX, fromZ, fromY);
+       anime.addControlPoint(toX, toZ, toY);
+       anime.init();
+       return anime;
    }
 
    /**

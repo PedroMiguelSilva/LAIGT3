@@ -20,6 +20,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
                                 'game/Board.js','game/Game.js','game/Piece.js',
                                 'game/Move.js','game/Timer.js',
                                 'game/Client.js','game/Bot.js',
+                                'animations/AnimationController.js',
 main=function()
 {
 	// Standard application, scene and interface setup
