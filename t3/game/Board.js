@@ -32,29 +32,29 @@ class Board extends CGFobject {
         let pickingId = 15;
         //First few lines
         let line1 = emptyLine.slice();
-        line1[3] = new MyRectangle(this.scene, -1.5,-19.5,1.5,-16.5,pickingId);
+        line1[3] = new Cell(this.scene, -1.5,-19.5,1.5,-16.5,pickingId);
         pickingId++;
         this.matrix.push(line1);
 
         let line2 = emptyLine.slice();
-        line2[2] = new MyRectangle(this.scene, -4.5,-16.5,-1.5,-13.5,pickingId);
+        line2[2] = new Cell(this.scene, -4.5,-16.5,-1.5,-13.5,pickingId);
         pickingId++;
-        line2[3] = new MyRectangle(this.scene, -1.5,-16.5,1.5,-13.5,pickingId);
+        line2[3] = new Cell(this.scene, -1.5,-16.5,1.5,-13.5,pickingId);
         pickingId++;
-        line2[4] = new MyRectangle(this.scene, 1.5,-16.5,4.5,-13.5,pickingId);
+        line2[4] = new Cell(this.scene, 1.5,-16.5,4.5,-13.5,pickingId);
         pickingId++;
         this.matrix.push(line2);
 
         let line3 = emptyLine.slice();
-        line3[1] = new MyRectangle(this.scene, -7.5,-13.5,-4.5,-10.5,pickingId);
+        line3[1] = new Cell(this.scene, -7.5,-13.5,-4.5,-10.5,pickingId);
         pickingId++;
-        line3[2] = new MyRectangle(this.scene, -4.5,-13.5,-1.5,-10.5,pickingId);
+        line3[2] = new Cell(this.scene, -4.5,-13.5,-1.5,-10.5,pickingId);
         pickingId++;
-        line3[3] = new MyRectangle(this.scene, -1.5,-13.5,1.5,-10.5,pickingId);
+        line3[3] = new Cell(this.scene, -1.5,-13.5,1.5,-10.5,pickingId);
         pickingId++;
-        line3[4] = new MyRectangle(this.scene, 1.5,-13.5,4.5,-10.5,pickingId);
+        line3[4] = new Cell(this.scene, 1.5,-13.5,4.5,-10.5,pickingId);
         pickingId++;
-        line3[5] = new MyRectangle(this.scene, 4.5,-13.5,7.5,-10.5,pickingId);
+        line3[5] = new Cell(this.scene, 4.5,-13.5,7.5,-10.5,pickingId);
         pickingId++;
         this.matrix.push(line3);
 
@@ -65,7 +65,7 @@ class Board extends CGFobject {
         for(let i = -10.5; i < 10.5 - 0.0005; i += sizeY){
             let line = []
             for(let j = -10.5; j < 10.5 - 0.0005; j+= sizeX){
-                line.push(new MyRectangle(this.scene, j,i,j+sizeX, i+sizeY,pickingId));
+                line.push(new Cell(this.scene, j,i,j+sizeX, i+sizeY,pickingId));
                 pickingId++;
             }
             this.matrix.push(line);
@@ -74,31 +74,31 @@ class Board extends CGFobject {
         //Create the bottom tiles
         let last3 = emptyLine.slice();
         
-        last3[1] = new MyRectangle(this.scene, -7.5,10.5,-4.5,13.5,pickingId);
+        last3[1] = new Cell(this.scene, -7.5,10.5,-4.5,13.5,pickingId);
         pickingId++;
-        last3[2] = new MyRectangle(this.scene, -4.5,10.5,-1.5,13.5,pickingId);
+        last3[2] = new Cell(this.scene, -4.5,10.5,-1.5,13.5,pickingId);
         pickingId++;
-        last3[3] = new MyRectangle(this.scene, -1.5,10.5,1.5,13.5,pickingId);
+        last3[3] = new Cell(this.scene, -1.5,10.5,1.5,13.5,pickingId);
         pickingId++;
-        last3[4] = new MyRectangle(this.scene, 1.5,10.5,4.5,13.5,pickingId);
+        last3[4] = new Cell(this.scene, 1.5,10.5,4.5,13.5,pickingId);
         pickingId++;
-        last3[5] = new MyRectangle(this.scene, 4.5,10.5,7.5,13.5,pickingId);
+        last3[5] = new Cell(this.scene, 4.5,10.5,7.5,13.5,pickingId);
         pickingId++;
         this.matrix.push(last3)
 
         let last2 = emptyLine.slice()
         
-        last2[2] = new MyRectangle(this.scene, -4.5,13.5,-1.5,16.5,pickingId);
+        last2[2] = new Cell(this.scene, -4.5,13.5,-1.5,16.5,pickingId);
         pickingId++;
-        last2[3] = new MyRectangle(this.scene, -1.5,13.5,1.5,16.5,pickingId);
+        last2[3] = new Cell(this.scene, -1.5,13.5,1.5,16.5,pickingId);
         pickingId++;
-        last2[4] = new MyRectangle(this.scene, 1.5,13.5,4.5,16.5,pickingId);
+        last2[4] = new Cell(this.scene, 1.5,13.5,4.5,16.5,pickingId);
         pickingId++;
         this.matrix.push(last2)
 
         let last1 = emptyLine.slice()
         
-        last1[3] = new MyRectangle(this.scene, -1.5,16.5,1.5,19.5,pickingId);
+        last1[3] = new Cell(this.scene, -1.5,16.5,1.5,19.5,pickingId);
         pickingId++;
         this.matrix.push(last1);
         this.isLoaded = true;
@@ -137,7 +137,7 @@ class Board extends CGFobject {
             for(; j < this.matrix[i].length ; j += 2){
                 if(this.matrix[i][j] != this.OUT_OF_BOUNDS){
                     this.scene.registerForPick(this.matrix[i][j].pickingId,this.matrix[i][j]);
-                    this.matrix[i][j].display();
+                    this.matrix[i][j].display('dark tiles');
                 }
             }
         }
@@ -158,7 +158,7 @@ class Board extends CGFobject {
             for(; j < this.matrix[i].length ; j += 2){
                 if(this.matrix[i][j] != this.OUT_OF_BOUNDS){
                     this.scene.registerForPick(this.matrix[i][j].pickingId,this.matrix[i][j]);
-                    this.matrix[i][j].display();
+                    this.matrix[i][j].display('light tiles');
                 }
             }
         }
