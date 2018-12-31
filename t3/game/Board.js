@@ -104,6 +104,14 @@ class Board extends CGFobject {
         this.isLoaded = true;
     }
 
+    /**
+     * Highliht the tiles in the positions '(validMoves[i].destX,validMoves[i].destY)'
+     * Can also highlight the fromX fromY position (position where the piece is)
+     */
+    highlightTiles(validMoves){
+        
+    }
+
     display() {
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2,1,0,0);

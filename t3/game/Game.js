@@ -228,6 +228,7 @@ class Game {
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
                     this.validMoves = this.getValidMoves(this.selectedPiece);
+                    this.board.highlightTiles(this.validMoves);
                     this.currentState = this.state.PLAYER_1_MOVE;
                 }
                 break;
@@ -237,6 +238,7 @@ class Game {
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
                     this.validMoves = this.getValidMoves(this.selectedPiece);
+                    this.board.highlightTiles(this.validMoves);
                 }
                 /* Chose destination tile */
                 else if(customId >= 15 && customId <= 81){
@@ -269,7 +271,7 @@ class Game {
                 /* A tile of the board is pressed */
                 if(customId >= 15 && customId <= 81){
                     this.validMoves = this.getValidMoves(this.selectedPiece);
-                    
+                    this.board.highlightTiles(this.validMoves);
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
                         /* If player tries to make a plain move, reject */
@@ -304,6 +306,7 @@ class Game {
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
                     this.validMoves = this.getValidMoves(this.selectedPiece)
+                    this.board.highlightTiles(this.validMoves);
                     this.currentState = this.state.PLAYER_2_MOVE;
                 }
                 break;
@@ -312,6 +315,7 @@ class Game {
                 if(this.blackAlivePieces.includes(customId)){
                     this.selectedPiece = this.pieces[customId-1];
                     this.validMoves = this.getValidMoves(this.selectedPiece);
+                    this.board.highlightTiles(this.validMoves);
                     this.currentMovementState = this.movementState.START;
                 }
                 //Chose destination tile
@@ -346,7 +350,7 @@ class Game {
                 /* A tile is pressed */
                 if(customId >= 15 && customId <= 81){
                     this.validMoves = this.getValidMoves(this.selectedPiece);
-                    
+                    this.board.highlightTiles(this.validMoves);
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
                         /* If it tries to do a plain move, reject */
