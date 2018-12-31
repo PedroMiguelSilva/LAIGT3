@@ -56,6 +56,9 @@ class Piece
     }
 
     restart(){
+        if(this.x == this.startX && this.y == this.startY){
+            return;
+        }
         this.move(this.startX,this.startY);
         this.alive = true;
     }

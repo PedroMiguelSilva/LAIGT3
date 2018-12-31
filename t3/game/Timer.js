@@ -38,9 +38,9 @@ class Timer {
 
         this.previousTime = 0;
 
-        this.restartButtonAnimation = null;
-        this.leftButtonAnimation = null;
-        this.rightButtonAnimation = null;
+        this.restartButtonAnimation = new AnimationController(this.scene);
+        this.leftButtonAnimation = new AnimationController(this.scene);
+        this.rightButtonAnimation = new AnimationController(this.scene);
     }
 
     changePlayer(){
@@ -71,7 +71,9 @@ class Timer {
     }
 
     update(delta){
-        
+        this.restartButtonAnimation.update(delta);
+        this.leftButtonAnimation.update(delta);
+        this.rightButtonAnimation.update(delta);
     }
 
     restart(){
@@ -212,6 +214,7 @@ class Timer {
             this.scene.translate(-4,6,0);
             this.scene.rotate(-Math.PI/2,1,0,0);
             this.scene.registerForPick(100,this.leftButton);
+            this.leftButtonAnimation.apply();
             this.leftButton.display();
         this.scene.popMatrix();
 
@@ -220,6 +223,7 @@ class Timer {
             this.scene.translate(4,6,0);
             this.scene.rotate(-Math.PI/2,1,0,0);
             this.scene.registerForPick(101,this.rightButton);
+            this.rightButtonAnimation.apply();
             this.rightButton.display();
         this.scene.popMatrix();
 
@@ -229,6 +233,7 @@ class Timer {
             this.scene.translate(0,6,0);
             this.scene.rotate(-Math.PI/2,1,0,0);
             this.scene.registerForPick(102,this.restartButton);
+            this.restartButtonAnimation.apply();
             this.restartButton.display();
         this.scene.popMatrix();
     }
