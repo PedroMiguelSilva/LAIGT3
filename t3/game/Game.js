@@ -43,10 +43,12 @@ class Game {
             PLAYER_1_SELECT_PIECE: "WHITE: Select a piece to move",
             PLAYER_1_MOVE: "WHITE: Select a destination for first move",
             PLAYER_1_CONTINUE_MOVE: "WHITE: Select a destination of move",
+            PLAYER_1_WASTING_TIME: "WHITE: Click the button !",
 
             PLAYER_2_SELECT_PIECE: "BLACK: Select a piece to move",
             PLAYER_2_MOVE: "BLACK: Select a destination for first move",
             PLAYER_2_CONTINUE_MOVE: "BLACK: Select a destination of move",
+            PLAYER_2_WASTING_TIME: "BLACK: Click the button !",
 
             END_GAME: "Game ended",
             QUIT_GAME: "Quit Game",
@@ -214,7 +216,7 @@ class Game {
                     if(move){
                        move.execute();
                        if(move.moveType == "plain move"){
-                           this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                           this.currentState = this.state.PLAYER_1_WASTING_TIME;
                        }
                        else{
                            this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
@@ -239,12 +241,11 @@ class Game {
                     
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
-                        move.execute();
                         if(move.moveType == "plain move"){
-                            this.currentState = this.state.PLAYER_2_SELECT_PIECE;
-                        }else{
-                            this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
+                            return;
                         }
+                        move.execute();
+                        this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
                      }
                 }
                 break;
@@ -274,7 +275,7 @@ class Game {
                     if(move){
                         move.execute();
                         if(move.moveType == "plain move"){
-                            this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                            this.currentState = this.state.PLAYER_2_WASTING_TIME;
                         }else{
                             this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
                         }
@@ -296,13 +297,25 @@ class Game {
                     this.validMoves = this.getValidMoves(this.selectedPiece);
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
-                        move.execute();
                         if(move.moveType == "plain move"){
-                            this.currentState = this.state.PLAYER_1_SELECT_PIECE;
-                        }else{
-                            this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
+                            return;
                         }
+                        move.execute();
+                        this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
+                        
                      }
+                }
+                break;
+            case this.state.PLAYER_1_WASTING_TIME:
+                if(customId == 101){
+                    this.timer.changePlayer();
+                    this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                }
+                break;
+            case this.state.PLAYER_2_WASTING_TIME:
+                if(customId == 100){
+                    this.timer.changePlayer();
+                    this.currentState = this.state.PLAYER_1_SELECT_PIECE;
                 }
                 break;
             case this.state.END_GAME:
