@@ -7,8 +7,16 @@ class Piece
         this.scene = scene;
 
         //Animations 
+        let delta;
+        if(color == "White"){
+            delta = -0.01;
+        }
+        else{
+            delta = 0.01;
+        }
+
         let initAnime = new LinearAnimation(this.scene,0.01);
-        initAnime.addControlPoint(x-0.01,0,z);
+        initAnime.addControlPoint(x,0,z+delta);
         initAnime.addControlPoint(x,0,z);
         initAnime.init();
 

@@ -28,12 +28,17 @@ class Timer {
         this.isRestartButtonDown = false;
         this.playingGame = false;
 
+        this.HARD = 3;
+        this.MEDIUM = 6;
+        this.EASY = 6;
+        this.CHALLENGE = 9;
+
         //TODO change according to dificulty
-        this.leftBigDigit = 6; //Game.dificulty.MEDIUM.time;
+        this.leftBigDigit = this.EASY; //Game.dificulty.MEDIUM.time;
         this.leftSmallDigit = 0;
 
         //TODO change this according to dificulty
-        this.rightBigDigit = 6;
+        this.rightBigDigit = this.EASY;
         this.rightSmallDigit = 0;
 
         this.previousTime = 0;
@@ -44,41 +49,68 @@ class Timer {
         this.timerLoaded = true;
     }
 
+    /**
+     * Resets the timers
+     * @param {"left" or "right"} button 
+     */
+    resetTimer(button){
+        console.log("Reseting " + button)
+        let dif = this.scene.graph.game.dificulty
+        if(button == "left"){
+            if(dif == "Easy"){
+                this.leftBigDigit = this.EASY;
+            }
+            else if(dif == "Medium"){
+                this.leftBigDigit = this.MEDIUM;
+            }
+            else if(dif == "Hard"){
+                this.leftBigDigit = this.HARD;
+            }
+            this.leftSmallDigit = 0;
+        }
+        else{
+            if(dif == "Easy"){
+                this.rightBigDigit = this.EASY;
+            }
+            else if(dif == "Medium"){
+                this.rightBigDigit = this.MEDIUM;
+            }
+            else if(dif == "Hard"){
+                this.rightBigDigit = this.HARD;
+            }
+            
+            this.rightSmallDigit = 0;
+            console.log("resetou right")
+        }
+    }
+
     changePlayer(){
         if(this.isLeftButtonDown){
+            console.log("clicou no esuqerdo")
             this.isLeftButtonDown = false;
             this.isRightButtonDown = true;
-            this.rightBigDigit = 6;
-            this.rightSmallDigit = 0;
-        }else{
+            this.resetTimer("left");
+        }
+        else{
+            console.log("clicou no direito")            
             this.isLeftButtonDown = true;
             this.isRightButtonDown = false;
-            this.leftBigDigit = 6; //Game.dificulty.MEDIUM.time;
-            this.leftSmallDigit = 0;
+            this.resetTimer("right");
         }
     }
 
     start(){
-        //TODO change according to dificulty
-        this.leftBigDigit = 6; //Game.dificulty.MEDIUM.time;
-        this.leftSmallDigit = 0;
-
-        //TODO change this according to dificulty
-        this.rightBigDigit = 6;
-        this.rightSmallDigit = 0;
+        this.resetTimer("left");
+        this.resetTimer("right");
 
         this.isRightButtonDown = true;
+
         this.playingGame = true;
     }
 
     restart(){
-        //TODO change according to dificulty
-        this.leftBigDigit = 6; //Game.dificulty.MEDIUM.time;
-        this.leftSmallDigit = 0;
-
-        //TODO change this according to dificulty
-        this.rightBigDigit = 6;
-        this.rightSmallDigit = 0;
+        this.resetTimer("left");
+        this.resetTimer("right");
         this.isLeftButtonDown = false;
         this.isRightButtonDown = false;
         this.isRestartButtonDown = false;
