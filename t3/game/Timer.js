@@ -103,7 +103,7 @@ class Timer {
     }
 
     start(){
-        
+        let dif = this.scene.graph.game.dificulty   
         if(dif == "Challenge"){
             this.setChallenge();
         }
@@ -124,7 +124,7 @@ class Timer {
     }
 
     restart(){
-        let dif = this.scene.graph.game.dificulty
+        let dif = this.scene.graph.game.dificulty   
         if(dif == "Challenge"){
             this.setChallenge();
         }
