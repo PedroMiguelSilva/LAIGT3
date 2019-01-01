@@ -18,20 +18,45 @@ class MyInterface extends CGFinterface {
         // init GUI. For more information on the methods, check:
         //  http://workshop.chromeexperiments.com/examples/gui
 
-        this.gui = new dat.GUI();
+        //this.gui = new dat.GUI();
+        this.gui = new dat.GUI( { autoPlace: true, width: 500 } );
 
         // add a group of controls (and open/expand by defult)
         this.processKeyboard = function(){};
 
+        
+        
+
         return true;
+    }
+
+    addOptions(){
+        this.opt = this.gui.addFolder("Options");
+        var modes = ["Human vs Human", "Human vs Bot", "Bot vs Bot", "Movie"]
+        this.opt.open();
+        this.opt.add(this.scene.graph.game,'mode',modes);
+
+        var difs = ["Easy", "Medium", "Hard"];
+        this.opt.add(this.scene.graph.game,'dificulty',difs);
+
+        this.opt.add(this.scene.graph.game,'speed', 1,10).step(0.5).name("Speed");
+    }
+
+    addInformation(){
+        this.info = this.gui.addFolder("Information");
+        this.info.open();
+        var msg = this.info.add(this.scene.graph.game,'currentState').listen();
     }
 
     processKeyUp(event){
         if(event.code == "KeyM"){
             this.scene.graph.materialCurrentIndex++;
         }
-
     };
+
+    update(){
+
+    }
 
     /**
      * Adds a folder containing the IDs of the lights passed as parameter.

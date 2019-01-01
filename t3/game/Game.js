@@ -52,8 +52,7 @@ class Game {
 
             END_GAME: "Game ended",
             QUIT_GAME: "Quit Game",
-            MOVIE: "Showing game movie, please wait",
-            CONNECTION_ERROR: "Error connecting with game engine"
+            MOVIE: "Showing game movie, please wait"
         };
 
         this.movementState = {
@@ -79,15 +78,9 @@ class Game {
             BOTVBOT: "Bot VS Bot"
         };
 
-        /**
-         * Dificulty of the Game
-         */
-        this.dificulty = {
-            EASY: "Easy bot and lots of time",
-            MEDIUM: "Hard bot and lots of time",
-            HARD: "Hard bot and less time"
-        }
-        this.currentDificulty = this.dificulty.MEDIUM;
+        this.mode = "Human vs Human";
+        this.dificulty = "Easy";
+        this.speed = 5;
 
         this.whiteAlivePieces = [1,2,3,4,5,6,7];
         this.blackAlivePieces = [8,9,10,11,12,13,14];
@@ -308,6 +301,7 @@ class Game {
                         /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
                            this.currentState = this.state.PLAYER_1_WASTING_TIME;
+                           break;
                         }
                         
                         /* Can make any other move as long as its the same one */
@@ -370,6 +364,7 @@ class Game {
                         /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
                             this.currentState = this.state.PLAYER_2_WASTING_TIME;
+                            break;
                         }
 
                         /* Can make any other move as long as its the same one */

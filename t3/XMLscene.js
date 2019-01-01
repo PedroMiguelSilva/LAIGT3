@@ -14,7 +14,9 @@ class XMLscene extends CGFscene {
 
         this.interface = myinterface;
         this.lightValues = {};
+        
         this.previousTime = 0;
+        
        
     }
 
@@ -211,6 +213,11 @@ class XMLscene extends CGFscene {
 
         //Add lights interface
         this.interface.addLightsGroup(this.graph.lights);
+        
+        this.interface.addInformation();
+        
+
+        this.interface.addOptions();
 
 
         this.sceneInited = true;
@@ -309,7 +316,6 @@ class XMLscene extends CGFscene {
         //var cy2 = new Cylinder2(this, 5, 3, 5, 10, 10);
         //cy2.display();
         //
-
         this.popMatrix();
         // ---- END Background, camera and axis setup
     }

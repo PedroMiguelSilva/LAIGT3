@@ -36,13 +36,11 @@ class Move {
      * Executes this same movement
      */
     execute(){
-        console.log(this)
         //Actually move it
         this.piece.move(this.destX,this.destY);
 
         //If it has captured any piece, then move it and kill it in the game
         if(this.capturedPiece){
-            this.capturedPiece.move(100,100);
             this.capturedPiece.kill();
         }
     }

@@ -38,6 +38,8 @@ class MySceneGraph {
         this.animations = [];
         this.materialCurrentIndex = 0;
 
+        
+
         this.cameras = [];
         this.defaultCameraId = null;
 

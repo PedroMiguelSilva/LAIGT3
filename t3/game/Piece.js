@@ -45,6 +45,7 @@ class Piece
         else{
             this.deleteFromArray(this.scene.graph.game.blackAlivePieces, this.id);
         }
+        this.move(100,100);
     }
 
     deleteFromArray(array, elem){
@@ -76,15 +77,7 @@ class Piece
     * @param {Coordinate of the destination of the move} yFinal
     */
    move(xFinal, yFinal){
-        //console.log("Piece moved from (" + this.x + "," + this.y + ") to (" + xFinal + "," + yFinal + ")");
-        // note - save the end position of the animatino in the x and z values of this object for next animation reference
-        /* 
-        let newAnime = new LinearAnimation(this.scene,2);
-        newAnime.addControlPoint(this.x-0.01,0,this.y-0.01);
-        newAnime.addControlPoint(xFinal,0,yFinal);
-        newAnime.init();
-        this.animation = newAnime;
-        */
+
 
         let pickUp = this.createAnimation(
                                         this.x-0.01,this.y-0.01,0,
@@ -110,7 +103,7 @@ class Piece
    }
 
    createAnimation(fromX, fromY, fromZ, toX, toY, toZ){
-       let anime = new LinearAnimation(this.scene, 2);
+       let anime = new LinearAnimation(this.scene, 2/this.scene.graph.game.speed);
        anime.addControlPoint(fromX, fromZ, fromY);
        anime.addControlPoint(toX, toZ, toY);
        anime.init();
