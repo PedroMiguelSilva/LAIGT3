@@ -56,6 +56,9 @@ class Timer {
     resetTimer(button){
         console.log("Reseting " + button)
         let dif = this.scene.graph.game.dificulty
+        if(dif == "Challenge"){
+            return;
+        }
         if(button == "left"){
             if(dif == "Easy"){
                 this.leftBigDigit = this.EASY;
@@ -100,17 +103,36 @@ class Timer {
     }
 
     start(){
-        this.resetTimer("left");
-        this.resetTimer("right");
-
+        
+        if(dif == "Challenge"){
+            this.setChallenge();
+        }
+        else{
+            this.resetTimer("left");
+            this.resetTimer("right");
+        }
+        
         this.isRightButtonDown = true;
-
         this.playingGame = true;
     }
 
+    setChallenge(){
+        this.leftBigDigit = this.CHALLENGE;
+        this.rightBigDigit = this.CHALLENGE;
+        this.leftSmallDigit = 0;
+        this.rightSmallDigit = 0;
+    }
+
     restart(){
-        this.resetTimer("left");
-        this.resetTimer("right");
+        let dif = this.scene.graph.game.dificulty
+        if(dif == "Challenge"){
+            this.setChallenge();
+        }
+        else{
+            this.resetTimer("left");
+            this.resetTimer("right");
+        }
+        
         this.isLeftButtonDown = false;
         this.isRightButtonDown = false;
         this.isRestartButtonDown = false;

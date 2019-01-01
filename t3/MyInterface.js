@@ -36,7 +36,7 @@ class MyInterface extends CGFinterface {
         this.opt.open();
         this.opt.add(this.scene.graph.game,'mode',modes);
 
-        var difs = ["Easy", "Medium", "Hard"];
+        var difs = ["Easy", "Medium", "Hard", "Challenge"];
         this.opt.add(this.scene.graph.game,'dificulty',difs);
 
         this.opt.add(this.scene.graph.game,'speed', 1,10).step(0.5).name("Speed");
