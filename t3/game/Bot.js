@@ -8,17 +8,77 @@ class Bot {
         this.scene = scene;
         this.player = player;
 
+        this.state = {
+            STOP: 0,
+            MOVING: 1,
+            NEXT: 2,
+        }
+        
+        this.currentState = this.state.STOP;
+        this.currentTurn = [];
+        this.currentMove = 0;
+
+        //this.playing = false;
+        //this.nextMove = false;
+        //this.currentMove = 0;
 
         //test
-        this.botTurnParser('[[18,C],[[7,Jump,C],[7,Jump,A],[13,Canter,B]]]');
+        //this.botTurnParser('[[18,C],[[7,Jump,C],[7,Jump,A],[13,Canter,B]]]');
         //this.botPlay([9,2],[]);
         //console.log(parseInt("20,B]"));
         //var str = "A]";
         //var str1 = "B]";
         //console.log(str.charCodeAt(0));
         //console.log(str1.charCodeAt(0));
+        console.log(this.currentState);
     }
 
+    /**
+     * 
+     */
+    updateState(moveDone) {
+
+        switch(this.currentState){
+
+            case this.state.STOP:
+                //console.log("STOP");
+                this.turn = [];
+                this.currentMove = 0;
+                break;
+
+            case this.state.MOVING:
+                //console.log("MOVING");
+                if(moveDone == -1)
+                    this.currentState = this.state.NEXT;
+                break;
+
+            case this.state.NEXT:
+                //console.log("NEXT");
+                this.currentMove++;
+                console.log(this.currentMove);
+                if(this.currentMove >= this.turn.length)
+                    this.currentState = this.state.STOP;
+
+                this.applyMove(this.turn[this.currentMove]);
+                this.currentState = this.state.MOVING;
+                break;
+
+        }
+
+        //console.log(this.currentState);
+    }
+
+    /**
+     * 
+     */
+    applyMove(movePosition) {
+        var game = this.scene.graph.game;
+        var moveX = this.getX(movePosition[2]);
+        var moveZ = this.getZ(movePosition[0]);
+
+        var move = new Move(this.scene, game.selectedPiece, moveX, moveZ);
+        move.execute();
+    }
 
     /**
      * 
@@ -28,7 +88,12 @@ class Bot {
         var prologBoard = "[";
 
         for(var i = 13; i >= 1; i--){
-            var line = "["
+        var line = "";
+
+            if(i != 13)
+                line += ",";
+
+            line += "["
             for(var j = 1; j <= 7; j++){
                 var cell;
                 
@@ -88,21 +153,23 @@ class Bot {
      * 
      */
     botTurn() {
-        var this_game = this.scene.graph.game;
+        //var this_game = this.scene.graph.game;
         var this_bot = this;
+        var board = this.getPrologBoard();
+        var player = this.player;
     
-        var command = "bot_turn(" + this_game.prologBoard + "," + this.player + ")";
-        //console.log(command);
+        var command = "bot_turn(" + board + "," + player + ")";
+        console.log(command);
         this.scene.client.getPrologRequest(command,
             function(data){
                 var turnString = data.target.response;
-                console.log(turnString);
+                //console.log(turnString);
                 var turnBot = this_bot.botTurnParser(turnString);
-                //this_bot.botPlay(turnBot[1], turnBot[2]);
-                console.log(turnBot);
+
+                this_bot.botPlay(turnBot[0], turnBot[1]);
             },
             function(data){
-                console.log("Connection error: initBoard");
+                console.log("Connection error: botBoard");
             }
         );
     }
@@ -114,8 +181,7 @@ class Bot {
         var turn = [];
         var piece = [];
         var moves = [];
-        console.log("Welcome to Parser");
-        console.log(turnString);
+       
         //Auxiliar
         var pos = 2;
         var num;
@@ -174,7 +240,8 @@ class Bot {
      */
     botPlay(piecePosition, moves) {
         var game = this.scene.graph.game;
-
+        this.turn = moves;
+       
         //Select Piece
         var pieceX = this.getX(piecePosition[1]);
         var pieceZ = this.getZ(piecePosition[0]);
@@ -184,6 +251,9 @@ class Bot {
 
         game.selectedPiece = piece; //game.getPiece(pieceX, pieceZ);
 
+        this.applyMove(this.turn[0]);
+        this.currentState = this.state.MOVING;
+        /*
         //Move Piece
         for(var i = 0; i < moves.length; i++){
             var movePosition = moves[i];
@@ -192,6 +262,7 @@ class Bot {
          
             game.selectedPiece.move(moveX, moveZ);
         }
+        */
 
     }
 
