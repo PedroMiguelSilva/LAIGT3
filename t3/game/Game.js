@@ -101,6 +101,12 @@ class Game {
         this.blackCastle.y = 18;
 
         this.validMoves = [];
+
+        /**
+         * Bot: using prolog
+         */
+        this.bot1 = new Bot(this.scene, "white");
+        this.bot2 = new Bot(this.scene, "black");
     }
 
     /**
@@ -111,7 +117,13 @@ class Game {
         
         for(var i = 0; i < this.pieces.length; i++){
             if(this.pieces[i].animationController != undefined){
-                this.pieces[i].animationController.update(delta);
+                var animationDone = this.pieces[i].animationController.update(delta);
+                
+                //Update bots
+                if(this.pieces[i] == this.selectedPiece){
+                    this.bot1.updateState(animationDone);
+                    this.bot2.updateState(animationDone);
+                }
             }
         }
 
@@ -249,6 +261,8 @@ class Game {
     stateMachine(customId, piecePicked, comp){
         console.log("==============================");
         console.log(this.currentState);
+        //this.bot1.botPlay([4,3],[[6,'Canter',3],[4,'Canter',3]]);
+        //this.bot1.botTurn();
 
         // Restart game
         if(customId == 102 && this.currentState != this.state.START){
