@@ -57,11 +57,11 @@ class Game {
         };
 
         this.movementState = {
-            START : "No move",
-            PLAIN : "Plain move",
-            CANTER : "Canter move",
-            JUMP : "Jump move",
-            KNIGHTS_CHARGE : "Knights charge move"
+            START : "no move",
+            PLAIN : "plain move",
+            CANTER : "canter move",
+            JUMP : "jump move",
+            KNIGHTS_CHARGE : "charge move"
         }
 
         this.currentMovementState = this.movementState.START;
@@ -200,6 +200,50 @@ class Game {
     }
 
     /**
+     * Uses game logic to filter the valid moves from the possible ones
+     */
+    filterMovesByGameLogic(validMoves){
+        var result = [];
+        //console.log("valid moves" + validMoves)
+        
+        var previousState = this.currentMovementState;
+        //console.log("previous state :" + previousState)
+        for(var i = 0 ; i < validMoves.length; i++){
+            //for each move, check if it can be done based on type and previous type done
+            let type = validMoves[i].moveType;
+            //console.log("type of move:" + type)
+            //console.log("Chegou aqui no " + i)
+            if(previousState == "no move"){
+                result.push(validMoves[i]);
+                continue;
+            }
+            
+            // Plain moves cannot be done in second round
+            if(type == "plain move"){
+                continue;
+            }
+
+            if(type == "canter move"){
+                if(previousState == "canter move"){
+                    result.push(validMoves[i]);
+                }
+            }
+
+            if(type == "jump move"){
+                if(previousState == "jump move"){
+                    result.push(validMoves[i]);
+                }
+                if(previousState == "canter move" && this.selectedPiece.type == "Knight"){
+                    result.push(validMoves[i]);
+                    this.currentMovementState = "jump move";
+                }
+            }
+        }
+        //console.log(result)
+        return result;
+    }
+
+    /**
      * State machine that handles the state of the game
      */
     stateMachine(customId, piecePicked, comp){
@@ -243,6 +287,7 @@ class Game {
                 /* Chose destination tile */
                 else if(customId >= 15 && customId <= 81){
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
+                    console.log(move)
                     if(move){
                         move.execute();
                         this.board.deactivateTiles();
@@ -268,39 +313,19 @@ class Game {
                     this.currentState = this.state.PLAYER_2_SELECT_PIECE;
                     this.timer.changePlayer();
                     this.currentMovementState = this.movementState.START;
+                    this.board.deactivateTiles();
                 }
                 /* A tile of the board is pressed */
                 if(customId >= 15 && customId <= 81){
                     this.validMoves = this.getValidMoves(this.selectedPiece);
                     this.board.highlightTiles(this.validMoves);
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
+                    
                     if(move){
-                        /* If player tries to make a plain move, reject */
-                        if(move.moveType == "plain move"){
-                            return;
-                        }
-                        /* If tries to make a canter */
-                        if(move.moveType == "canter move"){
-                            if(this.currentMovementState == "canter move"){
-                                move.execute();
-                                this.board.deactivateTiles();
-                                //TODO ADD TO THE LIST OF MOVEMENTS
-                            }
-                        }
-                        /* If tries to make a jump */ 
-                        if(move.moveType == "jump move"){
-                            if(this.currentMovementState == "jump move"){
-                                move.execute();
-                                this.board.deactivateTiles();
-                                //TODO ADD TO THE LIST OF MOVEMENTS
-                            }
-                            if(this.currentMovementState == "canter move" && this.selectedPiece.type == "Knight"){
-                                move.execute();
-                                this.board.deactivateTiles();
-                                this.currentMovementState = "jump move";
-                            }
-                        }                      
-                     }
+                        move.execute();
+                        this.board.deactivateTiles();
+                        this.currentMovementState = move.moveType;
+                    }
                 }
                 break;
             case this.state.PLAYER_2_SELECT_PIECE:
@@ -351,38 +376,18 @@ class Game {
                     this.currentState = this.state.PLAYER_1_SELECT_PIECE;
                     this.timer.changePlayer();
                     this.currentMovementState = this.movementState.START;
+                    this.board.deactivateTiles();
                 }
                 /* A tile is pressed */
                 if(customId >= 15 && customId <= 81){
                     this.validMoves = this.getValidMoves(this.selectedPiece);
+
                     this.board.highlightTiles(this.validMoves);
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
-                        /* If it tries to do a plain move, reject */
-                        if(move.moveType == "plain move"){
-                            return;
-                        }
-                        /* If tries to make a canter */
-                        if(move.moveType == "canter move"){
-                            if(this.currentMovementState == "canter move"){
-                                move.execute();
-                                this.board.deactivateTiles();
-                                //TODO ADD TO THE LIST OF MOVEMENTS
-                            }
-                        }
-                        /* If tries to make a jump */ 
-                        if(move.moveType == "jump move"){
-                            if(this.currentMovementState == "jump move"){
-                                move.execute();
-                                this.board.deactivateTiles();
-                                //TODO ADD TO THE LIST OF MOVEMENTS
-                            }
-                            if(this.currentMovementState == "canter move" && this.selectedPiece.type == "Knight"){
-                                move.execute();
-                                this.board.deactivateTiles();
-                                this.currentMovementState = "jump move";
-                            }
-                        }  
+                        move.execute();
+                        this.board.deactivateTiles();
+                        this.currentMovementState = move.moveType;
                     }
                 }
                 break;
@@ -586,7 +591,7 @@ class Game {
         }
         
 
-        return results;
+        return this.filterMovesByGameLogic(results);
     }
 
 
