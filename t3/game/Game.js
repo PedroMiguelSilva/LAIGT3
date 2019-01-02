@@ -40,6 +40,9 @@ class Game {
         this.state = {
             START : "Please select a game mode",
 
+            /**
+             * HUMAN
+             */
             PLAYER_1_SELECT_PIECE: "WHITE: Select a piece to move",
             PLAYER_1_MOVE: "WHITE: Select a destination for first move",
             PLAYER_1_CONTINUE_MOVE: "WHITE: Select a destination of move",
@@ -50,6 +53,17 @@ class Game {
             PLAYER_2_CONTINUE_MOVE: "BLACK: Select a destination of move",
             PLAYER_2_WASTING_TIME: "BLACK: Click the button !",
 
+            /**
+             * BOT
+             */
+            BOT_1_TURN: "WHITE: Bot turn",
+            BOT_2_TURN: "BLACK: Bot turn",
+            BOT_1_PLAYING: "WHITE: Bot playing",
+            BOT_2_PLAYING: "BLACK: Bot playing",
+
+            /**
+             * GAME
+             */
             END_GAME: "Game ended",
             QUIT_GAME: "Quit Game",
             MOVIE: "Showing game movie, please wait"
@@ -73,12 +87,12 @@ class Game {
          * Possible Game Modes
          */
         this.game_mode = {
-            PVP: "Player VS Player",
-            PVBOT: "Player VS Bot",
-            BOTVBOT: "Bot VS Bot"
+            PVP: "Human vs Human",
+            PVBOT: "Human vs Bot",
+            BOTVBOT: "Bot vs Bot"
         };
 
-        this.mode = "Human vs Human";
+        this.mode = this.game_mode.PVP;
         this.dificulty = "Easy";
         this.speed = 5;
 
@@ -131,6 +145,14 @@ class Game {
         }
 
         this.timer.update(delta);
+
+        //Update BOT vs BOR or HUMAN vs BOT machine 
+        if(this.mode == this.game_mode.BOTVBOT)
+            this.stateMachineBOTVBOT();
+
+        if(this.mode == this.game_mode.PVBOT)
+            this.stateMachinePVBOT();
+            
         if(!this.isAnyPieceMoving && this.movieActive){
             this.nextMoveOnMovie();
         }
@@ -151,6 +173,8 @@ class Game {
     playMovie(){
         this.restart();
         this.movieActive = true;
+
+        
     }
 
    
@@ -299,7 +323,14 @@ class Game {
             case this.state.START:
                 // Someone presse the start button
                 if(customId == 102){
-                    this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                    if(this.mode == this.game_mode.PVP)
+                        this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                    else
+                        console.log("HMMM");
+
+                    if(this.mode == this.game_mode.BOTVBOT)
+                        this.currentState = this.state.BOT_1_TURN;
+                    
                     this.timer.start();
                 }
                 break;
@@ -464,6 +495,65 @@ class Game {
 
         
     }//end of state machine
+
+
+    /**
+     *  State machine to BOT vs BOT mode
+     */
+    stateMachineBOTVBOT() {
+        //console.log("BOT1 STATE: " + this.bot1.currentState);
+        //console.log("GAME STATE: " + this.currentState);
+    
+            if(this.isGameOver()){
+                this.currentState = this.state.END_GAME;
+            }
+    
+            switch(this.currentState){
+                //case this.state.START:
+                    //break;
+    
+                case this.state.BOT_1_TURN:
+                    this.selectedPiece = null;
+                    this.bot1.botTurn();
+                    this.currentState = this.state.BOT_1_PLAYING;
+                    break;
+    
+                case this.state.BOT_1_PLAYING:
+                    if(this.bot1.currentState == this.bot1.state.STOP){
+                        this.timer.changePlayer();
+                        this.currentState = this.state.BOT_2_TURN;
+                    }
+                    break;
+    
+                case this.state.BOT_2_TURN:
+                    this.selectedPiece = null;
+                    this.bot2.botTurn();
+                    this.currentState = this.state.BOT_2_PLAYING;
+                    break;
+    
+                case this.state.BOT_2_PLAYING:
+                    if(this.bot2.currentState == this.bot2.state.STOP){
+                        this.timer.changePlayer();
+                        this.currentState = this.state.BOT_1_TURN;
+                    }
+                    break;
+    
+                case this.state.END_GAME:
+                    break;
+                
+                default:
+                    break;
+    
+            }
+        }
+
+    /**
+     * State machine to HUMAN VS BOT mode
+     */
+    stateMachinePVBOT() {
+
+    }
+
 
     /**
      * Returns move if its valid, null otherwise

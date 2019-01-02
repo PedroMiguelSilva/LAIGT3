@@ -153,19 +153,19 @@ class Bot {
      * 
      */
     botTurn() {
-        //var this_game = this.scene.graph.game;
+        
         var this_bot = this;
         var board = this.getPrologBoard();
         var player = this.player;
+
+        this.currentState = this.state.MOVING;
     
         var command = "bot_turn(" + board + "," + player + ")";
         console.log(command);
         this.scene.client.getPrologRequest(command,
             function(data){
                 var turnString = data.target.response;
-                //console.log(turnString);
                 var turnBot = this_bot.botTurnParser(turnString);
-
                 this_bot.botPlay(turnBot[0], turnBot[1]);
             },
             function(data){
@@ -252,7 +252,7 @@ class Bot {
         game.selectedPiece = piece; //game.getPiece(pieceX, pieceZ);
 
         this.applyMove(this.turn[0]);
-        this.currentState = this.state.MOVING;
+        //this.currentState = this.state.MOVING;
         /*
         //Move Piece
         for(var i = 0; i < moves.length; i++){
