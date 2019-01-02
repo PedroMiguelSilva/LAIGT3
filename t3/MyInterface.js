@@ -59,6 +59,10 @@ class MyInterface extends CGFinterface {
         if(event.code == "KeyM"){
             this.scene.graph.materialCurrentIndex++;
         }
+
+        if(event.code == "KeyU"){
+            this.scene.graph.game.undo();
+        }
     };
 
     update(){
@@ -70,7 +74,7 @@ class MyInterface extends CGFinterface {
      * @param {array} lights
      */
     addLightsGroup(lights) {
-        return;
+        //return;
 
         var group = this.gui.addFolder("Lights");
         group.open();

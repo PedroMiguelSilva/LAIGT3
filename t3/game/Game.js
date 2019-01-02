@@ -123,6 +123,12 @@ class Game {
         this.bot2 = new Bot(this.scene, "black");
     }
 
+    undo(){
+        //If there was no move yet, do nothing
+
+    }
+
+
     /**
      * Updates the values of the game
      * @param {Variation of time between 2 updates} delta 
@@ -159,6 +165,7 @@ class Game {
     }
 
     nextMoveOnMovie(){
+        console.log(this.movie)
         this.movie[this.movieCounter].execute();
         this.movieCounter++;
         if(this.movieCounter == this.movie.length){
@@ -171,7 +178,8 @@ class Game {
      * Plays the movie, from start, stored in 'this.movie'
      */
     playMovie(){
-        this.restart();
+        this.restartPieces();
+        this.restartTimer();
         this.movieActive = true;
 
         
@@ -250,13 +258,32 @@ class Game {
     }
 
     restart(){
+        console.log("chamou restart")
+        console.log(this)
+        this.restartPieces();
+        this.restartTimer();
+        this.restartMovieVariables();
+    }
+
+    restartPieces(){
         for(var i = 0 ; i < this.pieces.length; i++){
             if(this.pieces[i] != 0)
             this.pieces[i].restart();
         }
-        this.timer.restart();
+        
         this.whiteAlivePieces = [1,2,3,4,5,6,7];
         this.blackAlivePieces = [8,9,10,11,12,13,14];
+    }
+
+    restartTimer(){
+        this.timer.restart();
+    }
+
+    restartMovieVariables(){
+        //Movie variables
+        this.movie = [];
+        this.movieCounter = 0;
+        this.movieActive = false;
     }
 
     /**
@@ -359,7 +386,7 @@ class Game {
                     console.log(move)
                     if(move){
                         move.execute();
-                        this.movie.push(move);
+                        //this.movie.push(move);
                         this.board.deactivateTiles();
                         /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
@@ -394,7 +421,7 @@ class Game {
                     
                     if(move){
                         move.execute();
-                        this.movie.push(move);
+                        //this.movie.push(move);
                         this.board.deactivateTiles();
                         this.currentMovementState = move.moveType;
                     }
@@ -424,7 +451,7 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
                         move.execute();
-                        this.movie.push(move);
+                        //this.movie.push(move);
                         this.board.deactivateTiles();
                         /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
@@ -460,7 +487,7 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
                         move.execute();
-                        this.movie.push(move);
+                        //this.movie.push(move);
                         this.board.deactivateTiles();
                         this.currentMovementState = move.moveType;
                     }

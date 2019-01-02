@@ -17,6 +17,8 @@ class Move {
         this.destX = x2;
         this.destY = y2;
 
+        this.game = this.scene.graph.game;
+
         //Types of movement possible
         this.types = {
             PLAIN : "plain move",
@@ -38,6 +40,11 @@ class Move {
     execute(){
         //Actually move it
         this.piece.move(this.destX,this.destY);
+
+        //Add movement to movie if not playing movie
+        if(!this.game.movieActive){
+            this.game.movie.push(this);
+        }        
 
         //If it has captured any piece, then move it and kill it in the game
         if(this.capturedPiece){

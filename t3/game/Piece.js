@@ -65,6 +65,7 @@ class Piece
     }
 
     restart(){
+        console.log("aqui estraga")
         if(this.x == this.startX && this.y == this.startY){
             return;
         }
