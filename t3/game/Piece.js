@@ -40,6 +40,9 @@ class Piece
             JUMP : "Jump"
         }
 
+        this.xBeforeDeath = null;
+        this.yBeforeDeath = null;
+
         //Allows an extra animation to show the user that its the chosen piece
         this.selected = false;
         this.alive = true;
@@ -53,7 +56,19 @@ class Piece
         else{
             this.deleteFromArray(this.scene.graph.game.blackAlivePieces, this.id);
         }
+        this.xBeforeDeath = this.x;
+        this.yBeforeDeath = this.y;
         this.move(100,100);
+    }
+
+    revive(){
+        this.alive = true;
+        if(this.color = "White"){
+            this.scene.graph.game.whiteAlivePieces.push(this.id);
+        }else{
+            this.scene.graph.game.blackAlivePieces.push(this.id);    
+        }
+        this.move(this.xBeforeDeath,this.yBeforeDeath);
     }
 
     deleteFromArray(array, elem){
@@ -65,7 +80,7 @@ class Piece
     }
 
     restart(){
-        console.log("aqui estraga")
+        //console.log("aqui estraga")
         if(this.x == this.startX && this.y == this.startY){
             return;
         }

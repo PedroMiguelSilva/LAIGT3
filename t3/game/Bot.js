@@ -30,7 +30,7 @@ class Bot {
         //var str1 = "B]";
         //console.log(str.charCodeAt(0));
         //console.log(str1.charCodeAt(0));
-        console.log(this.currentState);
+        //console.log(this.currentState);
     }
 
     /**

@@ -54,7 +54,7 @@ class Timer {
      * @param {"left" or "right"} button 
      */
     resetTimer(button){
-        console.log("Reseting " + button)
+        //console.log("Reseting " + button)
         let dif = this.scene.graph.game.dificulty
         if(dif == "Challenge"){
             return;
@@ -83,19 +83,19 @@ class Timer {
             }
             
             this.rightSmallDigit = 0;
-            console.log("resetou right")
+            //console.log("resetou right")
         }
     }
 
     changePlayer(){
         if(this.isLeftButtonDown){
-            console.log("clicou no esuqerdo")
+            //console.log("clicou no esuqerdo")
             this.isLeftButtonDown = false;
             this.isRightButtonDown = true;
             this.resetTimer("left");
         }
         else{
-            console.log("clicou no direito")            
+            //console.log("clicou no direito")            
             this.isLeftButtonDown = true;
             this.isRightButtonDown = false;
             this.resetTimer("right");
@@ -160,7 +160,7 @@ class Timer {
                 if(this.leftBigDigit == 0){
                     //GAME OVER BECAUSE TIME IT UP
                     this.playingGame = false;
-                    console.log("White pieces won")
+                    //console.log("White pieces won")
                 }else{
                     this.leftBigDigit -= 1;
                     this.leftSmallDigit = 9;
@@ -176,7 +176,7 @@ class Timer {
                 if(this.rightBigDigit == 0){
                     //GAME OVER BECAUSE TIME IT UP
                     this.playingGame = false;
-                    console.log("Black pieces won");
+                    //console.log("Black pieces won");
                 }else{
                     this.rightBigDigit -= 1;
                     this.rightSmallDigit = 9;

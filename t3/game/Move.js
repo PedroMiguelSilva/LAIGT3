@@ -30,6 +30,7 @@ class Move {
         this.capturedPiece = null;
         //Move type, can be CANTER, JUMP or PLAIN
         this.moveType = null;
+        this.stateBeforeMove = this.game.currentState;
 
         this.init();
     }
@@ -50,13 +51,21 @@ class Move {
         if(this.capturedPiece){
             this.capturedPiece.kill();
         }
+        console.log(this.game.movie)
     }
 
     /**
      * Executes the reverse movement of this movement
      */
     executeReverse(){
+        this.piece.move(this.fromX,this.fromY);
 
+        if(this.capturedPiece){
+            this.capturedPiece.revive();
+        }
+
+        this.game.movie.splice(this.game.movie.length-1,1);
+        console.log(this.game.movie)
     }
 
     init(){

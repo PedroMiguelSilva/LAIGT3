@@ -125,15 +125,63 @@ class Game {
 
     undo(){
         //If there was no move yet, do nothing
-
+        if(this.movie.length == 0){
+            return;
+        }
+        
+        let player = this.currentState.substring(0,5).toLowerCase();
+        let lastPlayerToMove = this.movie[this.movie.length-1].piece.color.toLowerCase();
+        //console.log(this.movie[this.movie.length-1])
+        //console.log("currnt player " + player + " and last played was " + lastPlayerToMove)
+        if(player == lastPlayerToMove){
+            this.reverseLastPlay();
+        }
+        else{
+            this.reverseLastRound();
+        }
     }
 
+    /**
+     * Plays the last move in reverse order and deletes it from the movie
+     */
+    reverseLastPlay(){
+        let move = this.movie[this.movie.length-1];
+        move.executeReverse();
+        this.currentState = move.stateBeforeMove;
+    }
+
+    /**
+     * Plays the last moves that constitue a round in reverse order
+     */
+    reverseLastRound(){
+        // Check if its a 'White' player or 'Black'
+        let firstPlayer = this.movie[this.movie.length-1].piece.color;
+        let currentPlayer = firstPlayer;
+
+        //While still in the opponent round
+        while(firstPlayer == currentPlayer){
+            //Undo play
+            this.reverseLastPlay();
+
+            //Update variables
+            if(this.movie.length > 0){
+                currentPlayer = this.movie[this.movie.length-1].piece.color;
+            }
+        }
+
+        //If there is still a move left, reverse it, this allows the player that called the undo to play in the end of his/her turn
+        if(this.movie.length > 0){
+            this.reverseOneMorePlay = true;
+        }
+        
+    }
 
     /**
      * Updates the values of the game
      * @param {Variation of time between 2 updates} delta 
      */
-    update(delta){ 
+    update(delta){
+        
         this.isAnyPieceMoving = false ;
         for(var i = 0; i < this.pieces.length; i++){
             if(this.pieces[i].animationController != undefined){
@@ -161,6 +209,11 @@ class Game {
             
         if(!this.isAnyPieceMoving && this.movieActive){
             this.nextMoveOnMovie();
+        }
+
+        if(!this.isAnyPieceMoving && this.reverseOneMorePlay){
+            this.reverseLastPlay();
+            this.reverseOneMorePlay = false;
         }
     }
 
