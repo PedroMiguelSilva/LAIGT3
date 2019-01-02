@@ -58,8 +58,13 @@ class Game {
              */
             BOT_1_TURN: "WHITE: Bot turn",
             BOT_2_TURN: "BLACK: Bot turn",
+            BOT_1_WAIT_RESPONSE: "WHITE: Bot choosing move",
+            BOT_2_WAIT_RESPONSE: "BLACK: Bot choosing move",
             BOT_1_PLAYING: "WHITE: Bot playing",
             BOT_2_PLAYING: "BLACK: Bot playing",
+            BOT_1_WAIT_EXIT: "WHITE: Exiting game",
+            BOT_2_WAIT_EXIT: "BLACK: Exiting game",
+            BOTVBOT_EXIT: "Exiting game",
 
             /**
              * GAME
@@ -202,10 +207,10 @@ class Game {
 
         //Update BOT vs BOR or HUMAN vs BOT machine 
         if(this.mode == this.game_mode.BOTVBOT)
-            this.stateMachineBOTVBOT();
+            this.stateMachineBOTVBOT(null);
 
         if(this.mode == this.game_mode.PVBOT)
-            this.stateMachinePVBOT();
+            this.stateMachinePVBOT(null);
             
         if(!this.isAnyPieceMoving && this.movieActive){
             this.nextMoveOnMovie();
@@ -384,9 +389,21 @@ class Game {
     }
 
     /**
+     * 
+     */
+    stateMachine(customID, piecePicked, comp){
+
+        if(this.mode == this.game_mode.PVP)
+            this.stateMachinePlayer(customID, piecePicked, comp);
+
+        if(this.mode == this.game_mode.BOTVBOT)
+            this.stateMachineBOTVBOT(customID);
+    }
+
+    /**
      * State machine that handles the state of the game
      */
-    stateMachine(customId, piecePicked, comp){
+    stateMachinePlayer(customId, piecePicked, comp){
         console.log("==============================");
         console.log(this.currentState);
         //this.bot1.botPlay([4,3],[[6,'Canter',3],[4,'Canter',3]]);
@@ -403,14 +420,7 @@ class Game {
             case this.state.START:
                 // Someone presse the start button
                 if(customId == 102){
-                    if(this.mode == this.game_mode.PVP)
-                        this.currentState = this.state.PLAYER_1_SELECT_PIECE;
-                    else
-                        console.log("HMMM");
-
-                    if(this.mode == this.game_mode.BOTVBOT)
-                        this.currentState = this.state.BOT_1_TURN;
-                    
+                    this.currentState = this.state.PLAYER_1_SELECT_PIECE;
                     this.timer.start();
                 }
                 break;
@@ -580,7 +590,7 @@ class Game {
     /**
      *  State machine to BOT vs BOT mode
      */
-    stateMachineBOTVBOT() {
+    stateMachineBOTVBOT(customID) {
         //console.log("BOT1 STATE: " + this.bot1.currentState);
         //console.log("GAME STATE: " + this.currentState);
     
@@ -589,35 +599,103 @@ class Game {
             }
     
             switch(this.currentState){
-                //case this.state.START:
-                    //break;
+                case this.state.START:
+                    if(customID == 102){
+                        this.timer.start();
+                        this.currentState = this.state.BOT_1_TURN;
+                    }
+                    break;
     
                 case this.state.BOT_1_TURN:
+                    if(customID == 102){
+                        this.currentState = this.state.BOT_V_BOT_EXIT;
+                        return;
+                    }
+
                     this.selectedPiece = null;
                     this.bot1.botTurn();
-                    this.currentState = this.state.BOT_1_PLAYING;
+                    this.currentState = this.state.BOT_1_WAIT_RESPONSE;
+                    break;
+
+                case this.state.BOT_1_WAIT_RESPONSE:
+                    if(this.bot1.currentState == this.bot1.state.MOVING){
+                        this.currentState = this.state.BOT_1_PLAYING;
+                        return;
+                    }
+                        
+                    if(customID == 102){
+                        this.currentState = this.state.BOT_1_WAIT_EXIT;
+                        return;
+                    }
                     break;
     
                 case this.state.BOT_1_PLAYING:
+                    if(customID == 102){
+                        this.currentState = this.state.BOT_V_BOT_EXIT;
+                        return;
+                    }
+
                     if(this.bot1.currentState == this.bot1.state.STOP){
                         this.timer.changePlayer();
                         this.currentState = this.state.BOT_2_TURN;
                     }
                     break;
-    
-                case this.state.BOT_2_TURN:
-                    this.selectedPiece = null;
-                    this.bot2.botTurn();
-                    this.currentState = this.state.BOT_2_PLAYING;
+
+                case this.state.BOT_1_WAIT_EXIT:
+                    if(this.bot1.currentState == this.bot1.state.MOVING){
+                        this.currentState = this.state.BOT_V_BOT_EXIT;
+                    }
                     break;
     
+                case this.state.BOT_2_TURN:
+                    if(customID == 102){
+                        this.currentState = this.state.BOT_V_BOT_EXIT;
+                        return;
+                    }
+
+                    this.selectedPiece = null;
+                    this.bot2.botTurn();
+                    this.currentState = this.state.BOT_2_WAIT_RESPONSE;
+                    break;
+
+                case this.state.BOT_2_WAIT_RESPONSE:
+                    if(this.bot2.currentState == this.bot2.state.MOVING){
+                        this.currentState = this.state.BOT_2_PLAYING;
+                        return;
+                    }
+
+                    if(customID == 102){
+                        this.currentState = this.state.BOT_2_WAIT_EXIT;
+                        return;
+                    }
+                    break;
+
                 case this.state.BOT_2_PLAYING:
+                    if(customID == 102){
+                        this.currentState = this.state.BOT_V_BOT_EXIT;
+                        return;
+                    }
+                    
                     if(this.bot2.currentState == this.bot2.state.STOP){
                         this.timer.changePlayer();
                         this.currentState = this.state.BOT_1_TURN;
                     }
                     break;
-    
+
+                case this.state.BOT_2_WAIT_EXIT:
+                    if(this.bot2.currentState == this.bot2.state.MOVING){
+                        this.currentState = this.state.BOT_V_BOT_EXIT;
+                    }
+                    break;
+
+                case this.state.BOT_V_BOT_EXIT:
+                    this.selectedPiece = null;
+                    this.bot1.currentState = this.bot1.state.STOP;
+                    this.bot2.currentState = this.bot2.state.STOP;
+                    this.currentState = this.state.START;
+                    this.restart();
+                    break;
+
                 case this.state.END_GAME:
                     break;
                 

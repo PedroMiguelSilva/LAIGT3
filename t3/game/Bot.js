@@ -158,7 +158,7 @@ class Bot {
         var board = this.getPrologBoard();
         var player = this.player;
 
-        this.currentState = this.state.MOVING;
+        //this.currentState = this.state.MOVING;
     
         var command = "bot_turn(" + board + "," + player + ")";
         console.log(command);
@@ -251,8 +251,9 @@ class Bot {
 
         game.selectedPiece = piece; //game.getPiece(pieceX, pieceZ);
 
+        this.currentState = this.state.MOVING;
         this.applyMove(this.turn[0]);
-        //this.currentState = this.state.MOVING;
+        
         /*
         //Move Piece
         for(var i = 0; i < moves.length; i++){
