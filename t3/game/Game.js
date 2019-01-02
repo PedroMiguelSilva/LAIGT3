@@ -207,11 +207,9 @@ class Game {
         this.timer.update(delta);
 
         //Update BOT vs BOR or HUMAN vs BOT machine 
-        if(this.mode == this.game_mode.BOTVBOT)
-            this.stateMachineBOTVBOT(null);
+        if(this.mode == this.game_mode.BOTVBOT || this.mode == this.game_mode.PVBOT)
+            this.stateMachineBot(null);
 
-        if(this.mode == this.game_mode.PVBOT)
-            this.stateMachinePVBOT(null);
             
         if(!this.isAnyPieceMoving && this.movieActive){
             this.nextMoveOnMovie();
@@ -398,7 +396,12 @@ class Game {
             this.stateMachinePlayer(customID, piecePicked, comp);
 
         if(this.mode == this.game_mode.BOTVBOT)
-            this.stateMachineBOTVBOT(customID);
+            this.stateMachineBot(customID);
+
+        if(this.mode == this.game_mode.PVBOT){
+            this.stateMachinePlayer(customID, piecePicked, comp);
+            this.stateMachineBot(customID);
+        }
     }
 
     /**
@@ -472,10 +475,17 @@ class Game {
             case this.state.PLAYER_1_CONTINUE_MOVE:
                 /* Red button is pressed */
                 if(customId == 101){
-                    this.currentState = this.state.PLAYER_2_SELECT_PIECE;
                     this.timer.changePlayer();
-                    this.currentMovementState = this.movementState.START;
-                    this.board.deactivateTiles();
+                    if(this.mode == this.game_mode.PVP){
+                        this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                        this.currentMovementState = this.movementState.START;
+                        this.board.deactivateTiles();
+                    }
+                    else{
+                        this.currentState = this.state.BOT_2_TURN;
+                        return;
+                    }
+                    
                 }
                 /* A tile of the board is pressed */
                 if(customId >= 15 && customId <= 81){
@@ -560,8 +570,13 @@ class Game {
             case this.state.PLAYER_1_WASTING_TIME:
                 if(customId == 101){
                     this.timer.changePlayer();
-                    this.currentState = this.state.PLAYER_2_SELECT_PIECE;
-                    this.currentMovementState = this.movementState.START;
+                    if(this.mode == this.game_mode.PVP){
+                        this.currentState = this.state.PLAYER_2_SELECT_PIECE;
+                        this.currentMovementState = this.movementState.START;
+                    }
+                    else{
+                        this.currentState = this.state.BOT_2_TURN;
+                    }
                 }
                 break;
             case this.state.PLAYER_2_WASTING_TIME:
@@ -589,9 +604,9 @@ class Game {
 
 
     /**
-     *  State machine to BOT vs BOT mode
+     *  State machine to BOT turns
      */
-    stateMachineBOTVBOT(customID) {
+    stateMachineBot(customID) {
         //console.log("BOT1 STATE: " + this.bot1.currentState);
         //console.log("GAME STATE: " + this.currentState);
     
@@ -601,7 +616,7 @@ class Game {
     
             switch(this.currentState){
                 case this.state.START:
-                    if(customID == 102){
+                    if(customID == 102 && this.mode == this.game_mode.BOTVBOT){
                         this.timer.start();
                         this.currentState = this.state.BOT_1_TURN;
                     }
@@ -679,7 +694,11 @@ class Game {
                     
                     if(this.bot2.currentState == this.bot2.state.STOP){
                         this.timer.changePlayer();
-                        this.currentState = this.state.BOT_1_TURN;
+
+                        if(this.mode == this.game_mode.BOTVBOT)
+                            this.currentState = this.state.BOT_1_TURN;
+                        else
+                            this.currentState = this.state.PLAYER_1_SELECT_PIECE;
                     }
                     break;
 
@@ -705,13 +724,6 @@ class Game {
     
             }
         }
-
-    /**
-     * State machine to HUMAN VS BOT mode
-     */
-    stateMachinePVBOT() {
-
-    }
 
 
     /**
