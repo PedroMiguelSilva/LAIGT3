@@ -84,6 +84,8 @@ class Game {
 
         this.whiteAlivePieces = [1,2,3,4,5,6,7];
         this.blackAlivePieces = [8,9,10,11,12,13,14];
+        // Each piece must regist themselves in this list when moving and remove themselves when their movement ends
+        this.isAnyPieceMoving = false;
 
         // Castle coordinates
         this.whiteCastle = new Object();
@@ -94,6 +96,11 @@ class Game {
         this.blackCastle.y = 18;
 
         this.validMoves = [];
+        
+        /* Movie of the game - Array of objects of 'Move' which contain the information to create each move of the movie */
+        this.movie = []
+        this.movieActive = false;
+        this.movieCounter = 0;
 
         /**
          * Bot: using prolog
@@ -107,11 +114,14 @@ class Game {
      * @param {Variation of time between 2 updates} delta 
      */
     update(delta){ 
-        
+        this.isAnyPieceMoving = false ;
         for(var i = 0; i < this.pieces.length; i++){
             if(this.pieces[i].animationController != undefined){
                 var animationDone = this.pieces[i].animationController.update(delta);
-                
+                if(animationDone != -1){
+                    this.isAnyPieceMoving = true;
+                }
+
                 //Update bots
                 if(this.pieces[i] == this.selectedPiece){
                     this.bot1.updateState(animationDone);
@@ -121,8 +131,29 @@ class Game {
         }
 
         this.timer.update(delta);
+        if(!this.isAnyPieceMoving && this.movieActive){
+            this.nextMoveOnMovie();
+        }
     }
 
+    nextMoveOnMovie(){
+        this.movie[this.movieCounter].execute();
+        this.movieCounter++;
+        if(this.movieCounter == this.movie.length){
+            console.log("End of video");
+            this.movieActive = false;
+        }
+    }
+
+    /**
+     * Plays the movie, from start, stored in 'this.movie'
+     */
+    playMovie(){
+        this.restart();
+        this.movieActive = true;
+    }
+
+   
     /**
      * Displays the scene
      */
@@ -297,6 +328,7 @@ class Game {
                     console.log(move)
                     if(move){
                         move.execute();
+                        this.movie.push(move);
                         this.board.deactivateTiles();
                         /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
@@ -331,6 +363,7 @@ class Game {
                     
                     if(move){
                         move.execute();
+                        this.movie.push(move);
                         this.board.deactivateTiles();
                         this.currentMovementState = move.moveType;
                     }
@@ -360,6 +393,7 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
                         move.execute();
+                        this.movie.push(move);
                         this.board.deactivateTiles();
                         /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
@@ -395,6 +429,7 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
                         move.execute();
+                        this.movie.push(move);
                         this.board.deactivateTiles();
                         this.currentMovementState = move.moveType;
                     }

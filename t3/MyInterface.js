@@ -34,8 +34,15 @@ class MyInterface extends CGFinterface {
         this.opt = this.gui.addFolder("Options");
         var modes = ["Human vs Human", "Human vs Bot", "Bot vs Bot", "Movie"]
         this.opt.open();
-        this.opt.add(this.scene.graph.game,'mode',modes);
-
+        let controller = this.opt.add(this.scene.graph.game,'mode',modes);
+        var self = this;
+        controller.onFinishChange(
+            function(value){
+                if(value == "Movie"){
+                   self.scene.graph.game.playMovie(); 
+                }
+            }
+        )
         var difs = ["Easy", "Medium", "Hard", "Challenge"];
         this.opt.add(this.scene.graph.game,'dificulty',difs);
 
@@ -63,6 +70,7 @@ class MyInterface extends CGFinterface {
      * @param {array} lights
      */
     addLightsGroup(lights) {
+        return;
 
         var group = this.gui.addFolder("Lights");
         group.open();

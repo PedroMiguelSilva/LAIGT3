@@ -114,7 +114,7 @@ class Board extends CGFobject {
         for(var i = 0 ; i < validMoves.length; i++){
             let x = validMoves[i].destX;
             let y = validMoves[i].destY;
-            console.log("Coordinates of the tile:" + x + " " + y)
+            //console.log("Coordinates of the tile:" + x + " " + y)
             this.activateTile(x,y);
         }
     }

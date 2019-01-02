@@ -89,16 +89,16 @@ class Piece
 
         let pickUp = this.createAnimation(
                                         this.x-0.01,this.y-0.01,0,
-                                        this.x,     this.y,     5
+                                        this.x,     this.y,     3.5
                                         );
 
         let moveAcross = this.createAnimation(
-                                        this.x,     this.y,     5,
-                                        xFinal,     yFinal,     5
+                                        this.x,     this.y,     3.5,
+                                        xFinal,     yFinal,     3.5
                                         );
 
         let putDown = this.createAnimation(
-                                        xFinal,     yFinal,     5,
+                                        xFinal,     yFinal,     3.5,
                                         xFinal,     yFinal,     0
                                         );
         this.animationController.addAnimation(pickUp);
