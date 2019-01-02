@@ -50,7 +50,7 @@ class Piece
 
     kill(){
         this.alive = false;
-        if(this.color = "White"){
+        if(this.color == "White"){
             this.deleteFromArray(this.scene.graph.game.whiteAlivePieces, this.id);
         }
         else{
@@ -63,7 +63,7 @@ class Piece
 
     revive(){
         this.alive = true;
-        if(this.color = "White"){
+        if(this.color == "White"){
             this.scene.graph.game.whiteAlivePieces.push(this.id);
         }else{
             this.scene.graph.game.blackAlivePieces.push(this.id);    

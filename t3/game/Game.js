@@ -410,7 +410,9 @@ class Game {
 
         // Restart game
         if(customId == 102 && this.currentState != this.state.START){
+            console.log(this.pieces)
             this.restart();
+            console.log(this.pieces)
             this.currentState = this.state.START;
             return;
         }

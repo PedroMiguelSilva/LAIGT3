@@ -56,8 +56,11 @@ class Bot {
                 //console.log("NEXT");
                 this.currentMove++;
                 console.log(this.currentMove);
-                if(this.currentMove >= this.turn.length)
+                if(this.currentMove >= this.turn.length){
                     this.currentState = this.state.STOP;
+                    return;
+                }
+                    
 
                 this.applyMove(this.turn[this.currentMove]);
                 this.currentState = this.state.MOVING;
