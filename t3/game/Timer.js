@@ -23,6 +23,8 @@ class Timer {
         //restart button
         this.restartButton = new MyCylinder(this.scene, 1,1,1,20,20);
 
+        this.dummie = new MyRectangle(this.scene, 0,0,0.1,0.1);
+
         this.isLeftButtonDown = false;
         this.isRightButtonDown = false;
         this.isRestartButtonDown = false;
@@ -33,11 +35,9 @@ class Timer {
         this.EASY = 6;
         this.CHALLENGE = 9;
 
-        //TODO change according to dificulty
-        this.leftBigDigit = this.EASY; //Game.dificulty.MEDIUM.time;
+        this.leftBigDigit = this.EASY; 
         this.leftSmallDigit = 0;
 
-        //TODO change this according to dificulty
         this.rightBigDigit = this.EASY;
         this.rightSmallDigit = 0;
 
@@ -291,6 +291,11 @@ class Timer {
             this.scene.registerForPick(102,this.restartButton);
             this.restartButtonAnimation.apply();
             this.restartButton.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.registerForPick(200,this.dummie);
+            this.dummie.display();
         this.scene.popMatrix();
     }
 

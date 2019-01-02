@@ -83,9 +83,7 @@ class Game {
         }
 
         this.currentMovementState = this.movementState.START;
-        this.currentState = this.state.START;
-        console.log("==============================");
-        console.log(this.currentState);
+        this.currentState = this.state.START;   
         this.selectedPiece = null;
 
         /**
@@ -128,6 +126,9 @@ class Game {
         this.bot2 = new Bot(this.scene, "black");
     }
 
+    /**
+     * Undos the last play of the last few plays according to the state of the game and who called it
+     */
     undo(){
         //If there was no move yet, do nothing
         if(this.movie.length == 0){
@@ -404,8 +405,6 @@ class Game {
      * State machine that handles the state of the game
      */
     stateMachinePlayer(customId, piecePicked, comp){
-        console.log("==============================");
-        console.log(this.currentState);
         //this.bot1.botPlay([4,3],[[6,'Canter',3],[4,'Canter',3]]);
         //this.bot1.botTurn();
 
@@ -446,7 +445,7 @@ class Game {
                 /* Chose destination tile */
                 else if(customId >= 15 && customId <= 81){
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
-                    console.log(move)
+                    //console.log(move)
                     if(move){
                         move.execute();
                         //this.movie.push(move);
