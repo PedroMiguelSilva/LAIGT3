@@ -24,12 +24,20 @@
     </ambient>  
 
     <lights>
-        <omni id = "omniDefault" enabled = "1">
+        <omni id = "omniDefault" enabled = "0">
             <location x = "5" y = "0" z = "5" w = "1" />
             <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
             <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
             <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
         </omni>
+
+        <spot id = "spot_outside" enabled = "1" angle = "20" exponent = "100">
+            <location x = "-57" y = "55" z = "0" w ="1" />
+            <target x = "0" y = "0" z = "0" />
+            <ambient r="0" g="0" b="0" a="1" />
+            <diffuse r="0.65" g="0.65" b="0.65" a="1" />
+            <specular r="0.65" g="0.65" b="0.65" a="1" />
+        </spot>
     </lights>
 
     <textures>
@@ -58,12 +66,20 @@
         </material>
 
         <material id = "default" shininess = "1">
-            <emission r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <emission r = "0" g = "0" b = "0" a = "1" />
             <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
             <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
             <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
         </material>
 
+<!--
+        <material id = "default" shininess = "1">
+            <emission r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <diffuse r = "0.5" g = "0.5" b = "0.5" a = "1" />
+            <specular r = "0.5" g = "0.5" b = "0.5" a = "1" />
+        </material>
+-->
         <material id = "table color" shininess = "1">
             <emission r = "0.5" g = "0.5" b = "0.5" a = "1" />
             <ambient r = "0.5" g = "0.5" b = "0.5" a = "1" />

@@ -1102,7 +1102,7 @@
 
         <component id = "horse_2">
             <transformation>
-                <scale x = "0.6" y = "0.6" z = "0.6" />
+                <scale x = "0.45" y = "0.45" z = "0.45" />
                 <rotate axis = "x" angle = "-90" />
                 <translate x = "-14" y = "-19" z = "0" />
             </transformation>
