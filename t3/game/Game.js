@@ -69,7 +69,8 @@ class Game {
             /**
              * GAME
              */
-            END_GAME: "Game ended",
+            WHITE_WON : "White player won",
+            BLACK_WON : "Black player won",
             QUIT_GAME: "Quit Game",
             MOVIE: "Showing game movie, please wait"
         };
@@ -119,11 +120,22 @@ class Game {
         this.movieActive = false;
         this.movieCounter = 0;
 
+        /* Message that is going to be printed */
+        this.blackScore = 0;
+        this.whiteScore = 0;
+        this.resultString = "";
+        this.updateResultString();
+        
+
         /**
          * Bot: using prolog
          */
         this.bot1 = new Bot(this.scene, "white");
         this.bot2 = new Bot(this.scene, "black");
+    }
+
+    updateResultString(){
+        this.resultString = "WHITE " + this.whiteScore + " - " + this.blackScore + " BLACK";
     }
 
     /**
@@ -453,6 +465,13 @@ class Game {
                     //console.log(move)
                     if(move){
                         move.execute();
+                        /* Check for game over */
+                        if(this.isGameOver()){
+                            this.board.deactivateTiles();
+                            //this.currentState = this.state.END_GAME;
+                            return;
+                        }
+
                         //this.movie.push(move);
                         this.board.deactivateTiles();
                         /* If it makes a plain move then don't allow to move again */
@@ -464,12 +483,7 @@ class Game {
                         /* Can make any other move as long as its the same one */
                         this.currentState = this.state.PLAYER_1_CONTINUE_MOVE;
                         this.currentMovementState = move.moveType;
-                    }
-                    /* Check for game over */
-                    if(this.isGameOver()){
-                        this.currentState = this.state.END_GAME;
-                        return;
-                    }                    
+                    }                   
                 }
                 break;
             case this.state.PLAYER_1_CONTINUE_MOVE:
@@ -495,6 +509,12 @@ class Game {
                     
                     if(move){
                         move.execute();
+                        /* Check for game over */
+                        if(this.isGameOver()){
+                            this.board.deactivateTiles();
+                            //this.currentState = this.state.END_GAME;
+                            return;
+                        } 
                         //this.movie.push(move);
                         this.board.deactivateTiles();
                         this.currentMovementState = move.moveType;
@@ -525,6 +545,13 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
                         move.execute();
+                        /* Check for game over */
+                        if(this.isGameOver()){
+                            //this.currentState = this.state.END_GAME;
+                            this.board.deactivateTiles();
+                            return;
+                        } 
+
                         //this.movie.push(move);
                         this.board.deactivateTiles();
                         /* If it makes a plain move then don't allow to move again */
@@ -537,12 +564,6 @@ class Game {
                         this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
                         this.currentMovementState = move.moveType;
                      }
-
-                    //Check for game over
-                    if(this.isGameOver()){
-                        this.currentState = this.state.END_GAME;
-                        return;
-                    }
                 }
                 break;
             case this.state.PLAYER_2_CONTINUE_MOVE:
@@ -561,6 +582,12 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
                         move.execute();
+                        /* Check for game over */
+                        if(this.isGameOver()){
+                            //this.currentState = this.state.END_GAME;~
+                            this.board.deactivateTiles();
+                            return;
+                        } 
                         //this.movie.push(move);
                         this.board.deactivateTiles();
                         this.currentMovementState = move.moveType;
@@ -611,7 +638,9 @@ class Game {
         //console.log("GAME STATE: " + this.currentState);
     
             if(this.isGameOver()){
-                this.currentState = this.state.END_GAME;
+                this.board.deactivateTiles();
+                //this.currentState = this.state.END_GAME;
+                return;
             }
     
             switch(this.currentState){
@@ -716,7 +745,10 @@ class Game {
                     this.restart();
                     break;
 
-                case this.state.END_GAME:
+                case this.state.BLACK_WON:
+                    break;
+
+                case this.state.WHITE_WON:
                     break;
                 
                 default:
@@ -747,11 +779,13 @@ class Game {
         
         //White has no pieces alive
         if(this.whiteAlivePieces.length === 0){
+            this.wonGame("black");
             return true;
         }
 
         //Black has no pieces alive
         if(this.blackAlivePieces.length === 0){
+            this.wonGame("white");
             return true;
         }
 
@@ -759,6 +793,7 @@ class Game {
         for(var i = 0 ; i < this.whiteAlivePieces.length; i++){
             var piece = this.pieces[this.whiteAlivePieces[i]-1];
             if(piece.x === this.blackCastle.x && piece.y === this.blackCastle.y){
+                this.wonGame("white");
                 return true;
             }
         }
@@ -767,11 +802,27 @@ class Game {
         for(var i = 0 ; i < this.blackAlivePieces.length; i++){
             var piece = this.pieces[this.blackAlivePieces[i]-1];
             if(piece.x === this.whiteCastle.x && piece.y === this.whiteCastle.y){
+                this.wonGame("black");
                 return true;
             }
         }
         
         return false;
+    }
+
+    /**
+     * Updates values according to who won
+     * @param {white or black} player 
+     */
+    wonGame(player){
+        if(player == "white"){
+            this.currentState = this.state.WHITE_WON;
+            this.whiteScore++;
+        }else{
+            this.currentState = this.state.BLACK_WON;
+            this.blackScore++;
+        }
+        this.updateResultString();
     }
 
     //Only checks for 4 possible orientations for now

@@ -52,7 +52,8 @@ class MyInterface extends CGFinterface {
     addInformation(){
         this.info = this.gui.addFolder("Information");
         this.info.open();
-        var msg = this.info.add(this.scene.graph.game,'currentState').listen();
+        this.info.add(this.scene.graph.game,'currentState').name("State").listen();
+        this.info.add(this.scene.graph.game, 'resultString').name("Result").listen();
     }
 
     processKeyUp(event){
@@ -65,10 +66,6 @@ class MyInterface extends CGFinterface {
         }
     };
 
-    update(){
-
-    }
-
     /**
      * Adds a folder containing the IDs of the lights passed as parameter.
      * @param {array} lights
@@ -77,7 +74,7 @@ class MyInterface extends CGFinterface {
         //return;
 
         var group = this.gui.addFolder("Lights");
-        group.open();
+        //group.open();
 
         // add two check boxes to the group. The identifiers must be members variables of the scene initialized in scene.init as boolean
         // e.g. this.option1=true; this.option2=false;
