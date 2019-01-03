@@ -315,7 +315,7 @@
             </transformation>
            
             <materials>
-                <material id = "dark tiles" />
+                <material id = "inherit" />
             </materials>
         
             <texture id = "none"/>
@@ -333,7 +333,7 @@
             </transformation>
                 
             <materials>
-                <material id = "light tiles" />
+                <material id = "inherit" />
             </materials>
         
             <texture id = "none" />

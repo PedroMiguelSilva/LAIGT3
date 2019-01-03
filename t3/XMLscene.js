@@ -216,6 +216,7 @@ class XMLscene extends CGFscene {
         
         this.interface.addInformation();
         
+        this.interface.addGraphics();
 
         this.interface.addOptions();
 

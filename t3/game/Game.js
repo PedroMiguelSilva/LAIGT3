@@ -4,9 +4,10 @@ class Game {
         this.scene = scene;
 
         //Piece geometric identifiers
-        this.pieceGeoIdentMan = ["man"]
-        this.pieceGeoIdentKnight = ["horse"]
+        this.pieceGeoIdentMan = ["man","man_2"]
+        this.pieceGeoIdentKnight = ["horse","horse_2"]
         this.pieceGeoIdent_Index = 0;
+        this.pieces_theme = "Modern";
 
         this.board = this.scene.graph.primitives['board'];
         this.timer = this.scene.graph.primitives['timer'];
@@ -258,6 +259,16 @@ class Game {
         this.movieActive = true;
     }
 
+    /**
+     * Set pieceGeoIdent_Index according to pieces_theme
+     */
+    updatePieceGeoIndex() {
+     
+        if(this.pieces_theme == "Modern")
+            this.pieceGeoIdent_Index = 0;
+        else if(this.pieces_theme == "Medieval")
+            this.pieceGeoIdent_Index = 1;
+    }
    
     /**
      * Displays the scene
@@ -266,6 +277,7 @@ class Game {
         //for each piece, performe their animations and then display it
         this.defaultMaterial = new CGFappearance(this.scene);
         //Get the name of the component to be printed
+        this.updatePieceGeoIndex();
         let nameOfMan = this.pieceGeoIdentMan[this.pieceGeoIdent_Index];
         let nameOfKnight = this.pieceGeoIdentKnight[this.pieceGeoIdent_Index];
 

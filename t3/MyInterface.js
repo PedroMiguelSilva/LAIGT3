@@ -62,6 +62,15 @@ class MyInterface extends CGFinterface {
         this.info.add(this.scene.graph.game, 'resultString').name("Result").listen();
     }
 
+    addGraphics(){
+        this.graphics = this.gui.addFolder("Graphics");
+        this.graphics.open();
+
+        var pieces = ["Modern","Medieval"];
+        this.graphics.add(this.scene.graph.game,'pieces_theme',pieces);
+    }
+
+
     processKeyUp(event){
         if(event.code == "KeyM"){
             this.scene.graph.materialCurrentIndex++;

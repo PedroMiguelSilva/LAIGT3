@@ -258,14 +258,6 @@
             <sphere radius = "0.4" slices = "50" stacks = "50" />
         </primitive>
 
-        <primitive id = "horse_object">
-            <objfile file="models/Knight.obj" />
-        </primitive>
-
-        <primitive id = "man_object">
-            <objfile file="models/Man.obj" />
-        </primitive>
-
         <primitive id = "board">
             <board />
         </primitive>
@@ -1079,42 +1071,6 @@
                 <componentref id = "horse head" />
                 <componentref id = "horse nose" />
                 <componentref id = "horse mouth" />
-            </children>
-        </component>
-
-        <component id = "man_2">
-            <transformation>
-                <scale x = "0.5" y = "0.5" z = "0.5" />
-                <rotate axis = "x" angle = "-90" />
-                <translate x = "-19.5" y = "-19.5" z = "0" />
-            </transformation>
-           
-            <materials>
-                <material id = "inherit" />
-            </materials>
-        
-            <texture id = "none"/>
-        
-            <children>
-                <primitiveref id = "man_object" />
-            </children>
-        </component>
-
-        <component id = "horse_2">
-            <transformation>
-                <scale x = "0.6" y = "0.6" z = "0.6" />
-                <rotate axis = "x" angle = "-90" />
-                <translate x = "-14" y = "-19" z = "0" />
-            </transformation>
-                
-            <materials>
-                <material id = "inherit" />
-            </materials>
-        
-            <texture id = "none" />
-        
-            <children>
-                <primitiveref id = "horse_object" />
             </children>
         </component>
 
