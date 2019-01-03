@@ -52,6 +52,7 @@ class Piece
         this.xDeathBlack = -12;
         this.yDeathBlack = -9;
         this.width = 3;
+        this.height = 4.5;
     }
 
     kill(){
@@ -137,16 +138,16 @@ class Piece
 
         let pickUp = this.createAnimation(
                                         this.x,this.y+deathFactorY,0,
-                                        this.x,     this.y,     3.5
+                                        this.x,     this.y,     this.height
                                         );
 
         let moveAcross = this.createAnimation(
-                                        this.x,     this.y,     3.5,
-                                        xFinal,     yFinal,     3.5
+                                        this.x,     this.y,     this.height,
+                                        xFinal,     yFinal,     this.height
                                         );
 
         let putDown = this.createAnimation(
-                                        xFinal+deathFactorX,     yFinal+deathFactorY,     3.5,
+                                        xFinal+deathFactorX,     yFinal+deathFactorY,     this.height,
                                         xFinal,     yFinal,     0
                                         );
         this.animationController.addAnimation(pickUp);
