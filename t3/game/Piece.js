@@ -7,16 +7,16 @@ class Piece
         this.scene = scene;
 
         //Animations 
-        let delta;
+        this.delta;
         if(color == "White"){
-            delta = -0.01;
+            this.delta = -0.01;
         }
         else{
-            delta = 0.01;
+            this.delta = 0.01;
         }
 
         let initAnime = new LinearAnimation(this.scene,0.01);
-        initAnime.addControlPoint(x,0,z+delta);
+        initAnime.addControlPoint(x,0,z+this.delta);
         initAnime.addControlPoint(x,0,z);
         initAnime.init();
 
@@ -80,8 +80,6 @@ class Piece
             numberOfDead = this.numberOfDead("Black");
             this.move(this.xDeathBlack, this.yDeathBlack + numberOfDead*this.width);
         }
-         
-        
     }
 
     numberOfDead(color){
@@ -120,12 +118,6 @@ class Piece
         this.alive = true;
     }
 
-    /**
-     * Checks if its a valid move given the current game and board
-     */
-   isValidMove(){
-
-   }
 
    /**
     * Creates an animation to allow the man to move from current position to the position given in arguments
@@ -133,10 +125,18 @@ class Piece
     * @param {Coordinate of the destination of the move} yFinal
     */
    move(xFinal, yFinal){
-
+        let deathFactorY;
+        let deathFactorX;
+        if(this.alive){
+            deathFactorY = this.delta;
+            deathFactorX = 0;
+        }else{
+            deathFactorX = -this.delta;
+            deathFactorY = 0;
+        }
 
         let pickUp = this.createAnimation(
-                                        this.x-0.01,this.y-0.01,0,
+                                        this.x,this.y+deathFactorY,0,
                                         this.x,     this.y,     3.5
                                         );
 
@@ -146,7 +146,7 @@ class Piece
                                         );
 
         let putDown = this.createAnimation(
-                                        xFinal,     yFinal,     3.5,
+                                        xFinal+deathFactorX,     yFinal+deathFactorY,     3.5,
                                         xFinal,     yFinal,     0
                                         );
         this.animationController.addAnimation(pickUp);
