@@ -72,7 +72,12 @@ class Game {
             WHITE_WON : "White player won",
             BLACK_WON : "Black player won",
             QUIT_GAME: "Quit Game",
-            MOVIE: "Showing game movie, please wait"
+
+            /**
+             * MOVIE
+             */
+            MOVIE: "Showing game movie, please wait",
+            MOVIE_END: "Movie ended"
         };
 
         this.movementState = {
@@ -238,7 +243,7 @@ class Game {
         this.movie[this.movieCounter].execute();
         this.movieCounter++;
         if(this.movieCounter == this.movie.length){
-            console.log("End of video");
+            this.currentState = this.state.MOVIE_END;
             this.movieActive = false;
         }
     }
@@ -247,11 +252,10 @@ class Game {
      * Plays the movie, from start, stored in 'this.movie'
      */
     playMovie(){
+        this.currentState = this.state.MOVIE;
         this.restartPieces();
         this.restartTimer();
         this.movieActive = true;
-
-        
     }
 
    
@@ -614,13 +618,14 @@ class Game {
                 }
                 break;
             case this.state.END_GAME:
-                console.log("end of game")
                 break;
             case this.state.QUIT_GAME:
                 break;
             case this.state.MOVIE:
                 break;
             case this.state.CONNECTION_ERROR:
+                break;
+            case this.state.MOVIE_END:
                 break;
             default:
                 break;
