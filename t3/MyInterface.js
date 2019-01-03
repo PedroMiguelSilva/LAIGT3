@@ -34,7 +34,7 @@ class MyInterface extends CGFinterface {
         this.opt = this.gui.addFolder("Options");
         var modes = ["Human vs Human", "Human vs Bot", "Bot vs Bot", "Movie"]
         this.opt.open();
-        let controller = this.opt.add(this.scene.graph.game,'mode',modes);
+        let controller = this.opt.add(this.scene.graph.game,'mode',modes).name("Game mode");
         var self = this;
         controller.onFinishChange(
             function(value){
@@ -44,7 +44,7 @@ class MyInterface extends CGFinterface {
             }
         )
         var difs = ["Easy", "Medium", "Hard", "Challenge"];
-        this.opt.add(this.scene.graph.game,'dificulty',difs);
+        this.opt.add(this.scene.graph.game,'dificulty',difs).name("Dificulty");
 
         this.opt.add(this.scene.graph.game,'speed', 1,10).step(0.5).name("Speed");
     }
@@ -88,8 +88,9 @@ class MyInterface extends CGFinterface {
 
     addCameras(){
         var self = this;
+        var group = this.gui.addFolder("Cameras");
 
-        var cameraController = this.gui.add(this.scene,'currentCamera',this.scene.getCameraStringList());
+        var cameraController = group.add(this.scene,'currentCamera',this.scene.getCameraStringList());
     
         cameraController.onFinishChange(
             function(value){
