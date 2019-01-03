@@ -32,7 +32,7 @@ class Timer {
 
         this.HARD = 3;
         this.MEDIUM = 6;
-        this.EASY = 6;
+        this.EASY = 9;
         this.CHALLENGE = 9;
 
         this.leftBigDigit = this.EASY; 

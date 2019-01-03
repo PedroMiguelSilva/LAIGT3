@@ -44,7 +44,13 @@ class MyInterface extends CGFinterface {
             }
         )
         var difs = ["Easy", "Medium", "Hard", "Challenge"];
-        this.opt.add(this.scene.graph.game,'dificulty',difs).name("Dificulty");
+        var difControl  = this.opt.add(this.scene.graph.game,'dificulty',difs).name("Dificulty");
+        var self = this;
+        difControl.onFinishChange(
+            function(value){
+                self.scene.graph.game.timer.restart();
+            }
+        )
 
         this.opt.add(this.scene.graph.game,'speed', 1,10).step(0.5).name("Speed");
     }
