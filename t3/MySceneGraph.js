@@ -1107,6 +1107,9 @@ class MySceneGraph {
                 primitive = new Timer(this.scene);
                 this.primitivesIdWithUpdate.push(primitiveID);
                 break;
+            case "objfile":
+                primitive = this.createModel(primitiveNode);
+                break;
             default:
                 this.onXMLError("Primitive with unkown name:" + type);
         }
@@ -1299,6 +1302,20 @@ class MySceneGraph {
         var cylinder2 = new Cylinder2(this.scene, base, top, height, slices, stacks);
 
         return cylinder2;
+    }
+
+    /**
+     * Create an OBJ out of an Objet Node
+     * @param {Cylinder2 Node} primitiveNode 
+     */
+    createModel(primitiveNode){
+        //Read Values
+        var file = this.reader.getString(primitiveNode, 'file');
+
+        //Create the object/model
+        var obj = new CGFOBJModel(this.scene, file);
+
+        return obj;
     }
 
     /*
