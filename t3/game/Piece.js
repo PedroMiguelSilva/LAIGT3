@@ -46,10 +46,17 @@ class Piece
         //Allows an extra animation to show the user that its the chosen piece
         this.selected = false;
         this.alive = true;
+
+        this.xDeathWhite = 12;
+        this.yDeathWhite = 9;
+        this.xDeathBlack = -12;
+        this.yDeathBlack = -9;
+        this.width = 3;
     }
 
     kill(){
         this.alive = false;
+        this.moveToDeathPlace();
         if(this.color == "White"){
             this.deleteFromArray(this.scene.graph.game.whiteAlivePieces, this.id);
         }
@@ -58,7 +65,32 @@ class Piece
         }
         this.xBeforeDeath = this.x;
         this.yBeforeDeath = this.y;
-        this.move(100,100);
+
+        //Move to death place
+        //this.move(100,100);
+        
+    }
+
+    moveToDeathPlace(){
+        let numberOfDead;
+        if(this.color == "White"){
+            numberOfDead = this.numberOfDead("White");
+            this.move(this.xDeathWhite, this.yDeathWhite - numberOfDead*this.width);
+        }else{
+            numberOfDead = this.numberOfDead("Black");
+            this.move(this.xDeathBlack, this.yDeathBlack + numberOfDead*this.width);
+        }
+         
+        
+    }
+
+    numberOfDead(color){
+        
+        if(color == "White"){
+            return 7-this.scene.graph.game.whiteAlivePieces.length;
+        }else{
+            return 7-this.scene.graph.game.blackAlivePieces.length;
+        }   
     }
 
     revive(){
