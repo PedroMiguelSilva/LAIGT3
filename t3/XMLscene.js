@@ -17,7 +17,27 @@ class XMLscene extends CGFscene {
         
         this.previousTime = 0;
         
+        this.cameraStates = {
+            MOVING_TO_WHITE_PLAYER : "Moving to white cam",
+            WHITE_PLAYER : "whiteCam",
+            MOVING_TO_BLACK_PLAYER : "Moving to black cam",
+            BLACK_PLAYER : "blackCam",
+            MOVING_TO_LEFT : "Moving to left cam",
+            LEFT_CAMERA : "leftCam",
+            MOVING_TO_RIGHT : "Moving to right cam",
+            RIGHT_CAMERA : "rightCam"
+       }
+       this.cameraCurrentState = this.cameraStates.LEFT_CAMERA;
        
+       //Actual camera
+       this.currentCamera = "leftCam";
+       
+       //What the user will change
+       this.destinyCamera = "leftCam";
+
+       //Camera animation controller
+       this.camAnimeController = new AnimationController(this.scene);
+       this.cameraAngle = 0;
     }
 
     /**
@@ -34,7 +54,7 @@ class XMLscene extends CGFscene {
         /* Values of camera for interface */
         this.cameraList = [];               /* String to id (int)           */
         this.cameraValues = [];             /* id (int) to object           */
-        this.currentCamera = null;          /* Name of the String          */
+        this.currentCamera = "leftCam";          /* Name of the String          */
         this.cameraNames = [];              /* Array with names of views */
 
         this.enableTextures(true);
@@ -56,7 +76,7 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCamera() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(75, 75, 0), vec3.fromValues(0, 0, 0));
     }
 
     logPicking() {
@@ -115,17 +135,90 @@ class XMLscene extends CGFscene {
             }
         }
 
-        
-
+        //Update the angle of the camera
+        this.camAnimeController.update(timeElapsed);
     }
 
 
-    /**
-     * Updates the camera 
-     */
-    updateCamera(){
-        this.camera = this.graph.cameras[this.currentCamera];
-        this.interface.setActiveCamera(this.camera);
+    stateMachineCamera(){
+        //There hasn't been any changes
+        if(this.currentCamera == this.destinyCamera){
+            return;
+        }
+        console.log("From " + this.currentCamera);
+        console.log("To " + this.destinyCamera);
+        let anime;
+        let startAng;
+        let rotAng;
+        //If there has been changes
+        switch(this.currentCamera){
+            case "leftCam":
+                startAng = 0;
+                switch(this.destinyCamera){
+                    case "rightCam":
+                    rotAng = Math.PI;
+                    break;
+                    case "whiteCam":
+                    rotAng = Math.PI/2;
+                    break;
+                    case "blackCam":
+                    rotAng = -Math.PI/2;
+                    break;
+                    default:
+                    break;
+                }
+                break;
+            case "rightCam":
+                startAng = Math.PI;
+                switch(this.destinyCamera){
+                    case "leftCam":
+                    rotAng = Math.PI;
+                    break;
+                    case "whiteCam":
+                    rotAng = -Math.PI/2;
+                    break;
+                    case "blackCam":
+                    rotAng = Math.PI/2;
+                    break;
+            }
+                break;
+            case "whiteCam":
+                startAng = Math.PI/2;
+                switch(this.destinyCamera){
+                    case "rightCam":
+                    rotAng = Math.PI/2;
+                    break;
+                    case "leftCam":
+                    rotAng = -Math.PI/2;
+                    break;
+                    case "blackCam":
+                    rotAng = Math.PI;
+                    break;
+                }
+                break;
+            case "blackCam":
+            startAng = -Math.PI/2;
+                switch(this.currentCamera){
+                    case "rightCam":
+                    rotAng = -Math.PI/2;
+                    break;
+                    case "whiteCam":
+                    rotAng = Math.PI;
+                    break;
+                    case "leftCam":
+                    rotAng = Math.PI/2;
+                    break;
+            }
+            break;
+
+        
+        }
+        //End of switch
+        this.currentCamera = this.destinyCamera;
+        console.log("Start angle " + startAng )
+        console.log("RotAngle: " + rotAng)
+        anime = new CameraAnimation(this.camera, 2, startAng, rotAng);
+        this.camAnimeController.addAnimation(anime);
     }
 
     /**
@@ -232,6 +325,7 @@ class XMLscene extends CGFscene {
         //this.cameraList = [];               /* Strings to id*/
         //this.cameraValues = [];             /* id (int) to object */
         //currentCamera = null;               /* id of current camera */
+        
         var i = 0;
         for(var key in this.graph.cameras){
             this.cameraNames.push(key);
@@ -244,7 +338,9 @@ class XMLscene extends CGFscene {
 
             i++;
         }
-        this.updateCamera();
+        //this.updateCamera();
+        
+
     }
 
     getCameraStringList(){

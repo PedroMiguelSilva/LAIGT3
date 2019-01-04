@@ -20,7 +20,7 @@ class AnimationController {
             return -1;
         }
         //console.log("update")
-
+        
         var hasEnded = this.animations[this.currentAnimationIndex].update(timeElapsed);
         if(hasEnded){
             this.currentAnimationIndex++;

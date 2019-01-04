@@ -639,6 +639,10 @@ class Game {
                 break;
             case this.state.MOVIE_END:
                 break;
+            case this.state.BLACK_WON:
+                break;
+            case this.state.WHITE_WON:
+                break;
             default:
                 break;
         }
@@ -762,11 +766,7 @@ class Game {
                     this.restart();
                     break;
 
-                case this.state.BLACK_WON:
-                    break;
-
-                case this.state.WHITE_WON:
-                    break;
+               
                 
                 default:
                     break;
