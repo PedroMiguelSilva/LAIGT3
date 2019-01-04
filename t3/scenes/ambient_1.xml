@@ -1,9 +1,9 @@
 <yas>
     <scene root = "root" axis_length = "7" />
 
-    <views default = "player1">
-        <perspective id = "default" near = "0.1" far = "500" angle = "23">
-            <from x = "75" y = "75" z = "75"/>
+    <views default = "leftCam">
+        <perspective id = "leftCam" near = "0.1" far = "500" angle = "23">
+            <from x = "75" y = "75" z = "0"/>
             <to x = "0" y = "0" z = "0"/>
         </perspective>
 
