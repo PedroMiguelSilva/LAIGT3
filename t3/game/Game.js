@@ -432,6 +432,17 @@ class Game {
         }
     }
 
+    changePlayer(){
+        this.timer.changePlayer();
+        let player = this.currentState.substring(0,5).toLowerCase();
+        if(player == "white"){
+            this.scene.destinyCamera = "blackCam";
+        }else{
+            this.scene.destinyCamera = "whiteCam";
+        }
+        this.scene.stateMachineCamera();
+    }
+
     /**
      * State machine that handles the state of the game
      */
@@ -505,7 +516,7 @@ class Game {
             case this.state.PLAYER_1_CONTINUE_MOVE:
                 /* Red button is pressed */
                 if(customId == 101){
-                    this.timer.changePlayer();
+                    this.changePlayer();
                     if(this.mode == this.game_mode.PVP){
                         this.currentState = this.state.PLAYER_2_SELECT_PIECE;
                         this.currentMovementState = this.movementState.START;
@@ -586,7 +597,7 @@ class Game {
                 /* Red button is pressed */
                 if(customId == 100){
                     this.currentState = this.state.PLAYER_1_SELECT_PIECE;
-                    this.timer.changePlayer();
+                    this.changePlayer();
                     this.currentMovementState = this.movementState.START;
                     this.board.deactivateTiles();
                 }
@@ -612,7 +623,7 @@ class Game {
                 break;
             case this.state.PLAYER_1_WASTING_TIME:
                 if(customId == 101){
-                    this.timer.changePlayer();
+                    this.changePlayer();
                     if(this.mode == this.game_mode.PVP){
                         this.currentState = this.state.PLAYER_2_SELECT_PIECE;
                         this.currentMovementState = this.movementState.START;
@@ -624,7 +635,7 @@ class Game {
                 break;
             case this.state.PLAYER_2_WASTING_TIME:
                 if(customId == 100){
-                    this.timer.changePlayer();
+                    this.changePlayer();
                     this.currentState = this.state.PLAYER_1_SELECT_PIECE;
                     this.currentMovementState = this.movementState.START;
                 }
@@ -702,7 +713,8 @@ class Game {
                     }
 
                     if(this.bot1.currentState == this.bot1.state.STOP){
-                        this.timer.changePlayer();
+
+                        this.changePlayer();
                         this.currentState = this.state.BOT_2_TURN;
                     }
                     break;
@@ -743,7 +755,8 @@ class Game {
                     }
                     
                     if(this.bot2.currentState == this.bot2.state.STOP){
-                        this.timer.changePlayer();
+
+                        this.changePlayer();
 
                         if(this.mode == this.game_mode.BOTVBOT)
                             this.currentState = this.state.BOT_1_TURN;
