@@ -253,6 +253,7 @@ class Game {
      * Plays the movie, from start, stored in 'this.movie'
      */
     playMovie(){
+        this.moveCameraTo("leftCam");
         this.currentState = this.state.MOVIE;
         this.restartPieces();
         this.restartTimer();
@@ -436,10 +437,14 @@ class Game {
         this.timer.changePlayer();
         let player = this.currentState.substring(0,5).toLowerCase();
         if(player == "white"){
-            this.scene.destinyCamera = "blackCam";
+            this.moveCameraTo("blackCam");
         }else{
-            this.scene.destinyCamera = "whiteCam";
+            this.moveCameraTo("whiteCam");
         }
+    }
+
+    moveCameraTo(camera){
+        this.scene.destinyCamera = camera;
         this.scene.stateMachineCamera();
     }
 
@@ -455,6 +460,7 @@ class Game {
             console.log(this.pieces)
             this.restart();
             console.log(this.pieces)
+            this.moveCameraTo("leftCam");
             this.currentState = this.state.START;
             return;
         }
@@ -464,6 +470,7 @@ class Game {
                 // Someone presse the start button
                 if(customId == 102){
                     this.currentState = this.state.PLAYER_1_SELECT_PIECE;
+                    this.moveCameraTo("whiteCam");
                     this.timer.start();
                 }
                 break;
