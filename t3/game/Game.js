@@ -676,11 +676,13 @@ class Game {
         //console.log("BOT1 STATE: " + this.bot1.currentState);
         //console.log("GAME STATE: " + this.currentState);
     
+        /*
             if(this.isGameOver()){
                 this.board.deactivateTiles();
                 //this.currentState = this.state.END_GAME;
                 return;
             }
+        */
     
             switch(this.currentState){
                 case this.state.START:
@@ -786,11 +788,26 @@ class Game {
                     this.restart();
                     break;
 
-               
+                case this.state.BLACK_WON:
+                    this.currentState = this.state.BOT_V_BOT_EXIT;
+                    break;
+
+                case this.state.WHITE_WON:
+                    this.currentState = this.state.BOT_V_BOT_EXIT;
+                    break;
                 
                 default:
                     break;
     
+            }
+
+            if(this.currentState == this.state.BOT_V_BOT_EXIT || this.currentState == this.state.START)
+                return;
+
+            if(this.isGameOver()){
+                this.board.deactivateTiles();
+                //this.currentState = this.state.END_GAME;
+                return;
             }
         }
 
