@@ -106,7 +106,7 @@ class XMLscene extends CGFscene {
      * @param {*} currTime 
      */
     update(currTime){
-
+        console.log(this.camera.position);
         //Calculates deltaTime/timeElapsed since last update
         var timeElapsed = currTime - this.previousTime;
 
@@ -139,30 +139,31 @@ class XMLscene extends CGFscene {
         this.camAnimeController.update(timeElapsed);
     }
 
-
-    stateMachineCamera(){
+    moveCamera(startCam, endCam){
         //There hasn't been any changes
-        if(this.currentCamera == this.destinyCamera){
+        if(startCam == endCam){
             return;
         }
-        console.log("From " + this.currentCamera);
-        console.log("To " + this.destinyCamera);
         let anime;
         let startAng;
         let rotAng;
+        let time;
         //If there has been changes
-        switch(this.currentCamera){
+        switch(startCam){
             case "leftCam":
                 startAng = 0;
-                switch(this.destinyCamera){
+                switch(endCam){
                     case "rightCam":
                     rotAng = Math.PI;
+                    time = 2;
                     break;
                     case "whiteCam":
                     rotAng = Math.PI/2;
+                    time = 1;
                     break;
                     case "blackCam":
                     rotAng = -Math.PI/2;
+                    time = 1;
                     break;
                     default:
                     break;
@@ -170,55 +171,64 @@ class XMLscene extends CGFscene {
                 break;
             case "rightCam":
                 startAng = Math.PI;
-                switch(this.destinyCamera){
+                switch(endCam){
                     case "leftCam":
                     rotAng = Math.PI;
+                    time = 2;
                     break;
                     case "whiteCam":
                     rotAng = -Math.PI/2;
+                    time = 1;
                     break;
                     case "blackCam":
                     rotAng = Math.PI/2;
+                    time = 1;
                     break;
             }
                 break;
             case "whiteCam":
                 startAng = Math.PI/2;
-                switch(this.destinyCamera){
+                switch(endCam){
                     case "rightCam":
                     rotAng = Math.PI/2;
+                    time = 1;
                     break;
                     case "leftCam":
                     rotAng = -Math.PI/2;
+                    time = 1;
                     break;
                     case "blackCam":
                     rotAng = Math.PI;
+                    time = 2;
                     break;
                 }
                 break;
             case "blackCam":
             startAng = -Math.PI/2;
-                switch(this.currentCamera){
+                switch(endCam){
                     case "rightCam":
                     rotAng = -Math.PI/2;
+                    time = 1;
                     break;
                     case "whiteCam":
                     rotAng = Math.PI;
+                    time = 2;
                     break;
                     case "leftCam":
                     rotAng = Math.PI/2;
+                    time = 1;
                     break;
             }
             break;
-
-        
         }
         //End of switch
-        this.currentCamera = this.destinyCamera;
-        console.log("Start angle " + startAng )
-        console.log("RotAngle: " + rotAng)
-        anime = new CameraAnimation(this.camera, 2, startAng, rotAng);
+        this.currentCamera = endCam;
+        anime = new CameraAnimation(this.camera, time, startAng, rotAng, endCam);
         this.camAnimeController.addAnimation(anime);
+    }
+
+    stateMachineCamera(){
+        this.moveCamera(this.currentCamera, this.destinyCamera)
     }
 
     /**
