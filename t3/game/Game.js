@@ -322,69 +322,16 @@ class Game {
         }
         /* Create default material */
         this.defaultMaterial = new CGFappearance(this.scene);
-
-        // CHANGE 5 TO 7 ONCE THE KNIGHTS ARE DESINED AND WORKING
-        for(var i = 0 ;  i < 5 ; i++ ){
+        for(var i = 0 ; i < this.pieces.length; i++){
             this.scene.pushMatrix();
-            var anime = this.pieces[i].animationController;
-            if(anime != null){
-                anime.apply();
-            }
-            //de acordo com a state machine, registar ou nao a peça para picking
-            this.scene.registerForPick(i+1,this.scene.graph.components[this.nameOfMan]);
-            this.scene.graph.components[this.nameOfMan].display(this.materialWhite,null,null,0);
-        
-            this.scene.popMatrix();
-        }
-        for(var i = 5 ; i < 7; i++ ){
-            this.scene.pushMatrix();
-            var anime = this.pieces[i].animationController;
-            if(anime!=null){
-                anime.apply();
-            }
-            this.scene.registerForPick(i+1,this.scene.graph.components[this.nameOfKnight]);
-            this.scene.graph.components[this.nameOfKnight].display(this.materialWhite,null,null,0);
-        
+            this.pieces[i].display();
             this.scene.popMatrix();
         }
 
-
-        // CHANGE 5 TO 7 ONCE THE KNIGHTS ARE DESINED AND WORKING
-        for(var i = 7 ;  i < 12 ; i++ ){
-            this.scene.pushMatrix();
-            var anime = this.pieces[i].animationController;
-            if(anime != null)
-                anime.apply();
-                
-            //de acordo com a state machine, registar ou nao a peça para picking
-            this.scene.registerForPick(i+1,this.scene.graph.components[this.nameOfMan]);
-            this.scene.graph.components[this.nameOfMan].display(this.materialBlack,null,null,0);
-        
-            this.scene.popMatrix();
-        }
-
-        for(var i = 12 ; i < 14; i++ ){
-            this.scene.pushMatrix();
-            var anime = this.pieces[i].animationController;
-            if(anime!=null){
-                anime.apply();
-            }
-            this.scene.registerForPick(i+1,this.scene.graph.components[this.nameOfKnight]); 
-            this.scene.graph.components[this.nameOfKnight].display(this.materialBlack,null,null,0);
-        
-            this.scene.popMatrix();
-        }
-
+        /* */
         if(this.board){
             this.board.registerAllPieces();
         }
-        
-
-        //for loop percorre dos man, e depois dos cavaleiros por causa da diferença das geometrias
-
-        // animaçoes de houver
-
-        // posiçao fixa se nao houver
     }
 
     restart(){

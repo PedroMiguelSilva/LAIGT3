@@ -351,9 +351,6 @@ class XMLscene extends CGFscene {
 
 
         this.sceneInited = true;
-
-
-        
     }
 
 

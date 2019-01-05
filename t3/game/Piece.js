@@ -53,6 +53,44 @@ class Piece
         this.yDeathBlack = -9;
         this.width = 3;
         this.height = 4.5;
+
+        this.nameOfMaterial;
+        if(this.color == "White"){
+            this.nameOfMaterial = "light tiles"
+        }else{
+            this.nameOfMaterial = "dark tiles"
+        }
+        
+        this.material = this.scene.graph.materials[this.nameOfMaterial];
+        this.display();
+        this.loaded = true;
+        this.variablesUpdatedFromGraph = false;
+    }
+
+    isGraphLoaded(){
+        if(!this.scene.sceneInited || !this.variablesUpdatedFromGraph){
+            this.material = this.scene.graph.materials[this.nameOfMaterial];
+            this.variablesUpdatedFromGraph = true;
+            return false;
+        }
+        return true;
+    }
+
+    display(){
+        if(!this.loaded || !this.isGraphLoaded()){
+            return;
+        }
+        if(this.animationController){
+            this.animationController.apply();
+        }
+        let geometryToPrint;
+        if(this.type == "Man"){
+            geometryToPrint = this.scene.graph.game.nameOfMan;
+        }else{
+            geometryToPrint = this.scene.graph.game.nameOfKnight;
+        }
+        this.scene.registerForPick(this.id,this.scene.graph.components[geometryToPrint]);
+        this.scene.graph.components[geometryToPrint].display(this.material,null,null,0);
     }
 
     kill(){
