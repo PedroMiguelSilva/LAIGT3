@@ -43,10 +43,14 @@ main=function()
 	
     var filename=getUrlVars()['file'] || "demo.xml";
     
+    
 
 	// create and load graph, and associate it to scene. 
-	// Check console for loading errors
-	var myGraph = new MySceneGraph(filename, myScene);
+    // Check console for loading errors
+    let name1 = myScene.graphNames[0] + ".xml";
+    let name2 = myScene.graphNames[1] + ".xml";
+    var myGraph1 = new MySceneGraph(name1, myScene);
+    var myGraph2 = new MySceneGraph(name2, myScene);
 	
 	// start
     app.run();

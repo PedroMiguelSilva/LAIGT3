@@ -56,6 +56,8 @@ class Piece
     }
 
     kill(){
+        this.xBeforeDeath = this.x;
+        this.yBeforeDeath = this.y;
         this.alive = false;
         this.moveToDeathPlace();
         if(this.color == "White"){
@@ -64,8 +66,7 @@ class Piece
         else{
             this.deleteFromArray(this.scene.graph.game.blackAlivePieces, this.id);
         }
-        this.xBeforeDeath = this.x;
-        this.yBeforeDeath = this.y;
+        
 
         //Move to death place
         //this.move(100,100);
@@ -99,6 +100,8 @@ class Piece
         }else{
             this.scene.graph.game.blackAlivePieces.push(this.id);    
         }
+        console.log("x:" + this.xBeforeDeath)
+        console.log("y:" + this.yBeforeDeath)
         this.move(this.xBeforeDeath,this.yBeforeDeath);
     }
 

@@ -68,6 +68,16 @@ class MyInterface extends CGFinterface {
 
         var pieces = ["Modern","Medieval"];
         this.graphics.add(this.scene.graph.game,'pieces_theme',pieces);
+
+        let controller = this.graphics.add(this.scene,'graphName',this.scene.graphNames);
+        var self = this;
+        controller.onFinishChange(
+            function(value){
+                self.scene.graphName = value;
+                self.scene.updateGraphBasedOnGraphName();
+                
+            }
+        )
     }
 
 

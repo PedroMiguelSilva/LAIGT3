@@ -24,6 +24,7 @@ class Board extends CGFobject {
         //Board Matrix
         this.matrix = []
         this.init();
+        this.loaded = true;
     }
 
     init(){

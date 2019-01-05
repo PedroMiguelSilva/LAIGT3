@@ -30,6 +30,8 @@ class CGFOBJModel extends CGFobject{
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 
+		this.objectLoaded = false;
+
 		// spawn resource reading
 		this.rr = new CGFresourceReader();
 		this.rr.open(url, this);
@@ -163,7 +165,7 @@ class CGFOBJModel extends CGFobject{
 			this.primitiveType = this.scene.gl.TRIANGLES;
 		else
 			this.primitiveType = this.scene.gl.LINES;
-		
+		this.objectLoaded = true;
 		this.initGLBuffers();
 	};
 }

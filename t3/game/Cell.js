@@ -63,6 +63,14 @@ class Cell {
         );
     }*/
 
+    isAllLoaded(){
+        if(!this.rectangle || !this.activeMaterial){
+            this.activeMaterial = this.scene.graph.materials['red'];
+            return false;
+        }
+        return true;
+    }
+
     activate(){
         this.active = true;
     }
@@ -72,6 +80,10 @@ class Cell {
     }
 
     display(currentMaterial) {
+        if(!this.isAllLoaded()){
+            return;
+        }
+
         if(this.active){
             this.activeMaterial.apply();
         }

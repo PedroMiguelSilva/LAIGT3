@@ -77,6 +77,7 @@ class MySceneGraph {
         // Here should go the calls for different functions to parse the various blocks
         var error = this.parseXMLFile(rootElement); 
 
+        console.log(this.materials)
         this.game = new Game(this.scene);
 
         if (error != null) {
@@ -85,6 +86,8 @@ class MySceneGraph {
         }
 
         this.loadedOk = true;
+        this.scene.graphs.push(this);
+        
 
         // As the graph loaded ok, signal the scene so that any additional initialization depending on the graph can take place
         this.scene.onGraphLoaded();
@@ -1314,7 +1317,7 @@ class MySceneGraph {
 
         //Create the object/model
         var obj = new CGFOBJModel(this.scene, file);
-
+    
         return obj;
     }
 

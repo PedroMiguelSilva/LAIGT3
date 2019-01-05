@@ -38,6 +38,11 @@ class XMLscene extends CGFscene {
        //Camera animation controller
        this.camAnimeController = new AnimationController(this.scene);
        this.cameraAngle = 0;
+
+       this.graphName = "StudyRoom"
+       this.graphNames = ["StudyRoom","Prison"]
+       this.graphs = [];
+       this.graphIndex = 0;
     }
 
     /**
@@ -106,12 +111,14 @@ class XMLscene extends CGFscene {
      * @param {*} currTime 
      */
     update(currTime){
-        console.log(this.camera.position);
+        
+        
         //Calculates deltaTime/timeElapsed since last update
         var timeElapsed = currTime - this.previousTime;
 
         // UPDATE GAME STATE
         if(this.graph.loadedOk){
+            
             this.graph.game.update(timeElapsed);
         }
         
@@ -276,12 +283,30 @@ class XMLscene extends CGFscene {
         }
     }
 
+    updateGraphBasedOnGraphName(){
+        for(var i = 0; i < this.graphNames.length; i++){
+            if(this.graphName == this.graphNames[i]){
+                this.graphIndex = i;
+                break;
+            }
+        }
+        this.graph = this.graphs[this.graphIndex]
+    }
+
     /* Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
         //this.camera.near = this.graph.near;
         //this.camera.far = this.graph.far;
+        if(this.graphs.length < this.graphNames.length){
+            return;
+        }
+
+        if(this.graphs.length > 1){
+            this.graph = this.graphs[this.graphIndex];
+            this.graphName = this.graphNames[this.graphIndex];
+        }
 
         //TODO: Change reference length according to parsed graph
         //this.axis = new CGFaxis(this, this.graph.referenceLength);

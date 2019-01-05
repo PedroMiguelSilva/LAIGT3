@@ -89,7 +89,12 @@ class MyComponent
         
             
         //Apply Material
-        this.currentMaterial.apply();
+        if(this.currentMaterial){
+            this.currentMaterial.apply();
+        }
+        
+        
+        
         
         
 

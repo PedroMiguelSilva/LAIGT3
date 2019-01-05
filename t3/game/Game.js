@@ -14,8 +14,11 @@ class Game {
 
         this.material = this.scene.graph.materials["dark tiles"];
 
+
         this.materialBlack = this.scene.graph.materials["dark tiles"];
         this.materialWhite = this.scene.graph.materials["light tiles"];
+        console.log(this.materialBlack)
+        console.log(this.materialWhite)
 
         //Create the pieces and set their initial positions
         this.pieces = [
@@ -138,6 +141,8 @@ class Game {
          */
         this.bot1 = new Bot(this.scene, "white");
         this.bot2 = new Bot(this.scene, "black");
+
+        this.gameLoaded = true;
     }
 
     updateResultString(){
@@ -200,12 +205,26 @@ class Game {
         
     }
 
+    isAllLoaded(){
+        //console.log("loaded?")
+        if(!this.gameLoaded || !this.timer || !this.timer.timerLoaded || !this.board || !this.board.loaded){
+            this.timer = this.scene.graph.primitives['timer'];
+            this.materialBlack = this.scene.graph.materials["dark tiles"];
+            this.materialWhite = this.scene.graph.materials["light tiles"];
+            this.board = this.scene.graph.primitives['board'];
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Updates the values of the game
      * @param {Variation of time between 2 updates} delta 
      */
     update(delta){
-        
+        if(!this.isAllLoaded()){
+            return;
+        }
         this.isAnyPieceMoving = false ;
         for(var i = 0; i < this.pieces.length; i++){
             if(this.pieces[i].animationController != undefined){
@@ -222,6 +241,7 @@ class Game {
             }
         }
 
+        
         this.timer.update(delta);
 
         //Update BOT vs BOR or HUMAN vs BOT machine 
@@ -240,7 +260,7 @@ class Game {
     }
 
     nextMoveOnMovie(){
-        console.log(this.movie)
+        //console.log(this.movie)
         this.movie[this.movieCounter].execute();
         this.movieCounter++;
         if(this.movieCounter == this.movie.length){
@@ -275,12 +295,19 @@ class Game {
      * Displays the scene
      */
     display(){
+        if(!this.isAllLoaded()){
+            return;
+        }
+        
         //for each piece, performe their animations and then display it
         this.defaultMaterial = new CGFappearance(this.scene);
         //Get the name of the component to be printed
         this.updatePieceGeoIndex();
         let nameOfMan = this.pieceGeoIdentMan[this.pieceGeoIdent_Index];
         let nameOfKnight = this.pieceGeoIdentKnight[this.pieceGeoIdent_Index];
+
+        //console.log("Black matierla " + this.materialBlack)
+        //console.log("White matierla " + this.materialWhite)
 
         // CHANGE 5 TO 7 ONCE THE KNIGHTS ARE DESINED AND WORKING
         for(var i = 0 ;  i < 5 ; i++ ){
@@ -334,7 +361,10 @@ class Game {
             this.scene.popMatrix();
         }
 
-        this.board.registerAllPieces();
+        if(this.board){
+            this.board.registerAllPieces();
+        }
+        
 
         //for loop percorre dos man, e depois dos cavaleiros por causa da diferença das geometrias
 
