@@ -111,11 +111,18 @@ class Game {
             BOTVBOT: "Bot vs Bot"
         };
 
+        this.dificulties = {
+            EASY : "Easy",
+            MEDIUM : "Medium",
+            HARD : "Hard",
+            CHALLENGE : "Challenge"
+        }
+
         /**
          * Values from interface
          */
         this.mode = this.game_mode.PVP;
-        this.dificulty = "Easy";
+        this.dificulty = this.dificulties.EASY;
         this.speed = 5;
 
         /* Each piece must regist themselves in this list when moving and remove themselves when their movement ends */

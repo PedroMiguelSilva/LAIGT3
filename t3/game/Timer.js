@@ -46,76 +46,101 @@ class Timer {
         this.restartButtonAnimation = new AnimationController(this.scene);
         this.leftButtonAnimation = new AnimationController(this.scene);
         this.rightButtonAnimation = new AnimationController(this.scene);
+        
+        this.dificulties = {
+            EASY : "Easy",
+            MEDIUM : "Medium",
+            HARD : "Hard",
+            CHALLENGE : "Challenge"
+        }
+
+        this.buttons = {
+            LEFT : "left",
+            RIGHT : "right"
+        }
+        
         this.timerLoaded = true;
+        console.log("this is recent ;oi")
     }
+
+    click(button){
+        //let anime = new LinearAnimation();
+    }
+
+    unclick(button){}
 
     /**
      * Resets the timers
      * @param {"left" or "right"} button 
      */
     resetTimer(button){
-        //console.log("Reseting " + button)
         let dif = this.scene.graph.game.dificulty
-        if(dif == "Challenge"){
+        if(dif == this.dificulties.CHALLENGE){
             return;
         }
-        if(button == "left"){
-            if(dif == "Easy"){
+        if(button == this.buttons.LEFT){
+            if(dif == this.dificulties.EASY){
                 this.leftBigDigit = this.EASY;
             }
-            else if(dif == "Medium"){
+            else if(dif == this.dificulties.MEDIUM){
                 this.leftBigDigit = this.MEDIUM;
             }
-            else if(dif == "Hard"){
+            else if(dif == this.dificulties.HARD){
                 this.leftBigDigit = this.HARD;
             }
             this.leftSmallDigit = 0;
         }
         else{
-            if(dif == "Easy"){
+            if(dif == this.dificulties.EASY){
                 this.rightBigDigit = this.EASY;
             }
-            else if(dif == "Medium"){
+            else if(dif == this.dificulties.MEDIUM){
                 this.rightBigDigit = this.MEDIUM;
             }
-            else if(dif == "Hard"){
+            else if(dif == this.dificulties.HARD){
                 this.rightBigDigit = this.HARD;
             }
             
             this.rightSmallDigit = 0;
-            //console.log("resetou right")
         }
     }
 
+    /**
+     * Change the player playing
+     */
     changePlayer(){
         if(this.isLeftButtonDown){
-            //console.log("clicou no esuqerdo")
             this.isLeftButtonDown = false;
             this.isRightButtonDown = true;
-            this.resetTimer("left");
+            this.resetTimer(this.buttons.LEFT);
         }
-        else{
-            //console.log("clicou no direito")            
+        else{          
             this.isLeftButtonDown = true;
             this.isRightButtonDown = false;
-            this.resetTimer("right");
+            this.resetTimer(this.buttons.RIGHT);
         }
     }
 
+    /**
+     * Start the timer
+     */
     start(){
         let dif = this.scene.graph.game.dificulty   
-        if(dif == "Challenge"){
+        if(dif == this.dificulties.CHALLENGE){
             this.setChallenge();
         }
         else{
-            this.resetTimer("left");
-            this.resetTimer("right");
+            this.resetTimer(this.buttons.LEFT);
+            this.resetTimer(this.buttons.RIGHT);
         }
         
         this.isRightButtonDown = true;
         this.playingGame = true;
     }
 
+    /**
+     * Set values to challenge
+     */
     setChallenge(){
         this.leftBigDigit = this.CHALLENGE;
         this.rightBigDigit = this.CHALLENGE;
@@ -123,14 +148,17 @@ class Timer {
         this.rightSmallDigit = 0;
     }
 
+    /**
+     * Restart the timer
+     */
     restart(){
         let dif = this.scene.graph.game.dificulty   
-        if(dif == "Challenge"){
+        if(dif == this.dificulties.CHALLENGE){
             this.setChallenge();
         }
         else{
-            this.resetTimer("left");
-            this.resetTimer("right");
+            this.resetTimer(this.buttons.LEFT);
+            this.resetTimer(this.buttons.RIGHT);
         }
         
         this.isLeftButtonDown = false;
@@ -139,6 +167,9 @@ class Timer {
         this.playingGame = false;
     }
 
+    /**
+     * Update the timer
+     */
     update(currTime){
         var timeElapsed = currTime - this.previousTime;
         if(timeElapsed > 1000){
@@ -154,13 +185,14 @@ class Timer {
         
     }
 
+    /**
+     * Decrease one second on timer
+     */
     decreaseOneSecondOnActive(){
         if(this.isLeftButtonDown){
             if(this.leftSmallDigit == 0){
                 if(this.leftBigDigit == 0){
-                    //GAME OVER BECAUSE TIME IT UP
                     this.playingGame = false;
-                    //console.log("White pieces won")
                 }else{
                     this.leftBigDigit -= 1;
                     this.leftSmallDigit = 9;
@@ -174,9 +206,7 @@ class Timer {
         if(this.isRightButtonDown){
             if(this.rightSmallDigit == 0){
                 if(this.rightBigDigit == 0){
-                    //GAME OVER BECAUSE TIME IT UP
                     this.playingGame = false;
-                    //console.log("Black pieces won");
                 }else{
                     this.rightBigDigit -= 1;
                     this.rightSmallDigit = 9;
@@ -188,6 +218,9 @@ class Timer {
         }
     }
 
+    /**
+     * Displays the timer
+     */
     display(){
         //front
         this.scene.pushMatrix();
