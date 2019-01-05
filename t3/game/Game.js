@@ -108,7 +108,8 @@ class Game {
         this.game_mode = {
             PVP: "Human vs Human",
             PVBOT: "Human vs Bot",
-            BOTVBOT: "Bot vs Bot"
+            BOTVBOT: "Bot vs Bot",
+            MOVIE : "Movie"
         };
 
         this.dificulties = {
@@ -416,7 +417,7 @@ class Game {
      */
     stateMachine(customID, piecePicked, comp){
 
-        if(this.mode == this.game_mode.PVP)
+        if(this.mode == this.game_mode.PVP || this.mode == this.game_mode.MOVIE)
             this.stateMachinePlayer(customID, piecePicked, comp);
 
         if(this.mode == this.game_mode.BOTVBOT)

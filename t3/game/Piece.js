@@ -194,11 +194,11 @@ class Piece
             return;
         }
 
-        /* Move to starting position */
-        this.move(this.startX,this.startY);
-
         /* Revive if its dead */
         this.alive = true;
+
+        /* Move to starting position */
+        this.move(this.startX,this.startY); 
     }
 
 

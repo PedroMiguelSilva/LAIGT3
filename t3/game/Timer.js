@@ -25,8 +25,8 @@ class Timer {
 
         this.dummie = new MyRectangle(this.scene, 0,0,0.1,0.1);
 
-        this.isLeftButtonDown = false;
-        this.isRightButtonDown = false;
+        this.isLeftButtonUp = false;
+        this.isRightButtonUp = false;
         this.isRestartButtonDown = false;
         this.playingGame = false;
 
@@ -42,10 +42,6 @@ class Timer {
         this.rightSmallDigit = 0;
 
         this.previousTime = 0;
-
-        this.restartButtonAnimation = new AnimationController(this.scene);
-        this.leftButtonAnimation = new AnimationController(this.scene);
-        this.rightButtonAnimation = new AnimationController(this.scene);
         
         this.dificulties = {
             EASY : "Easy",
@@ -60,14 +56,7 @@ class Timer {
         }
         
         this.timerLoaded = true;
-        console.log("this is recent ;oi")
     }
-
-    click(button){
-        //let anime = new LinearAnimation();
-    }
-
-    unclick(button){}
 
     /**
      * Resets the timers
@@ -109,15 +98,15 @@ class Timer {
      * Change the player playing
      */
     changePlayer(){
-        if(this.isLeftButtonDown){
-            this.isLeftButtonDown = false;
-            this.isRightButtonDown = true;
-            this.resetTimer(this.buttons.LEFT);
+        if(this.isLeftButtonUp){
+            this.isLeftButtonUp = false;
+            this.isRightButtonUp = true;
+            this.resetTimer(this.buttons.RIGHT);
         }
         else{          
-            this.isLeftButtonDown = true;
-            this.isRightButtonDown = false;
-            this.resetTimer(this.buttons.RIGHT);
+            this.isLeftButtonUp = true;
+            this.isRightButtonUp = false;
+            this.resetTimer(this.buttons.LEFT);
         }
     }
 
@@ -134,7 +123,8 @@ class Timer {
             this.resetTimer(this.buttons.RIGHT);
         }
         
-        this.isRightButtonDown = true;
+        
+        this.isRightButtonUp = true;
         this.playingGame = true;
     }
 
@@ -161,8 +151,8 @@ class Timer {
             this.resetTimer(this.buttons.RIGHT);
         }
         
-        this.isLeftButtonDown = false;
-        this.isRightButtonDown = false;
+        this.isLeftButtonUp = false;
+        this.isRightButtonUp = false;
         this.isRestartButtonDown = false;
         this.playingGame = false;
     }
@@ -176,20 +166,13 @@ class Timer {
             this.previousTime = currTime;
             this.decreaseOneSecondOnActive();
         }
-
-        if(this.timerLoaded){
-            this.restartButtonAnimation.update(currTime);
-            this.leftButtonAnimation.update(currTime);
-            this.rightButtonAnimation.update(currTime); 
-        }
-        
     }
 
     /**
      * Decrease one second on timer
      */
     decreaseOneSecondOnActive(){
-        if(this.isLeftButtonDown){
+        if(this.isLeftButtonUp){
             if(this.leftSmallDigit == 0){
                 if(this.leftBigDigit == 0){
                     this.playingGame = false;
@@ -203,7 +186,7 @@ class Timer {
             }
         }
 
-        if(this.isRightButtonDown){
+        if(this.isRightButtonUp){
             if(this.rightSmallDigit == 0){
                 if(this.rightBigDigit == 0){
                     this.playingGame = false;
@@ -300,19 +283,23 @@ class Timer {
         this.scene.graph.materials["red"].apply();
         //left button
         this.scene.pushMatrix();
-            this.scene.translate(-4,6,0);
+            this.scene.translate(-4,5.2,0);
             this.scene.rotate(-Math.PI/2,1,0,0);
             this.scene.registerForPick(100,this.leftButton);
-            this.leftButtonAnimation.apply();
+            if(this.isLeftButtonUp){
+                this.scene.translate(0,0,0.8);
+            }
             this.leftButton.display();
         this.scene.popMatrix();
 
         //right button
         this.scene.pushMatrix();
-            this.scene.translate(4,6,0);
+            this.scene.translate(4,5.2,0);
             this.scene.rotate(-Math.PI/2,1,0,0);
             this.scene.registerForPick(101,this.rightButton);
-            this.rightButtonAnimation.apply();
+            if(this.isRightButtonUp){
+                this.scene.translate(0,0,0.8);
+            }
             this.rightButton.display();
         this.scene.popMatrix();
 
@@ -322,7 +309,6 @@ class Timer {
             this.scene.translate(0,6,0);
             this.scene.rotate(-Math.PI/2,1,0,0);
             this.scene.registerForPick(102,this.restartButton);
-            this.restartButtonAnimation.apply();
             this.restartButton.display();
         this.scene.popMatrix();
 
