@@ -221,11 +221,12 @@ class Game {
      * Check if all the variables need are already loaded
      */
     isAllLoaded(){
-        if(!this.gameLoaded || !this.timer || !this.timer.timerLoaded || !this.board || !this.board.loaded){
+        if(!this.gameLoaded || !this.timer || !this.timer.timerLoaded || !this.board || !this.board.loaded || !this.everythingLoaded){
             this.timer = this.scene.graph.primitives['timer'];
             this.materialBlack = this.scene.graph.materials["dark tiles"];
             this.materialWhite = this.scene.graph.materials["light tiles"];
             this.board = this.scene.graph.primitives['board'];
+            this.everythingLoaded = true;
             return false;
         }
         return true;
@@ -317,31 +318,32 @@ class Game {
      * Displays the scene
      */
     display(){
+        /* Dont do anything if graph hasn't loaded yet */
         if(!this.isAllLoaded()){
             return;
         }
+
         /* Create default material */
         this.defaultMaterial = new CGFappearance(this.scene);
         for(var i = 0 ; i < this.pieces.length; i++){
             this.scene.pushMatrix();
-            this.pieces[i].display();
+                this.pieces[i].display();
             this.scene.popMatrix();
-        }
-
-        /* */
-        if(this.board){
-            this.board.registerAllPieces();
         }
     }
 
+    /**
+     * Restart the game
+     */
     restart(){
-        console.log("chamou restart")
-        console.log(this)
         this.restartPieces();
         this.restartTimer();
         this.restartMovieVariables();
     }
 
+    /**
+     * Restart pieces
+     */
     restartPieces(){
         for(var i = 0 ; i < this.pieces.length; i++){
             if(this.pieces[i] != 0)
@@ -352,12 +354,17 @@ class Game {
         this.blackAlivePieces = [8,9,10,11,12,13,14];
     }
 
+    /**
+     * Restarts the timer
+     */
     restartTimer(){
         this.timer.restart();
     }
 
+    /**
+     * Restarts the movie variables
+     */
     restartMovieVariables(){
-        //Movie variables
         this.movie = [];
         this.movieCounter = 0;
         this.movieActive = false;
@@ -368,31 +375,22 @@ class Game {
      */
     filterMovesByGameLogic(validMoves){
         var result = [];
-        //console.log("valid moves" + validMoves)
         
         var previousState = this.currentMovementState;
-        //console.log("previous state :" + previousState)
         for(var i = 0 ; i < validMoves.length; i++){
-            //for each move, check if it can be done based on type and previous type done
             let type = validMoves[i].moveType;
-            //console.log("type of move:" + type)
-            //console.log("Chegou aqui no " + i)
             if(previousState == "no move"){
                 result.push(validMoves[i]);
                 continue;
             }
-            
-            // Plain moves cannot be done in second round
             if(type == "plain move"){
                 continue;
             }
-
             if(type == "canter move"){
                 if(previousState == "canter move"){
                     result.push(validMoves[i]);
                 }
             }
-
             if(type == "jump move"){
                 if(previousState == "jump move"){
                     result.push(validMoves[i]);
@@ -403,12 +401,11 @@ class Game {
                 }
             }
         }
-        //console.log(result)
         return result;
     }
 
     /**
-     * 
+     * Finds out which state machines to be called
      */
     stateMachine(customID, piecePicked, comp){
 
@@ -424,6 +421,10 @@ class Game {
         }
     }
 
+    /**
+     * Change player
+     * @brief if white is playing and calls this, now its black turns and vice versa
+     */
     changePlayer(){
         this.timer.changePlayer();
         let player = this.currentState.substring(0,5).toLowerCase();
@@ -434,6 +435,10 @@ class Game {
         }
     }
 
+    /**
+     * Moves a camera to 'camera'
+     * @param {Destiny of camera} camera 
+     */
     moveCameraTo(camera){
         this.scene.destinyCamera = camera;
         this.scene.stateMachineCamera();
@@ -443,14 +448,10 @@ class Game {
      * State machine that handles the state of the game
      */
     stateMachinePlayer(customId, piecePicked, comp){
-        //this.bot1.botPlay([4,3],[[6,'Canter',3],[4,'Canter',3]]);
-        //this.bot1.botTurn();
 
-        // Restart game
+        /* Restart game */
         if(customId == 102 && this.currentState != this.state.START){
-            console.log(this.pieces)
             this.restart();
-            console.log(this.pieces)
             this.moveCameraTo("leftCam");
             this.currentState = this.state.START;
             return;
@@ -458,7 +459,7 @@ class Game {
 
         switch(this.currentState){
             case this.state.START:
-                // Someone presse the start button
+                /* Starting the game */
                 if(customId == 102){
                     this.currentState = this.state.PLAYER_1_SELECT_PIECE;
                     this.moveCameraTo("whiteCam");
@@ -466,9 +467,8 @@ class Game {
                 }
                 break;
             case this.state.PLAYER_1_SELECT_PIECE:
-                //Valid piece for selection
+                /* Check if piece is alive */
                 if(this.whiteAlivePieces.includes(customId)){
-                    //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
                     this.validMoves = this.getValidMoves(this.selectedPiece);
@@ -487,18 +487,13 @@ class Game {
                 /* Chose destination tile */
                 else if(customId >= 15 && customId <= 81){
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
-                    //console.log(move)
                     if(move){
                         move.execute();
+                        this.board.deactivateTiles();
                         /* Check for game over */
                         if(this.isGameOver()){
-                            this.board.deactivateTiles();
-                            //this.currentState = this.state.END_GAME;
                             return;
                         }
-
-                        //this.movie.push(move);
-                        this.board.deactivateTiles();
                         /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
                            this.currentState = this.state.PLAYER_1_WASTING_TIME;
@@ -534,22 +529,19 @@ class Game {
                     
                     if(move){
                         move.execute();
+                        this.board.deactivateTiles();
                         /* Check for game over */
                         if(this.isGameOver()){
-                            this.board.deactivateTiles();
-                            //this.currentState = this.state.END_GAME;
                             return;
                         } 
-                        //this.movie.push(move);
-                        this.board.deactivateTiles();
+                        
                         this.currentMovementState = move.moveType;
                     }
                 }
                 break;
             case this.state.PLAYER_2_SELECT_PIECE:
-                //Valid piece for selection
+                /* Check if piece is alive */
                 if(this.blackAlivePieces.includes(customId)){
-                    //Select piece
                     this.selectedPiece = this.pieces[customId-1];
                     this.currentMovementState = this.movementState.START;
                     this.validMoves = this.getValidMoves(this.selectedPiece)
@@ -570,21 +562,16 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y)
                     if(move){
                         move.execute();
+                        this.board.deactivateTiles();
                         /* Check for game over */
                         if(this.isGameOver()){
-                            //this.currentState = this.state.END_GAME;
-                            this.board.deactivateTiles();
                             return;
                         } 
-
-                        //this.movie.push(move);
-                        this.board.deactivateTiles();
                         /* If it makes a plain move then don't allow to move again */
                         if(move.moveType == "plain move"){
                             this.currentState = this.state.PLAYER_2_WASTING_TIME;
                             break;
                         }
-
                         /* Can make any other move as long as its the same one */
                         this.currentState = this.state.PLAYER_2_CONTINUE_MOVE;
                         this.currentMovementState = move.moveType;
@@ -607,14 +594,11 @@ class Game {
                     let move = this.isMoveInValidMoves(comp.x,comp.y);
                     if(move){
                         move.execute();
-                        /* Check for game over */
-                        if(this.isGameOver()){
-                            //this.currentState = this.state.END_GAME;~
-                            this.board.deactivateTiles();
-                            return;
-                        } 
-                        //this.movie.push(move);
                         this.board.deactivateTiles();
+                        /* Check for game over */
+                        if(this.isGameOver()){                            
+                            return;
+                        }
                         this.currentMovementState = move.moveType;
                     }
                 }
@@ -657,7 +641,7 @@ class Game {
         }
 
         
-    }//end of state machine
+    }
 
 
     /**
@@ -797,7 +781,6 @@ class Game {
 
             if(this.isGameOver()){
                 this.board.deactivateTiles();
-                //this.currentState = this.state.END_GAME;
                 return;
             }
         }
@@ -822,19 +805,19 @@ class Game {
      */
     isGameOver(){
         
-        //White has no pieces alive
+        /* White has no pieces alive */
         if(this.whiteAlivePieces.length === 0){
             this.wonGame("black");
             return true;
         }
 
-        //Black has no pieces alive
+        /* Black has no pieces alive */
         if(this.blackAlivePieces.length === 0){
             this.wonGame("white");
             return true;
         }
 
-        //White conquered Black castle
+        /* White conquered Black castle */
         for(var i = 0 ; i < this.whiteAlivePieces.length; i++){
             var piece = this.pieces[this.whiteAlivePieces[i]-1];
             if(piece.x === this.blackCastle.x && piece.y === this.blackCastle.y){
@@ -843,7 +826,7 @@ class Game {
             }
         }
 
-        //Black conquered White castle
+        /* Black conquered White castle */
         for(var i = 0 ; i < this.blackAlivePieces.length; i++){
             var piece = this.pieces[this.blackAlivePieces[i]-1];
             if(piece.x === this.whiteCastle.x && piece.y === this.whiteCastle.y){
@@ -982,20 +965,16 @@ class Game {
             let move = new Move(this.scene, movingPiece, rightDownX,rightDownY);
             results.push(move);
         }
-        
-
-        for(var i = 0; i < results.length; i++){
-            console.log(results[i].moveType);
-            if(results[i].moveType == "jump move"){
-                console.log(results[i])
-            }
-        }
-        
 
         return this.filterMovesByGameLogic(results);
     }
 
 
+    /**
+     * Returns the piece that is stanting in the given coordinates
+     * @param {Coordinate x} x 
+     * @param {Coordinate y} y 
+     */
     getPiece(x,y){
         for(let i = 0 ; i < this.pieces.length; i++){
             let tempPiece = this.pieces[i];

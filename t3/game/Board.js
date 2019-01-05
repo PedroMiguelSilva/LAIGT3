@@ -193,8 +193,4 @@ class Board extends CGFobject {
         }
         this.scene.popMatrix();
     }
-
-    registerAllPieces(){
-            
-    }
 }
