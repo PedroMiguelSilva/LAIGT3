@@ -26,9 +26,10 @@ class Move {
             JUMP : "jump move"
         }
 
-        //Id of captured piece, null if nothing captured
+        /*Captured piece, null if nothing captured */
         this.capturedPiece = null;
-        //Move type, can be CANTER, JUMP or PLAIN
+
+        /* Move type, can be CANTER, JUMP or PLAIN */
         this.moveType = null;
         this.stateBeforeMove = this.game.currentState;
 
@@ -68,30 +69,33 @@ class Move {
         console.log(this.game.movie)
     }
 
+    /**
+     * Find out which type of move this is
+     */
     init(){
-        //Check for a plain move
+        /* Computing decision variables */
         let deltaX = (this.fromX - this.destX);
         let deltaY = -(this.fromY - this.destY);
+        let coordX = (this.fromX + this.destX)/2.0;
+        let coordY = (this.fromY + this.destY)/2.0;
+
+        /* Plain move */
         if(Math.abs(deltaX) == 3 || Math.abs(deltaY) == 3){
             this.moveType = this.types.PLAIN;
             return;
         }
-        
-        //Check coordinates of the middle tile
-        let coordX = (this.fromX + this.destX)/2.0;
-        let coordY = (this.fromY + this.destY)/2.0;
-        
 
+        /* Canter or jump move */
         for(let i = 0 ; i < this.scene.graph.game.pieces.length; i++){
             let pieceTemp = this.scene.graph.game.pieces[i];
-            //console.log("Coordinate: " + pieceTemp.x + " " + pieceTemp.y);
-            //Found piece
-            
             if(pieceTemp.x == coordX && pieceTemp.y == coordY){
+                /* Diferent colors */
                 if(pieceTemp.color != this.piece.color){
                     this.moveType = this.types.JUMP;
                     this.capturedPiece = pieceTemp;
-                }else{
+                }
+                /* Same colors */
+                else{
                     this.moveType = this.types.CANTER;
                 }
             }
