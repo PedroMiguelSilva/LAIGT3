@@ -81,7 +81,7 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCamera() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(75, 50, 0), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 1000, vec3.fromValues(75, 50, 0), vec3.fromValues(0, 0, 0));
     }
 
     logPicking() {
@@ -337,7 +337,7 @@ class XMLscene extends CGFscene {
         
         this.interface.addCameras();
         //this.camera = this.graph.cameras[this.currentCamera];
-        //this.interface.setActiveCamera(this.camera);
+        this.interface.setActiveCamera(this.camera);
 
         //Add lights interface
         this.interface.addLightsGroup(this.graph.lights);

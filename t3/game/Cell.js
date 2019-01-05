@@ -4,6 +4,15 @@
  */
 class Cell {
 
+    /**
+     * 
+     * @param {Scene} scene 
+     * @param {X1} x1 
+     * @param {Y1} y1 
+     * @param {X2} x2 
+     * @param {Y2} y2 
+     * @param {Id which is going to be used to pick the Cell} pickingId 
+     */
     constructor(scene, x1, y1, x2, y2, pickingId) {
 
         this.scene = scene;
@@ -18,51 +27,10 @@ class Cell {
         this.rectangle = new MyRectangle(this.scene, x1, y1, x2, y2);
         this.activeMaterial = this.scene.graph.materials['red'];
     }
-/*
-    validPosition() {
-
-        var game = this.scene.graph.game;
-       
-        if(game.selectedPiece == null || game.selectedPiece == undefined)
-            return;
-
-        var board = game.boardToProlog(game.board);
-        var player ="white";
-        var pieceRow = game.selectedPiece.getRow();
-        var pieceCol = game.selectedPiece.getColumn();
-        var moveRow = this.row;
-        var moveCol = this.column;
-
-        console.log('pieceRow: ' + pieceRow);
-        console.log('pieceCol: ' + pieceCol);
-        console.log('moveRow: ' + moveRow);
-        console.log('moveCol: ' + moveCol);
-
-        this.validFirstPosition(board, player, pieceRow, pieceCol, moveRow, moveCol);
-    }
-*/
 
     /**
-     * 
-     
-    validFirstPosition(board, player, pieceRow, pieceCol, moveRow, moveCol) {
-        var this_cell = this;
-    
-        var command = "valid_first_position(" + board + "," + player + "," + pieceRow + "," + pieceCol + "," + moveRow + "," + moveCol + ")";
-
-        this.scene.client.getPrologRequest(command,
-            function(data){
-                if(data.target.response == "0")
-                    this_cell.active = false;
-                else
-                    this_cell.active = true;
-            },
-            function(data){
-                console.log("Connection error: validFirstPosition");
-            }
-        );
-    }*/
-
+     * Check if all the values this class uses from graph are already loaded properly
+     */
     isAllLoaded(){
         if(!this.rectangle || !this.activeMaterial){
             this.activeMaterial = this.scene.graph.materials['red'];
@@ -71,30 +39,43 @@ class Cell {
         return true;
     }
 
+    /**
+     * Activate the cell
+     */
     activate(){
         this.active = true;
     }
 
+    /**
+     * Deactivate the cell
+     */
     deactivate(){
         this.active = false;
     }
 
+    /**
+     * Displays the cell
+     * @param {Current material beeing used} currentMaterial 
+     */
     display(currentMaterial) {
+        /* Check if information from graph is loaded */
         if(!this.isAllLoaded()){
             return;
         }
 
+        /* Check if cell is active */
         if(this.active){
             this.activeMaterial.apply();
         }
 
+        /* Display cell */
         this.scene.pushMatrix();
             this.rectangle.display();
         this.scene.popMatrix();
 
-        this.scene.graph.materials[currentMaterial].apply();
+        /* Put the current material back on */
+        if(this.active){
+           this.scene.graph.materials[currentMaterial].apply(); 
+        }
     }
-   
-
-
 }
