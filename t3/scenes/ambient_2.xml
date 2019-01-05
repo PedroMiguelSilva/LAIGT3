@@ -1120,6 +1120,42 @@
             </children>
         </component>
 
+        <component id = "man_2">
+            <transformation>
+                <scale x = "0.5" y = "0.5" z = "0.5" />
+                <rotate axis = "x" angle = "-90" />
+                <translate x = "-19.5" y = "-19.5" z = "0" />
+            </transformation>
+           
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none"/>
+        
+            <children>
+                <primitiveref id = "man_object" />
+            </children>
+        </component>
+
+        <component id = "horse_2">
+            <transformation>
+                <scale x = "0.45" y = "0.45" z = "0.45" />
+                <rotate axis = "x" angle = "-90" />
+                <translate x = "-14" y = "-19" z = "0" />
+            </transformation>
+                
+            <materials>
+                <material id = "inherit" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "horse_object" />
+            </children>
+        </component>
+
         <component id = "horse mouth">
             <transformation>
                 <translate x = "0" y = "-0.9" z ="2.2" />
