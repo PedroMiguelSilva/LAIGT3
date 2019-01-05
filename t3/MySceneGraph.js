@@ -77,7 +77,6 @@ class MySceneGraph {
         // Here should go the calls for different functions to parse the various blocks
         var error = this.parseXMLFile(rootElement); 
 
-        console.log(this.materials)
         this.game = new Game(this.scene);
 
         if (error != null) {
@@ -1470,7 +1469,7 @@ class MySceneGraph {
                 return error;
         }
         //=================================================================================
-        console.log("<scene> (first tag) parsed");
+        //console.log("<scene> (first tag) parsed");
         //=================================================================================
     
         // <views>
@@ -1486,7 +1485,7 @@ class MySceneGraph {
         }
 
          //=================================================================================
-         console.log("<views> (second tag) parsed");
+         //console.log("<views> (second tag) parsed");
          //=================================================================================
      
         // <ambient>
@@ -1502,7 +1501,7 @@ class MySceneGraph {
         }
 
         //=================================================================================
-        console.log("<ambient> (third tag) parsed");
+        //console.log("<ambient> (third tag) parsed");
         //=================================================================================
 
         // <lights>
@@ -1518,7 +1517,7 @@ class MySceneGraph {
         }
 
         //=================================================================================
-        console.log("<lights> (forth tag) parsed");
+        //console.log("<lights> (forth tag) parsed");
         //=================================================================================
 
         // <textures>
@@ -1534,7 +1533,7 @@ class MySceneGraph {
         }
 
         //=================================================================================
-        console.log("<textures> (fifth tag) parsed");
+        //console.log("<textures> (fifth tag) parsed");
         //=================================================================================
 
         // <materials>
@@ -1550,7 +1549,7 @@ class MySceneGraph {
         }
 
         //=================================================================================
-        console.log("<materials> (sixth tag) parsed");
+        //console.log("<materials> (sixth tag) parsed");
         //=================================================================================
 
         // <transformations>
@@ -1566,7 +1565,7 @@ class MySceneGraph {
         }
 
         //=================================================================================
-        console.log("<transformations> (seventh tag) parsed");
+        //console.log("<transformations> (seventh tag) parsed");
         //=================================================================================
 
         // <animations>
@@ -1581,7 +1580,7 @@ class MySceneGraph {
                 return error;
         }
         //=================================================================================
-        console.log("<animations> (eighth tag) parsed");
+        //console.log("<animations> (eighth tag) parsed");
         //=================================================================================
 
         // <primitives>
@@ -1597,7 +1596,7 @@ class MySceneGraph {
         }
 
         //=================================================================================
-        console.log("<primitives> (nineth tag) parsed");
+        //console.log("<primitives> (nineth tag) parsed");
         //=================================================================================
 
         // <components>
@@ -1613,7 +1612,7 @@ class MySceneGraph {
         }
 
         //=================================================================================
-        console.log("<components> (tenth tag) parsed");
+        //console.log("<components> (tenth tag) parsed");
         //=================================================================================
     }
 }

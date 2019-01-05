@@ -9,16 +9,13 @@ class Game {
         this.pieceGeoIdent_Index = 0;
         this.pieces_theme = "Modern";
 
+        //Objects that maintain the game
         this.board = this.scene.graph.primitives['board'];
         this.timer = this.scene.graph.primitives['timer'];
 
-        this.material = this.scene.graph.materials["dark tiles"];
-
-
+        //Material of the board
         this.materialBlack = this.scene.graph.materials["dark tiles"];
         this.materialWhite = this.scene.graph.materials["light tiles"];
-        console.log(this.materialBlack)
-        console.log(this.materialWhite)
 
         //Create the pieces and set their initial positions
         this.pieces = [
@@ -84,6 +81,9 @@ class Game {
             MOVIE_END: "Movie ended"
         };
 
+        /**
+         * States that a movement can have
+         */
         this.movementState = {
             START : "no move",
             PLAIN : "plain move",
@@ -92,9 +92,15 @@ class Game {
             KNIGHTS_CHARGE : "charge move"
         }
 
+        /**
+         * Starting variables
+         */
         this.currentMovementState = this.movementState.START;
         this.currentState = this.state.START;   
         this.selectedPiece = null;
+        this.whiteAlivePieces = [1,2,3,4,5,6,7];
+        this.blackAlivePieces = [8,9,10,11,12,13,14];
+        this.validMoves = [];
 
         /**
          * Possible Game Modes
@@ -105,24 +111,23 @@ class Game {
             BOTVBOT: "Bot vs Bot"
         };
 
+        /**
+         * Values from interface
+         */
         this.mode = this.game_mode.PVP;
         this.dificulty = "Easy";
         this.speed = 5;
 
-        this.whiteAlivePieces = [1,2,3,4,5,6,7];
-        this.blackAlivePieces = [8,9,10,11,12,13,14];
-        // Each piece must regist themselves in this list when moving and remove themselves when their movement ends
+        /* Each piece must regist themselves in this list when moving and remove themselves when their movement ends */
         this.isAnyPieceMoving = false;
 
-        // Castle coordinates
+        /* Castle coordinates */
         this.whiteCastle = new Object();
         this.whiteCastle.x = 0;
         this.whiteCastle.y = -18;
         this.blackCastle = new Object();
         this.blackCastle.x = 0;
         this.blackCastle.y = 18;
-
-        this.validMoves = [];
         
         /* Movie of the game - Array of objects of 'Move' which contain the information to create each move of the movie */
         this.movie = []
@@ -135,16 +140,22 @@ class Game {
         this.resultString = "";
         this.updateResultString();
         
-
         /**
          * Bot: using prolog
          */
         this.bot1 = new Bot(this.scene, "white");
         this.bot2 = new Bot(this.scene, "black");
 
+        /* Geometrics of the pieces */
+        this.nameOfMan = this.pieceGeoIdentMan[this.pieceGeoIdent_Index];
+        this.nameOfKnight = this.pieceGeoIdentKnight[this.pieceGeoIdent_Index];
+
         this.gameLoaded = true;
     }
 
+    /**
+     * Updates the message of the result
+     */
     updateResultString(){
         this.resultString = "WHITE " + this.whiteScore + " - " + this.blackScore + " BLACK";
     }
@@ -153,15 +164,16 @@ class Game {
      * Undos the last play of the last few plays according to the state of the game and who called it
      */
     undo(){
-        //If there was no move yet, do nothing
+        /* If there was no move yet, do nothing */
         if(this.movie.length == 0){
             return;
         }
         
+        /* Get which player is calling undo */
         let player = this.currentState.substring(0,5).toLowerCase();
         let lastPlayerToMove = this.movie[this.movie.length-1].piece.color.toLowerCase();
-        //console.log(this.movie[this.movie.length-1])
-        //console.log("currnt player " + player + " and last played was " + lastPlayerToMove)
+        
+        /* Call undo's subfuncion accordingly */
         if(player == lastPlayerToMove){
             this.reverseLastPlay();
         }
@@ -183,30 +195,32 @@ class Game {
      * Plays the last moves that constitue a round in reverse order
      */
     reverseLastRound(){
-        // Check if its a 'White' player or 'Black'
+        /* Check if its a 'White' player or 'Black' */
         let firstPlayer = this.movie[this.movie.length-1].piece.color;
         let currentPlayer = firstPlayer;
 
-        //While still in the opponent round
+        /* While still in the opponent round */
         while(firstPlayer == currentPlayer){
-            //Undo play
+            /* Undo play */
             this.reverseLastPlay();
 
-            //Update variables
+            /* Update variables */
             if(this.movie.length > 0){
                 currentPlayer = this.movie[this.movie.length-1].piece.color;
             }
         }
 
-        //If there is still a move left, reverse it, this allows the player that called the undo to play in the end of his/her turn
+        /* If there is still a move left, reverse it, this allows the player that called the undo to play in the end of his/her turn */
         if(this.movie.length > 0){
             this.reverseOneMorePlay = true;
         }
         
     }
 
+    /**
+     * Check if all the variables need are already loaded
+     */
     isAllLoaded(){
-        //console.log("loaded?")
         if(!this.gameLoaded || !this.timer || !this.timer.timerLoaded || !this.board || !this.board.loaded){
             this.timer = this.scene.graph.primitives['timer'];
             this.materialBlack = this.scene.graph.materials["dark tiles"];
@@ -226,6 +240,8 @@ class Game {
             return;
         }
         this.isAnyPieceMoving = false ;
+
+        /* Update pieces animation */
         for(var i = 0; i < this.pieces.length; i++){
             if(this.pieces[i].animationController != undefined){
                 var animationDone = this.pieces[i].animationController.update(delta);
@@ -233,7 +249,7 @@ class Game {
                     this.isAnyPieceMoving = true;
                 }
 
-                //Update bots
+                /* Update bots */
                 if(this.pieces[i] == this.selectedPiece){
                     this.bot1.updateState(animationDone);
                     this.bot2.updateState(animationDone);
@@ -241,26 +257,29 @@ class Game {
             }
         }
 
-        
+        /* Update the timer */
         this.timer.update(delta);
 
-        //Update BOT vs BOR or HUMAN vs BOT machine 
+        /* Update BOT vs BOR or HUMAN vs BOT machine */
         if(this.mode == this.game_mode.BOTVBOT || this.mode == this.game_mode.PVBOT)
             this.stateMachineBot(null);
 
-            
+        /* Update movie */
         if(!this.isAnyPieceMoving && this.movieActive){
             this.nextMoveOnMovie();
         }
 
+        /* Update undo */
         if(!this.isAnyPieceMoving && this.reverseOneMorePlay){
             this.reverseLastPlay();
             this.reverseOneMorePlay = false;
         }
     }
 
+    /**
+     * Plays the next move on the movie
+     */
     nextMoveOnMovie(){
-        //console.log(this.movie)
         this.movie[this.movieCounter].execute();
         this.movieCounter++;
         if(this.movieCounter == this.movie.length){
@@ -284,11 +303,14 @@ class Game {
      * Set pieceGeoIdent_Index according to pieces_theme
      */
     updatePieceGeoIndex() {
-     
-        if(this.pieces_theme == "Modern")
+        if(this.pieces_theme == "Modern"){
             this.pieceGeoIdent_Index = 0;
-        else if(this.pieces_theme == "Medieval")
+        }           
+        else if(this.pieces_theme == "Medieval"){
             this.pieceGeoIdent_Index = 1;
+        }    
+        this.nameOfMan = this.pieceGeoIdentMan[this.pieceGeoIdent_Index];
+        this.nameOfKnight = this.pieceGeoIdentKnight[this.pieceGeoIdent_Index];
     }
    
     /**
@@ -298,15 +320,8 @@ class Game {
         if(!this.isAllLoaded()){
             return;
         }
-        
-        //for each piece, performe their animations and then display it
+        /* Create default material */
         this.defaultMaterial = new CGFappearance(this.scene);
-        //Get the name of the component to be printed
-        let nameOfMan = this.pieceGeoIdentMan[this.pieceGeoIdent_Index];
-        let nameOfKnight = this.pieceGeoIdentKnight[this.pieceGeoIdent_Index];
-
-        //console.log("Black matierla " + this.materialBlack)
-        //console.log("White matierla " + this.materialWhite)
 
         // CHANGE 5 TO 7 ONCE THE KNIGHTS ARE DESINED AND WORKING
         for(var i = 0 ;  i < 5 ; i++ ){
@@ -316,8 +331,8 @@ class Game {
                 anime.apply();
             }
             //de acordo com a state machine, registar ou nao a peça para picking
-            this.scene.registerForPick(i+1,this.scene.graph.components[nameOfMan]);
-            this.scene.graph.components[nameOfMan].display(this.materialWhite,null,null,0);
+            this.scene.registerForPick(i+1,this.scene.graph.components[this.nameOfMan]);
+            this.scene.graph.components[this.nameOfMan].display(this.materialWhite,null,null,0);
         
             this.scene.popMatrix();
         }
@@ -327,8 +342,8 @@ class Game {
             if(anime!=null){
                 anime.apply();
             }
-            this.scene.registerForPick(i+1,this.scene.graph.components[nameOfKnight]);
-            this.scene.graph.components[nameOfKnight].display(this.materialWhite,null,null,0);
+            this.scene.registerForPick(i+1,this.scene.graph.components[this.nameOfKnight]);
+            this.scene.graph.components[this.nameOfKnight].display(this.materialWhite,null,null,0);
         
             this.scene.popMatrix();
         }
@@ -342,8 +357,8 @@ class Game {
                 anime.apply();
                 
             //de acordo com a state machine, registar ou nao a peça para picking
-            this.scene.registerForPick(i+1,this.scene.graph.components[nameOfMan]);
-            this.scene.graph.components[nameOfMan].display(this.materialBlack,null,null,0);
+            this.scene.registerForPick(i+1,this.scene.graph.components[this.nameOfMan]);
+            this.scene.graph.components[this.nameOfMan].display(this.materialBlack,null,null,0);
         
             this.scene.popMatrix();
         }
@@ -354,8 +369,8 @@ class Game {
             if(anime!=null){
                 anime.apply();
             }
-            this.scene.registerForPick(i+1,this.scene.graph.components[nameOfKnight]);
-            this.scene.graph.components[nameOfKnight].display(this.materialBlack,null,null,0);
+            this.scene.registerForPick(i+1,this.scene.graph.components[this.nameOfKnight]); 
+            this.scene.graph.components[this.nameOfKnight].display(this.materialBlack,null,null,0);
         
             this.scene.popMatrix();
         }
