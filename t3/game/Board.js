@@ -38,6 +38,9 @@ class Board extends CGFobject {
         
     }
 
+    /**
+     * Initializes the cells of the board
+     */
     init(){
         //Auxiliar
         var emptyLine = [this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS,this.OUT_OF_BOUNDS]
@@ -158,6 +161,9 @@ class Board extends CGFobject {
         }
     }
 
+    /**
+     * Displays the cells
+     */
     display() {
         this.scene.pushMatrix();
         this.scene.rotate(-Math.PI/2,1,0,0);
