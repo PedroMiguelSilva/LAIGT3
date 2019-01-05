@@ -61,18 +61,17 @@ class CameraAnimation {
     updatePosition(){
         switch(this.destiny){
             case "leftCam":
-            this.camera.setPosition(vec3.fromValues(75,75,0));
+            this.camera.setPosition(vec3.fromValues(75,50,0));
             break;
             case "rightCam":
-            this.camera.setPosition(vec3.fromValues(-75,75,0));
+            this.camera.setPosition(vec3.fromValues(-75,50,0));
             break;
             case "whiteCam":
-            this.camera.setPosition(vec3.fromValues(0,75,-75));
+            this.camera.setPosition(vec3.fromValues(0,50,-75));
             break;
             case "blackCam":
-            this.camera.setPosition(vec3.fromValues(0,75,75));
+            this.camera.setPosition(vec3.fromValues(0,50,75));
             break;
-        
         }
     }
     
