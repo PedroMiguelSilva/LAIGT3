@@ -342,11 +342,12 @@ class XMLscene extends CGFscene {
         //Add lights interface
         this.interface.addLightsGroup(this.graph.lights);
         
-        this.interface.addInformation();
+        
         
         this.interface.addGraphics();
 
         this.interface.addOptions();
+        this.interface.addInformation();
 
 
         this.sceneInited = true;

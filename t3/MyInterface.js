@@ -64,7 +64,6 @@ class MyInterface extends CGFinterface {
 
     addGraphics(){
         this.graphics = this.gui.addFolder("Graphics");
-        this.graphics.open();
 
         var pieces = ["Modern","Medieval"];
         let theme_controller = this.graphics.add(this.scene.graph.game,'pieces_theme',pieces);
