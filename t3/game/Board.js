@@ -165,8 +165,9 @@ class Board extends CGFobject {
             }
             for(; j < this.matrix[i].length ; j += 2){
                 if(this.matrix[i][j] != this.OUT_OF_BOUNDS){
-                    this.scene.registerForPick(this.matrix[i][j].pickingId,this.matrix[i][j]);
-                    this.matrix[i][j].display('dark tiles');
+                    this.scene.pushMatrix();
+                        this.matrix[i][j].display('dark tiles');
+                    this.scene.popMatrix();
                 }
             }
         }
@@ -186,8 +187,9 @@ class Board extends CGFobject {
             }
             for(; j < this.matrix[i].length ; j += 2){
                 if(this.matrix[i][j] != this.OUT_OF_BOUNDS){
-                    this.scene.registerForPick(this.matrix[i][j].pickingId,this.matrix[i][j]);
-                    this.matrix[i][j].display('light tiles');
+                    this.scene.pushMatrix();
+                        this.matrix[i][j].display('light tiles');
+                    this.scene.popMatrix();
                 }
             }
         }

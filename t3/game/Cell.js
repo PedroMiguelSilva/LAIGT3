@@ -69,9 +69,9 @@ class Cell {
         }
 
         /* Display cell */
-        this.scene.pushMatrix();
-            this.rectangle.display();
-        this.scene.popMatrix();
+        this.scene.registerForPick(this.pickingId,this);
+        this.rectangle.display();
+        
 
         /* Put the current material back on */
         if(this.active){
