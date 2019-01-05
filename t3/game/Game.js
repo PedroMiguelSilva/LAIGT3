@@ -302,7 +302,6 @@ class Game {
         //for each piece, performe their animations and then display it
         this.defaultMaterial = new CGFappearance(this.scene);
         //Get the name of the component to be printed
-        this.updatePieceGeoIndex();
         let nameOfMan = this.pieceGeoIdentMan[this.pieceGeoIdent_Index];
         let nameOfKnight = this.pieceGeoIdentKnight[this.pieceGeoIdent_Index];
 
