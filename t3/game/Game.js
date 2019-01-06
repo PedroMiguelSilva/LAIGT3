@@ -311,13 +311,14 @@ class Game {
     /**
      * Set pieceGeoIdent_Index according to pieces_theme
      */
-    updatePieceGeoIndex() {
-        if(this.pieces_theme == "Modern"){
+    updatePieceGeoIndex(theme) {
+        if(theme == "Modern"){
             this.pieceGeoIdent_Index = 0;
         }           
-        else if(this.pieces_theme == "Medieval"){
+        else if(theme == "Medieval"){
             this.pieceGeoIdent_Index = 1;
-        }    
+        }
+        this.pieces_theme = theme;
         this.nameOfMan = this.pieceGeoIdentMan[this.pieceGeoIdent_Index];
         this.nameOfKnight = this.pieceGeoIdentKnight[this.pieceGeoIdent_Index];
     }

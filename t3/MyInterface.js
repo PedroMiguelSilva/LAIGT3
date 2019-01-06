@@ -66,9 +66,9 @@ class MyInterface extends CGFinterface {
         this.graphics = this.gui.addFolder("Graphics");
 
         var pieces = ["Modern","Medieval"];
-        let theme_controller = this.graphics.add(this.scene.graph.game,'pieces_theme',pieces);
+        let theme_controller = this.graphics.add(this.scene.graph.game,'pieces_theme',pieces).name("Piece Set");
 
-        let controller = this.graphics.add(this.scene,'graphName',this.scene.graphNames);
+        let controller = this.graphics.add(this.scene,'graphName',this.scene.graphNames).name("Graph Name");
         var self = this;
         controller.onFinishChange(
             function(value){
@@ -79,7 +79,7 @@ class MyInterface extends CGFinterface {
         )
         theme_controller.onFinishChange(
             function(value){
-                self.scene.graph.game.updatePieceGeoIndex();
+                self.scene.graph.game.updatePieceGeoIndex(value);
             }
         )
     }
