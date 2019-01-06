@@ -11,8 +11,6 @@ class ZoomAnimation {
 
     update(deltaTime){
         let increment = this.speed*deltaTime*0.01;
-        console.log("increment: " + increment);
-        console.log("acumulated zoom: " +this.acumulatedZoom)
         
         if(this.zoom > 0){
             if(this.acumulatedZoom + increment > this.zoom){

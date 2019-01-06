@@ -43,6 +43,8 @@ class XMLscene extends CGFscene {
        this.graphNames = ["StudyRoom","Prison"]
        this.graphs = [];
        this.graphIndex = 0;
+
+       this.zoomIncrement = 100;
     }
 
     /**
@@ -112,7 +114,6 @@ class XMLscene extends CGFscene {
      * @param {*} currTime 
      */
     update(currTime){
-        
         
         //Calculates deltaTime/timeElapsed since last update
         var timeElapsed = currTime - this.previousTime;
@@ -237,14 +238,14 @@ class XMLscene extends CGFscene {
 
     stateMachineCamera(){
         if(this.destinyCamera == "zoomIn"){
-            let anime = new ZoomAnimation(this.camera,10,500);
+            let anime = new ZoomAnimation(this.camera,10,this.zoomIncrement);
             this.camAnimeController.addAnimation(anime);
-            this.camera.myZoom += 500;
+            this.camera.myZoom += this.zoomIncrement;
         }
         else if(this.destinyCamera == "zoomOut"){
-            let anime = new ZoomAnimation(this.camera,10,-500);
+            let anime = new ZoomAnimation(this.camera,10,-this.zoomIncrement);
             this.camAnimeController.addAnimation(anime);
-            this.camera.myZoom -= 500;
+            this.camera.myZoom -= this.zoomIncrement;
         }
         else{
             this.moveCamera(this.currentCamera, this.destinyCamera)  
