@@ -126,6 +126,7 @@ class Board extends CGFobject {
      * Can also highlight the fromX fromY position (position where the piece is)
      */
     highlightTiles(validMoves){
+        this.deactivateTiles();
         for(var i = 0 ; i < validMoves.length; i++){
             let x = validMoves[i].destX;
             let y = validMoves[i].destY;
