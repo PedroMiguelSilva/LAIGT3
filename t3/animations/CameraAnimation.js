@@ -48,7 +48,7 @@ class CameraAnimation {
             }
                 
         }
-        //console.log(this.alpha)
+        
         this.camera.orbit(vec3.fromValues(0,1,0),this.alpha-this.previousAlpha);
         this.previousAlpha = this.alpha;
         return 0;

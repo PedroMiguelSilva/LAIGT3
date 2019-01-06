@@ -17,20 +17,6 @@ class Bot {
         this.currentState = this.state.STOP;
         this.currentTurn = [];
         this.currentMove = 0;
-
-        //this.playing = false;
-        //this.nextMove = false;
-        //this.currentMove = 0;
-
-        //test
-        //this.botTurnParser('[[18,C],[[7,Jump,C],[7,Jump,A],[13,Canter,B]]]');
-        //this.botPlay([9,2],[]);
-        //console.log(parseInt("20,B]"));
-        //var str = "A]";
-        //var str1 = "B]";
-        //console.log(str.charCodeAt(0));
-        //console.log(str1.charCodeAt(0));
-        //console.log(this.currentState);
     }
 
     /**
@@ -41,21 +27,17 @@ class Bot {
         switch(this.currentState){
 
             case this.state.STOP:
-                //console.log("STOP");
                 this.turn = [];
                 this.currentMove = 0;
                 break;
 
             case this.state.MOVING:
-                //console.log("MOVING");
                 if(moveDone == -1)
                     this.currentState = this.state.NEXT;
                 break;
 
             case this.state.NEXT:
-                //console.log("NEXT");
                 this.currentMove++;
-                console.log(this.currentMove);
                 if(this.currentMove >= this.turn.length){
                     this.currentState = this.state.STOP;
                     return;
@@ -67,8 +49,6 @@ class Bot {
                 break;
 
         }
-
-        //console.log(this.currentState);
     }
 
     /**
@@ -146,7 +126,6 @@ class Bot {
         }
 
         prologBoard += "]";
-        console.log(prologBoard);
         return prologBoard;
     }
 
@@ -164,7 +143,6 @@ class Bot {
         //this.currentState = this.state.MOVING;
     
         var command = "bot_turn(" + board + "," + player + ")";
-        console.log(command);
         this.scene.client.getPrologRequest(command,
             function(data){
                 var turnString = data.target.response;
@@ -233,7 +211,6 @@ class Bot {
         turn.push(piece);
         turn.push(moves);
 
-        console.log(turn)
         return turn;
     }
 

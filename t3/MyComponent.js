@@ -88,10 +88,9 @@ class MyComponent
 
         
             
-        //Apply Material
-        //if(this.currentMaterial){
-            this.currentMaterial.apply();
-        //}
+       
+        this.currentMaterial.apply();
+        
         
         
         
@@ -99,12 +98,10 @@ class MyComponent
         
 
         //Apply Texture
-        //console.log("Textura atual" + this.currentTexture)
         if(this.currentTexture != null){
 
             //Update primitives TexCoords
             this.updatePrimitivesTexCoords();
-            //console.log("Textura atual" + this.currentTexture)
             this.currentTexture.bind();
         }
    

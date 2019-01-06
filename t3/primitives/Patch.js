@@ -23,7 +23,6 @@ class Patch extends CGFobject
 
         //Initializing the surface
         this.initControlvertexes(controlpoints);
-        //console.log(this.controlvertexes);
         this.makeSurface();
         
     };

@@ -656,9 +656,6 @@ class Game {
      *  State machine to BOT turns
      */
     stateMachineBot(customID) {
-        //console.log("BOT1 STATE: " + this.bot1.currentState);
-        //console.log("GAME STATE: " + this.currentState);
-    
         /*
             if(this.isGameOver()){
                 this.board.deactivateTiles();

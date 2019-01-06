@@ -81,13 +81,6 @@ class MyRectangle extends CGFobject
 
 
     showPriorities(){
-	/*
-        console.log("x1 : " + this.x1);
-        console.log("y1 : " + this.y1);
-        console.log("x2 : " + this.x2);
-		console.log("y2 : " + this.y2);
-		
-		console.log(this.texCoords);
-		*/
+	
     }
 };

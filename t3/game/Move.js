@@ -40,19 +40,18 @@ class Move {
      * Executes this same movement
      */
     execute(){
-        //Actually move it
+        /* Actually move it */
         this.piece.move(this.destX,this.destY);
 
-        //Add movement to movie if not playing movie
+        /* Add movement to movie if not playing movie */
         if(!this.game.movieActive){
             this.game.movie.push(this);
         }        
 
-        //If it has captured any piece, then move it and kill it in the game
+        /* If it has captured any piece, then move it and kill it in the game */
         if(this.capturedPiece){
             this.capturedPiece.kill();
         }
-        console.log(this.game.movie)
     }
 
     /**
@@ -66,7 +65,6 @@ class Move {
         }
 
         this.game.movie.splice(this.game.movie.length-1,1);
-        console.log(this.game.movie)
     }
 
     /**

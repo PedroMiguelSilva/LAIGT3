@@ -19,7 +19,6 @@ class AnimationController {
         if(this.doneWithAnimations){
             return -1;
         }
-        //console.log("update")
         
         var hasEnded = this.animations[this.currentAnimationIndex].update(timeElapsed);
         if(hasEnded){
@@ -38,7 +37,6 @@ class AnimationController {
      * Should be called before the display of the object it contains
      */
     apply(){
-        //console.log("apply")
         if(this.animations.length > 0){
             this.animations[this.currentAnimationIndex].apply();
         }
