@@ -17,24 +17,40 @@ class Game {
         this.materialBlack = this.scene.graph.materials["dark tiles"];
         this.materialWhite = this.scene.graph.materials["light tiles"];
 
-        //Create the pieces and set their initial positions
-        this.pieces = [
-            new Piece(this.scene,-6,-6,"Man","White",1),
-            new Piece(this.scene,-3,-6,"Man","White",2),
-            new Piece(this.scene, 0,-6,"Man","White",3),
-            new Piece(this.scene, 3,-6,"Man","White",4),
-            new Piece(this.scene, 6,-6,"Man","White",5),
-            new Piece(this.scene,-3,-9,"Knight","White",6),
-            new Piece(this.scene, 3,-9,"Knight","White",7),
-            new Piece(this.scene,-6,6,"Man","Black",8),
-            new Piece(this.scene,-3,6,"Man","Black",9),
-            new Piece(this.scene, 0,6,"Man","Black",10),
-            new Piece(this.scene, 3,6,"Man","Black",11),
-            new Piece(this.scene, 6,6,"Man","Black",12),
-            new Piece(this.scene,-3, 9,"Knight","Black",13),
-            new Piece(this.scene, 3, 9,"Knight","Black",14)
-        ] // 7 first for white, 7 last for black, in order: MMMMMKKmmmmmkk
+        this.pieceTypes = {
+            KNIGHT : "Knight",
+            MAN : "Man"
+        }
 
+        this.playerColors = {
+            WHITE : "White",
+            BLACK : "Black"
+        }
+
+        this.tileWidth = 3;
+        this.tileWidthX2 = this.tileWidth*2;
+        this.tileWidthX3 = this.tileWidth*3;
+
+        //Create the pieces and set their initial positions
+        let id = 1;
+        this.pieces = [
+            new Piece(this.scene,-this.tileWidthX2,-this.tileWidthX2,this.pieceTypes.MAN,this.playerColors.WHITE,id++),
+            new Piece(this.scene,-this.tileWidth,-this.tileWidthX2,this.pieceTypes.MAN,this.playerColors.WHITE,id++),
+            new Piece(this.scene, 0,-this.tileWidthX2,this.pieceTypes.MAN,this.playerColors.WHITE,id++),
+            new Piece(this.scene, this.tileWidth,-this.tileWidthX2,this.pieceTypes.MAN,this.playerColors.WHITE,id++),
+            new Piece(this.scene, this.tileWidthX2,-this.tileWidthX2,this.pieceTypes.MAN,this.playerColors.WHITE,id++),
+            new Piece(this.scene,-this.tileWidth,-this.tileWidthX3,this.pieceTypes.KNIGHT,this.playerColors.WHITE,id++),
+            new Piece(this.scene, this.tileWidth,-this.tileWidthX3,this.pieceTypes.KNIGHT,this.playerColors.WHITE,id++),
+            new Piece(this.scene,-this.tileWidthX2,this.tileWidthX2,this.pieceTypes.MAN,this.playerColors.BLACK,id++),
+            new Piece(this.scene,-this.tileWidth,this.tileWidthX2,this.pieceTypes.MAN,this.playerColors.BLACK,id++),
+            new Piece(this.scene, 0,this.tileWidthX2,this.pieceTypes.MAN,this.playerColors.BLACK,id++),
+            new Piece(this.scene, this.tileWidth,this.tileWidthX2,this.pieceTypes.MAN,this.playerColors.BLACK,id++),
+            new Piece(this.scene, this.tileWidthX2,this.tileWidthX2,this.pieceTypes.MAN,this.playerColors.BLACK,id++),
+            new Piece(this.scene,-this.tileWidth, this.tileWidthX3,this.pieceTypes.KNIGHT,this.playerColors.BLACK,id++),
+            new Piece(this.scene, this.tileWidth, this.tileWidthX3,this.pieceTypes.KNIGHT,this.playerColors.BLACK,id++)
+        ] // 7 first for white, 7 last for black, in order: MMMMMKKmmmmmkk
+        
+        
         /**
          * Possible States of the Game
          */
@@ -388,25 +404,25 @@ class Game {
         var previousState = this.currentMovementState;
         for(var i = 0 ; i < validMoves.length; i++){
             let type = validMoves[i].moveType;
-            if(previousState == "no move"){
+            if(previousState == this.movementState.START){
                 result.push(validMoves[i]);
                 continue;
             }
-            if(type == "plain move"){
+            if(type == this.movementState.PLAIN){
                 continue;
             }
-            if(type == "canter move"){
-                if(previousState == "canter move"){
+            if(type == this.movementState.CANTER){
+                if(previousState == this.movementState.CANTER){
                     result.push(validMoves[i]);
                 }
             }
-            if(type == "jump move"){
-                if(previousState == "jump move"){
+            if(type == this.movementState.JUMP){
+                if(previousState == this.movementState.JUMP){
                     result.push(validMoves[i]);
                 }
-                if(previousState == "canter move" && this.selectedPiece.type == "Knight"){
+                if(previousState == this.movementState.CANTER && this.selectedPiece.type == "Knight"){
                     result.push(validMoves[i]);
-                    this.currentMovementState = "jump move";
+                    this.currentMovementState = this.movementState.JUMP;
                 }
             }
         }
