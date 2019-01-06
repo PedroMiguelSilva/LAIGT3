@@ -82,6 +82,7 @@ class XMLscene extends CGFscene {
      */
     initCamera() {
         this.camera = new CGFcamera(0.4, 0.1, 1000, vec3.fromValues(75, 50, 0), vec3.fromValues(0, 0, 0));
+        this.camera.myZoom = 0;
     }
 
     logPicking() {
@@ -230,12 +231,24 @@ class XMLscene extends CGFscene {
         }
         //End of switch
         this.currentCamera = endCam;
-        anime = new CameraAnimation(this.camera, time, startAng, rotAng, endCam);
+        anime = new CameraAnimation(this.camera, time, startAng, rotAng, endCam, "far");
         this.camAnimeController.addAnimation(anime);
     }
 
     stateMachineCamera(){
-        this.moveCamera(this.currentCamera, this.destinyCamera)
+        if(this.destinyCamera == "zoomIn"){
+            let anime = new ZoomAnimation(this.camera,10,500);
+            this.camAnimeController.addAnimation(anime);
+            this.camera.myZoom += 500;
+        }
+        else if(this.destinyCamera == "zoomOut"){
+            let anime = new ZoomAnimation(this.camera,10,-500);
+            this.camAnimeController.addAnimation(anime);
+            this.camera.myZoom -= 500;
+        }
+        else{
+            this.moveCamera(this.currentCamera, this.destinyCamera)  
+        }
     }
 
     /**

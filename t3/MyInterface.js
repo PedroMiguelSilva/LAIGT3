@@ -120,7 +120,7 @@ class MyInterface extends CGFinterface {
         var group = this.gui.addFolder("Cameras");
 
         //var cameraController = group.add(this.scene,'currentCamera',this.scene.getCameraStringList());
-        let listOfCam = ["leftCam","rightCam","whiteCam","blackCam"];
+        let listOfCam = ["leftCam","rightCam","whiteCam","blackCam","zoomOut","zoomIn"];
         var cameraController = group.add(this.scene,'destinyCamera',listOfCam).listen();
 
         cameraController.onFinishChange(

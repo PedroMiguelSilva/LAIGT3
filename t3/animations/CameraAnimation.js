@@ -1,10 +1,11 @@
 class CameraAnimation {
-    constructor(camera,time,startAng,rotAng, destiny){
+    constructor(camera,time,startAng,rotAng, destiny,distance){
         this.camera = camera;
         this.time = time*1000;
         this.rotAng = rotAng;
         this.startAng = startAng;
         this.destiny = destiny;
+        this.distance = distance;
 
         this.finalAngle = startAng + rotAng;
        
@@ -27,11 +28,8 @@ class CameraAnimation {
 
         if(this.angSpeed >= 0){
             if(this.alpha >= this.startAng + this.rotAng){
-                //console.log(this.finalAngle - this.previousAlpha)
-                //console.log("Destino:")
                 this.alpha = this.previousAlpha + this.finalAngle - this.previousAlpha;
                 this.previousAlpha = this.alpha;
-                //console.log(this.alpha)
                 this.camera.orbit(vec3.fromValues(0,1,0),this.finalAngle - this.previousAlpha);
                 this.updatePosition();
                 return -1;
@@ -40,12 +38,8 @@ class CameraAnimation {
         }
         else if(this.angSpeed < 0){
             if(this.alpha <= this.startAng + this.rotAng){
-                //console.log(this.finalAngle - this.previousAlpha)
-                //console.log("Destino:")
                 this.alpha = this.previousAlpha + this.finalAngle - this.previousAlpha;
                 this.previousAlpha = this.alpha;
-                //console.log(this.alpha)
-                console.log("ajuste")
                 this.camera.orbit(vec3.fromValues(0,1,0),this.finalAngle - this.previousAlpha);
                 this.updatePosition();
                 return -1;
@@ -73,6 +67,9 @@ class CameraAnimation {
             this.camera.setPosition(vec3.fromValues(0,50,75));
             break;
         }
+
+        this.camera.zoom(this.camera.myZoom)
+
     }
     
 
