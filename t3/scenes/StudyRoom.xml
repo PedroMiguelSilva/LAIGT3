@@ -314,6 +314,9 @@
                 <componentref id = "table" />
                 <componentref id = "wall_back" />
                 <componentref id = "wall_left" />
+                <componentref id = "wall_right" />
+                <componentref id = "wall_front" />
+                <componentref id = "ceilling" />
                 <componentref id = "lamp" />
                 <componentref id = "tv" />
                 <componentref id = "frame_1" />
@@ -414,10 +417,47 @@
             </children>
         </component>
 
+        <!-- CEILLING -->
+        <component id = "ceilling">
+            <transformation>
+                <translate x="0" y="54.5" z="0" />
+                <scale x="150" y="1" z="180"/>
+                <rotate axis = "x" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none" />
+        
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
         <!-- WALLS -->
         <component id = "wall_back">
             <transformation>
                 <translate x="0" y="14.5" z="-90" />
+                <scale x="150" y="80" z="1" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none"/>
+        
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "wall_front">
+            <transformation>
+                <translate x="0" y="14.5" z="90" />
+                <rotate axis = "y" angle = "180" />
                 <scale x="150" y="80" z="1" />
             </transformation>
         
@@ -438,6 +478,25 @@
                 <scale x= "1" y = "80" z = "180" />
                 <rotate axis = "x" angle = "-90" />
                 <rotate axis = "y" angle = "90" />
+            </transformation>
+        
+            <materials>
+                <material id = "default" />
+            </materials>
+        
+            <texture id = "none" length_s = "0.05" length_t = "0.05" />
+        
+            <children>
+                <primitiveref id = "quad" />
+            </children>
+        </component>
+
+        <component id = "wall_right">
+            <transformation>
+                <translate x= "75" y = "14.5" z = "0" />
+                <scale x= "1" y = "80" z = "180" />
+                <rotate axis = "x" angle = "-90" />
+                <rotate axis = "y" angle = "-90" />
             </transformation>
         
             <materials>

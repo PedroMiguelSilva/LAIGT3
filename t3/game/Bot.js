@@ -229,22 +229,11 @@ class Bot {
         if(piece == null)
             return;
 
-        game.selectedPiece = piece; //game.getPiece(pieceX, pieceZ);
+        game.selectedPiece = piece;
 
         this.currentState = this.state.MOVING;
         this.applyMove(this.turn[0]);
-        
-        /*
-        //Move Piece
-        for(var i = 0; i < moves.length; i++){
-            var movePosition = moves[i];
-            var moveX = this.getX(movePosition[2]);
-            var moveZ = this.getZ(movePosition[0]);
-         
-            game.selectedPiece.move(moveX, moveZ);
-        }
-        */
-
+      
     }
 
     /**
