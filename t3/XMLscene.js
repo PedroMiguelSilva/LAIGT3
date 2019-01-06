@@ -232,10 +232,13 @@ class XMLscene extends CGFscene {
         }
         //End of switch
         this.currentCamera = endCam;
-        anime = new CameraAnimation(this.camera, time, startAng, rotAng, endCam, "far");
+        anime = new CameraAnimation(this.camera, time, startAng, rotAng, endCam);
         this.camAnimeController.addAnimation(anime);
     }
 
+    /**
+     * Manages operations on camera
+     */
     stateMachineCamera(){
         if(this.destinyCamera == "zoomIn"){
             let anime = new ZoomAnimation(this.camera,10,this.zoomIncrement);
@@ -297,6 +300,9 @@ class XMLscene extends CGFscene {
         }
     }
 
+    /**
+     * Updates current graph based on the name of the current graphName
+     */
     updateGraphBasedOnGraphName(){
         for(var i = 0; i < this.graphNames.length; i++){
             if(this.graphName == this.graphNames[i]){
@@ -341,16 +347,8 @@ class XMLscene extends CGFscene {
 
         this.initLights();
         this.initValuesOfCameras();
-
-        //console.log(this.cameraList);
-        //this.updateCamera();
-        //console.log(this.graph.cameras);
-
-        // Adds lights group.
-        //this.interface.addLightsGroup(this.graph.lights);
         
         this.interface.addCameras();
-        //this.camera = this.graph.cameras[this.currentCamera];
         this.interface.setActiveCamera(this.camera);
 
         //Add lights interface
@@ -369,9 +367,6 @@ class XMLscene extends CGFscene {
 
 
     initValuesOfCameras(){
-        //this.cameraList = [];               /* Strings to id*/
-        //this.cameraValues = [];             /* id (int) to object */
-        //currentCamera = null;               /* id of current camera */
         
         var i = 0;
         for(var key in this.graph.cameras){
@@ -384,9 +379,7 @@ class XMLscene extends CGFscene {
                 this.currentCamera = key;
 
             i++;
-        }
-        //this.updateCamera();
-        
+        }       
 
     }
 
@@ -423,7 +416,7 @@ class XMLscene extends CGFscene {
         this.pushMatrix();
         if (this.sceneInited) {
             // Draw axis
-            this.axis.display();
+            //this.axis.display();
 
             var i = 0;
             for (var key in this.lightValues) {
@@ -451,6 +444,7 @@ class XMLscene extends CGFscene {
             // Draw axis
             this.axis.display();
         }
+
 
         //test
         //var plane = new Plane(this, 8, 8);

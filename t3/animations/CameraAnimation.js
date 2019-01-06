@@ -1,11 +1,13 @@
+/**
+ * Orbit animation, lets a camera orbit around the center
+ */
 class CameraAnimation {
-    constructor(camera,time,startAng,rotAng, destiny,distance){
+    constructor(camera,time,startAng,rotAng, destiny){
         this.camera = camera;
         this.time = time*1000;
         this.rotAng = rotAng;
         this.startAng = startAng;
         this.destiny = destiny;
-        this.distance = distance;
 
         this.finalAngle = startAng + rotAng;
        
@@ -52,6 +54,9 @@ class CameraAnimation {
         return 0;
     }
 
+    /**
+     * Set final position to place where it is supose to land on
+     */
     updatePosition(){
         switch(this.destiny){
             case "leftCam":
