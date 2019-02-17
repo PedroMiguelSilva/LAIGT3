@@ -7,7 +7,7 @@ Instructions of use with screenshots will be added soon.
 
 ## Game Modes
 
-Human vs Human
-Bot vs Human
-Bot vs Bot
+Human vs Human  
+Bot vs Human  
+Bot vs Bot  
 
